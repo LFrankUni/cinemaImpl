@@ -13,22 +13,56 @@
 
 	<modules>
 		<module>cinema-model</module>
+		<module>cinema-rest-api</module>
 	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.release>15</maven.compiler.release>
-		<cinemaModelGenerated.version>0.0.1-SNAPSHOT</cinemaModelGenerated.version>
+		<maven.compiler.release>11</maven.compiler.release>
 	</properties>
 
 	<dependencyManagement>
+
 		<dependencies>
+
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter</artifactId>
 				<version>5.7.0</version>
 				<scope>test</scope>
 			</dependency>
+
+			<dependency>
+				<groupId>javax</groupId>
+				<artifactId>javaee-api</artifactId>
+				<version>8.0.1</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>de.fhdw.informationsinfrastrukturen.cinema</groupId>
+				<artifactId>cinema-model</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+
 		</dependencies>
+
 	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.1</version>
+					<configuration>
+						<source>${maven.compiler.release}</source>
+						<target>${maven.compiler.release}</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
 </project>
