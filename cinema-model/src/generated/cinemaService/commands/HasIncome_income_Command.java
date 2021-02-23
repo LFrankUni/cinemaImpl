@@ -1,11 +1,11 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
 public class HasIncome_income_Command extends ObjectCommand<HasIncome, Integer>{
-   private static final long serialVersionUID = 1396021358L;
+   private static final long serialVersionUID = -1723377280L;
    public HasIncome_income_Command(HasIncome receiver){
       super(receiver);
    }

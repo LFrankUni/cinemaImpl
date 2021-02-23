@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -12,5 +12,4 @@ public interface ISeat extends Identifiable{
    public Integer getNumber() ;
    public void setNumber(Integer newNumber) throws PersistenceException;
    public AbstractRow getRow() throws PersistenceException;
-   public Integer price();
 }

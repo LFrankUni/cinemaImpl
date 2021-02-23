@@ -35,6 +35,8 @@ buildNumber.properties
 hs_err_pid*
 
 /cinema-model/protocols
+/cinema-web-ui/node_modules
+/cinema-web-ui/public
 
 *.project
 *.classpath

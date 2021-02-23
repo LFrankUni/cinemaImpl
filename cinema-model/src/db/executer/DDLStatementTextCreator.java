@@ -2,10 +2,11 @@ package db.executer;
 
 import db.DBConstants;
 /**
- * Textkonserven fï¿½r DDL-Befehle 
+ * Textkonserven für DDL-Befehle 
  */
 public class DDLStatementTextCreator {
 	private static final String createTable = "CREATE TABLE ";
+	private static final String dropDatabase = "DROP DATABASE ";
 	private static final String id = "id";
 	private static final String p1 = "p1";
 	private static final String p2 = "p2";

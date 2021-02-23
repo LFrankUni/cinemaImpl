@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import db.connection.NoConnectionException;
 import db.connection.TypeKeyManager;
 import db.executer.PersistenceExecuterFactory;
+import generated.cinemaService.proxies.MiddleRowProxy;
 import generated.cinemaService.proxies.IMiddleRow;
 import db.executer.PersistenceException;
 import exceptions.ConstraintViolation;
@@ -20,24 +21,25 @@ public class MiddleRow extends AbstractRow implements java.io.Serializable, IMid
    //40 ===== Editable : Your Attribute Section ======
    
    //50 ===== GENERATED:      Constructor ============
-   private MiddleRow(Integer id, Integer price, Integer number, Room room, boolean objectOnly)
-   throws PersistenceException, ConstraintViolation{
-      super(id, price, number, room, objectOnly);
+   private MiddleRow(Integer id, String name, Integer priceInCent, boolean objectOnly)
+   throws PersistenceException{
+      super(id, name, priceInCent, objectOnly);
       if(objectOnly) return;
    }
-   public static MiddleRow createAlreadyPersistent(Integer id, Integer price, Integer number, Room room)throws PersistenceException, ConstraintViolation{
-      return new MiddleRow(id, price, number, room, true);
+   /** Caution: A Call to this Method Requires to add any newly instantiated Object to its Cache! */
+   public static MiddleRow createAlreadyPersistent(MiddleRowProxy proxy, String name, Integer priceInCent)throws PersistenceException{
+      if(proxy.isObjectPresent()) return proxy.getTheObject();
+      return new MiddleRow(proxy.getId(), name, priceInCent, true);
    }
-   public static MiddleRow createFresh(Integer price, Integer number, Room room)throws PersistenceException, ConstraintViolation{
+   public static MiddleRow createFresh(String name, Integer priceInCent)throws PersistenceException{
       db.executer.DBDMLExecuter dmlExecuter = PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter();
       Integer id = dmlExecuter.getNextId();
       try{
-         dmlExecuter.insertInto("AbstractRow", "id, typeKey, price, number", 
-         id.toString() + ", " + TypeKeyManager.getTheInstance().getTypeKey("CinemaService", "MiddleRow").toString() + ", " + price.toString() + ", " + number.toString());
+         dmlExecuter.insertInto("AbstractRow", "id, typeKey, name, priceInCent", 
+         id.toString() + ", " + TypeKeyManager.getTheInstance().getTypeKey("CinemaService", "MiddleRow").toString() + ", " + "'" + name + "'" + ", " + priceInCent.toString());
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
-      MiddleRow me = new MiddleRow(id, price, number, room, false);
-      generated.cinemaService.proxies.MiddleRowProxy p = new generated.cinemaService.proxies.MiddleRowProxy(me);
-      CinemaService.getInstance().addMiddleRowProxy(p);
+      MiddleRow me = new MiddleRow(id, name, priceInCent, false);
+      CinemaService.getInstance().addMiddleRowProxy(new MiddleRowProxy(me));
       return me;
    }
    //60 ===== Editable : Your Constructors ===========

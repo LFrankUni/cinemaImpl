@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:26 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -13,21 +13,21 @@ import java.util.stream.Collectors;
 //20 ===== Editable : Your Import Section =========
 
 //25 ===== GENERATED:      Header Section =========
-public class ticketsOfUserSupervisor
+public class userToTicketSupervisor
 {
    //30 ===== GENERATED:      Attribute Section ======
-   private static ticketsOfUserSupervisor theInstance = new ticketsOfUserSupervisor();
+   private static userToTicketSupervisor theInstance = new userToTicketSupervisor();
    private Relation<IUser,ITicket> elements;
    //40 ===== Editable : Your Attribute Section ======
    
    //50 ===== GENERATED:      Constructor ============
-   public ticketsOfUserSupervisor(){
-      this.elements = new Relation<>("ticketsOfUser");
+   private userToTicketSupervisor(){
+      this.elements = new Relation<>("userToTicket");
    }
    //60 ===== Editable : Your Constructors ===========
    
    //70 ===== GENERATED:      Feature Access =========
-   public static ticketsOfUserSupervisor getInstance(){return theInstance;}
+   public static userToTicketSupervisor getInstance(){return theInstance;}
    public Set<ITicket> getTickets(IUser owner){
       return this.elements.getRelatedTargets(owner).stream().collect(Collectors.toSet());
    }
@@ -49,7 +49,7 @@ public class ticketsOfUserSupervisor
       this.elements.willViolateSurjectivity(owner, target);
       return this.elements.removeElement(owner,target);
    }
-   public IUser getBy(ITicket target){
+   public IUser getUser(ITicket target){
       return this.elements.getRelatedSources(target).get(0);
    }
    //80 ===== Editable : Your Operations =============

@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -11,9 +11,9 @@ import generated.cinemaService.MovieShow;
 import java.util.Set;
 import exceptions.ConstraintViolation;
 import generated.cinemaService.AbstractRow;
-import generated.cinemaService.Cinema;
-import generated.cinemaService.relationControl.roomesSupervisor;
-import generated.cinemaService.ScheduleError;
+import generated.cinemaService.Movie;
+import generated.cinemaService.ModelException;
+import java.util.Collection;
 public class RoomProxy extends HasIncomeProxy implements IRoom{
    private Integer id;
    private Optional<Room> theObject;
@@ -26,9 +26,12 @@ public class RoomProxy extends HasIncomeProxy implements IRoom{
       this(theObject.getId());
       this.theObject = Optional.of(theObject);
    }
+   public boolean isObjectPresent() {
+      return this.theObject.isPresent();
+   }
    public Room getTheObject()
    {
-      try{if(!this.theObject.isPresent()) this.theObject = Optional.of(this.load());}catch(PersistenceException pe){assert false : "Fatal Error Occured when loading an existing object from DB: " + "Room";}
+      try{if(!this.isObjectPresent()) this.theObject = Optional.of(this.load());}catch(PersistenceException pe){assert false : "Fatal Error Occured when loading an existing object from DB: " + "Room";}
       return this.theObject.get();
    }
    public Integer getId(){
@@ -43,10 +46,9 @@ public class RoomProxy extends HasIncomeProxy implements IRoom{
       ResultSet rs = null;
       try {
          rs = DBExecuterFactory.getConfiguredFactory().getDBDMLExecuter().selectIdSpecifiedCursorAleadyAtFirstRow("HasIncome", this.id);
-         String roomName = rs.getString("roomName");
+         String nameOfRoom = rs.getString("nameOfRoom");
          Boolean open = rs.getBoolean("open");
-         Cinema cinema = roomesSupervisor.getInstance().getCinema(this).getTheObject();
-         return Room.createAlreadyPersistent(id, roomName, open, cinema);
+         return Room.createAlreadyPersistent(this, nameOfRoom, open);
       } catch (Exception e) {throw new PersistenceException(e.getMessage());}
    }
    public Set<MovieShow> getMovieShows() throws PersistenceException{
@@ -61,17 +63,17 @@ public class RoomProxy extends HasIncomeProxy implements IRoom{
    public Set<AbstractRow> getRows() throws PersistenceException{
       return this.getTheObject().getRows();
    }
-   public void addToRows(AbstractRow arg) throws ConstraintViolation, PersistenceException{
+   public void addToRows(AbstractRow arg) throws PersistenceException{
       this.getTheObject().addToRows(arg);
    }
-   public boolean removeFromRows(AbstractRow arg) throws ConstraintViolation, PersistenceException{
+   public boolean removeFromRows(AbstractRow arg) throws PersistenceException{
       return this.getTheObject().removeFromRows(arg);
    }
-   public String getRoomName() {
-      return this.getTheObject().getRoomName();
+   public String getNameOfRoom() {
+      return this.getTheObject().getNameOfRoom();
    }
-   public void setRoomName(String newRoomName) throws PersistenceException{
-      this.getTheObject().setRoomName(newRoomName);
+   public void setNameOfRoom(String newNameOfRoom) throws PersistenceException{
+      this.getTheObject().setNameOfRoom(newNameOfRoom);
    }
    public Boolean getOpen() {
       return this.getTheObject().getOpen();
@@ -79,19 +81,22 @@ public class RoomProxy extends HasIncomeProxy implements IRoom{
    public void setOpen(Boolean newOpen) throws PersistenceException{
       this.getTheObject().setOpen(newOpen);
    }
-   public Cinema getCinema() throws PersistenceException{
-      return this.getTheObject().getCinema();
+   public MovieShow scheduleMovieShow(Movie movie, String start, String end, Boolean threeDimensional, Integer price)throws ModelException{
+      return this.getTheObject().scheduleMovieShow(movie, start, end, threeDimensional, price);
    }
-   public void open(){
-      this.getTheObject().open();
+   public void addRow(AbstractRow row)throws ModelException{
+      this.getTheObject().addRow(row);
    }
-   public void scheduleShow(MovieShow show)throws ScheduleError{
-      this.getTheObject().scheduleShow(show);
-   }
-   public void close(){
+   public void close()throws ModelException{
       this.getTheObject().close();
    }
-   public Integer income(){
+   public void open()throws ModelException{
+      this.getTheObject().open();
+   }
+   public Collection<Room> getAllRows()throws ModelException{
+      return this.getTheObject().getAllRows();
+   }
+   public Integer income()throws ModelException{
       return this.getTheObject().income();
    }
 }

@@ -6,7 +6,7 @@ import db.DBConstants;
 import db.connection.NoConnectionException;
 
 /**
- * Textkonserven fï¿½r DML-Befehle 
+ * Textkonserven für DML-Befehle 
  */
 public class DMLStatementTextCreator {
 	private static final String insertInto = "INSERT INTO ";
@@ -26,6 +26,9 @@ public class DMLStatementTextCreator {
 	}
 	public String selectIdsOfEntriesOfTable(String tableName, Integer typeKey) {
 		return "SELECT id FROM " + tableName + " WHERE " + DBConstants.typeKey + " = " + typeKey;
+	}
+	public String selectEntriesOfTable(String tableName, Integer typeKey) {
+		return "SELECT * FROM " + tableName + " WHERE " + DBConstants.typeKey + " = " + typeKey;
 	}
 	public String selectAllEntriesOfRelationTable(String tableName) {
 		return "SELECT * FROM " + tableName;

@@ -1,22 +1,20 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
 public class ParquetRow_constructor_Command extends ServiceCommand<ParquetRow>{
-   private static final long serialVersionUID = -388414914L;
-   private Integer  price;
-   private Integer  number;
-   private Room room;
-   public ParquetRow_constructor_Command(Integer  price, Integer  number, Room room){
+   private static final long serialVersionUID = -1911384246L;
+   private String  name;
+   private Integer  priceInCent;
+   public ParquetRow_constructor_Command(String  name, Integer  priceInCent){
       super();
-      this.price = price;
-      this.number = number;
-      this.room = room;
+      this.name = name;
+      this.priceInCent = priceInCent;
    }
    public void execute(){
-      try{this.result = ParquetRow.createFresh(price, number, room);
+      try{this.result = ParquetRow.createFresh(name, priceInCent);
       }catch(Exception e){this.e = e;
       }finally{CinemaService.getInstance().notifyObservers(this);}
    }

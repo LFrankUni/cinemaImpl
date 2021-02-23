@@ -31,8 +31,18 @@ public class CommandHandlerTest {
 		assertNull(this.createUser("Hugo", "Schmied").getError());
 	}
 
+	@Test
+	public void createCinema() {
+		assertNull(this.createCinema("1 nice cinema").getError());
+	}
+
 	private CommandResponse createUser(String firstName, String lastName) {
 		return this.handler.handle(new CommandRequest(new Function(CommandHandler.COMMAND_CONSTRUCTOR,
 				List.of(new Parameter(firstName, "String"), new Parameter(lastName, "String"))), "User"));
+	}
+
+	private CommandResponse createCinema(String name) {
+		return this.handler.handle(new CommandRequest(
+				new Function(CommandHandler.COMMAND_CONSTRUCTOR, List.of(new Parameter(name, "String"))), "Cinema"));
 	}
 }

@@ -1,11 +1,11 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
 public class Room_close_Command extends ObjectCommand<Room, Void>{
-   private static final long serialVersionUID = 1700397172L;
+   private static final long serialVersionUID = 1397737536L;
    public Room_close_Command(Room receiver){
       super(receiver);
    }

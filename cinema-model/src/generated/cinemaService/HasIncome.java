@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -46,8 +46,8 @@ public abstract class HasIncome extends Observable implements java.io.Serializab
    public int hashCode() {return this.getId().hashCode();}
    //80 ===== Editable : Your Operations =============
 /**
- * Calculates an income
+ * Returns the income that the elements currently has.
  */
-   public abstract Integer income();
+   public abstract Integer income()throws ModelException;
 //90 ===== GENERATED: End of Your Operations ======
 }

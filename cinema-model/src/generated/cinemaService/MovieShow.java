@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -8,15 +8,16 @@ import java.sql.SQLException;
 import db.connection.NoConnectionException;
 import db.connection.TypeKeyManager;
 import db.executer.PersistenceExecuterFactory;
+import generated.cinemaService.proxies.MovieShowProxy;
 import generated.cinemaService.proxies.IMovieShow;
 import generated.cinemaService.relationControl.*;
 import generated.cinemaService.proxies.*;
 import db.executer.PersistenceException;
-import java.util.List;
-import java.util.ArrayList;
+import exceptions.ConstraintViolation;
+import java.util.Optional;
 import java.util.Set;
 import java.util.HashSet;
-import exceptions.ConstraintViolation;
+import java.util.Collection;
 //20 ===== Editable : Your Import Section =========
 
 //25 ===== GENERATED:      Header Section =========
@@ -25,34 +26,35 @@ public class MovieShow extends HasIncome implements java.io.Serializable, IMovie
    //30 ===== GENERATED:      Attribute Section ======
    private String start;
    private String end;
-   private Integer price;
-   private Boolean threeD;
+   private Boolean threeDimensional;
+   private Integer priceInCent;
    //40 ===== Editable : Your Attribute Section ======
    
    //50 ===== GENERATED:      Constructor ============
-   private MovieShow(Integer id, String start, String end, Integer price, Boolean threeD, Room room, boolean objectOnly)
+   private MovieShow(Integer id, String start, String end, Boolean threeDimensional, Integer priceInCent, Room room, boolean objectOnly)
    throws PersistenceException, ConstraintViolation{
       super(id, objectOnly);
       this.start = start;
       this.end = end;
-      this.price = price;
-      this.threeD = threeD;
+      this.threeDimensional = threeDimensional;
+      this.priceInCent = priceInCent;
       if(objectOnly) return;
       try{movieShowsOfRoomSupervisor.getInstance().add(room,this);}catch(ConstraintViolation cv){}// Ok, because consistency is guaranteed with this statement
    }
-   public static MovieShow createAlreadyPersistent(Integer id, String start, String end, Integer price, Boolean threeD, Room room)throws PersistenceException, ConstraintViolation{
-      return new MovieShow(id, start, end, price, threeD, room, true);
+   /** Caution: A Call to this Method Requires to add any newly instantiated Object to its Cache! */
+   public static MovieShow createAlreadyPersistent(MovieShowProxy proxy, String start, String end, Boolean threeDimensional, Integer priceInCent, Room room)throws PersistenceException, ConstraintViolation{
+      if(proxy.isObjectPresent()) return proxy.getTheObject();
+      return new MovieShow(proxy.getId(), start, end, threeDimensional, priceInCent, room, true);
    }
-   public static MovieShow createFresh(String start, String end, Integer price, Boolean threeD, Room room)throws PersistenceException, ConstraintViolation{
+   public static MovieShow createFresh(String start, String end, Boolean threeDimensional, Integer priceInCent, Room room)throws PersistenceException, ConstraintViolation{
       db.executer.DBDMLExecuter dmlExecuter = PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter();
       Integer id = dmlExecuter.getNextId();
       try{
-         dmlExecuter.insertInto("HasIncome", "id, typeKey, start, end, price, threeD", 
-         id.toString() + ", " + TypeKeyManager.getTheInstance().getTypeKey("CinemaService", "MovieShow").toString() + ", " + "'" + start + "'" + ", " + "'" + end + "'" + ", " + price.toString() + ", " + threeD.toString());
+         dmlExecuter.insertInto("HasIncome", "id, typeKey, start, end, threeDimensional, priceInCent", 
+         id.toString() + ", " + TypeKeyManager.getTheInstance().getTypeKey("CinemaService", "MovieShow").toString() + ", " + "'" + start + "'" + ", " + "'" + end + "'" + ", " + threeDimensional.toString() + ", " + priceInCent.toString());
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
-      MovieShow me = new MovieShow(id, start, end, price, threeD, room, false);
-      generated.cinemaService.proxies.MovieShowProxy p = new generated.cinemaService.proxies.MovieShowProxy(me);
-      CinemaService.getInstance().addMovieShowProxy(p);
+      MovieShow me = new MovieShow(id, start, end, threeDimensional, priceInCent, room, false);
+      CinemaService.getInstance().addMovieShowProxy(new MovieShowProxy(me));
       return me;
    }
    //60 ===== Editable : Your Constructors ===========
@@ -61,27 +63,23 @@ public class MovieShow extends HasIncome implements java.io.Serializable, IMovie
    public MovieShow getTheObject(){
       return this;
    }
-   public List<Movie> getMovie() throws PersistenceException{
-      List<Movie> result = new ArrayList<>();
-      for (IMovie i : movieShowsOfMovieSupervisor.getInstance().getMovie(this)) result.add(i.getTheObject());
-      return result;
+   public Optional<Movie> getMovie() throws PersistenceException{
+      Optional<IMovie> opt = movieOfMovieShowSupervisor.getInstance().getMovie(this);
+      return opt.isPresent() ? Optional.of(movieOfMovieShowSupervisor.getInstance().getMovie(this).get().getTheObject()) : Optional.empty();
    }
-   public void addToMovie(Movie arg) throws PersistenceException{
-      movieShowsOfMovieSupervisor.getInstance().add(this, arg);
-   }
-   public boolean removeFromMovie(Movie arg) throws PersistenceException{
-      return movieShowsOfMovieSupervisor.getInstance().remove(this, arg);
+   public void setMovie(Movie newMovie)throws ConstraintViolation, PersistenceException{
+      if(this.getMovie().isPresent()) movieOfMovieShowSupervisor.getInstance().change(this, this.getMovie().get(), newMovie); else movieOfMovieShowSupervisor.getInstance().set(this, newMovie);
    }
    public Set<Ticket> getTickets() throws PersistenceException{
       Set<Ticket> result = new HashSet<>();
-      for (ITicket i : ticketsOfMovieShowSupervisor.getInstance().getTickets(this)) result.add(i.getTheObject());
+      for (ITicket i : movieShowToTicketSupervisor.getInstance().getTickets(this)) result.add(i.getTheObject());
       return result;
    }
    public void addToTickets(Ticket arg) throws ConstraintViolation, PersistenceException{
-      ticketsOfMovieShowSupervisor.getInstance().add(this, arg);
+      movieShowToTicketSupervisor.getInstance().add(this, arg);
    }
    public boolean removeFromTickets(Ticket arg) throws ConstraintViolation, PersistenceException{
-      return ticketsOfMovieShowSupervisor.getInstance().remove(this, arg);
+      return movieShowToTicketSupervisor.getInstance().remove(this, arg);
    }
    public String getStart() {
       return this.start;
@@ -99,20 +97,20 @@ public class MovieShow extends HasIncome implements java.io.Serializable, IMovie
       try{PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter().update("HasIncome", "end", "'" + newEnd + "'", this.getId());
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
    }
-   public Integer getPrice() {
-      return this.price;
+   public Boolean getThreeDimensional() {
+      return this.threeDimensional;
    }
-   public void setPrice(Integer newPrice) throws PersistenceException{
-      this.price = newPrice;
-      try{PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter().update("HasIncome", "price", newPrice.toString(), this.getId());
+   public void setThreeDimensional(Boolean newThreeDimensional) throws PersistenceException{
+      this.threeDimensional = newThreeDimensional;
+      try{PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter().update("HasIncome", "threeDimensional", newThreeDimensional.toString(), this.getId());
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
    }
-   public Boolean getThreeD() {
-      return this.threeD;
+   public Integer getPriceInCent() {
+      return this.priceInCent;
    }
-   public void setThreeD(Boolean newThreeD) throws PersistenceException{
-      this.threeD = newThreeD;
-      try{PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter().update("HasIncome", "threeD", newThreeD.toString(), this.getId());
+   public void setPriceInCent(Integer newPriceInCent) throws PersistenceException{
+      this.priceInCent = newPriceInCent;
+      try{PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter().update("HasIncome", "priceInCent", newPriceInCent.toString(), this.getId());
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
    }
    public Room getRoom() throws PersistenceException{
@@ -120,16 +118,23 @@ public class MovieShow extends HasIncome implements java.io.Serializable, IMovie
    }
    //80 ===== Editable : Your Operations =============
 /**
- * Throws an exception if already reserved, else returns the price.
+ * Returns the movie of this show.
  */
-   public Ticket reserve(Seat seat, User by)throws SeatAlreadyReservedException{
-      // TODO: Implement Operation reserve
+   public Movie getTheMovie()throws ModelException{
+      // TODO: Implement Operation getTheMovie
       return null;
    }
 /**
- * Calculates an income
+ * Returns all tickets of this show.
  */
-   public Integer income(){
+   public Collection<Ticket> getAllTickets()throws ModelException{
+      // TODO: Implement Operation getAllTickets
+      return null;
+   }
+/**
+ * Returns the income that the elements currently has.
+ */
+   public Integer income()throws ModelException{
       // TODO: Implement Operation income
       return null;
    }

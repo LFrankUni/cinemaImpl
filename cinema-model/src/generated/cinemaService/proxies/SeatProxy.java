@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -8,7 +8,7 @@ import db.executer.*;
 import generated.cinemaService.Seat;
 import java.sql.ResultSet;
 import generated.cinemaService.AbstractRow;
-import generated.cinemaService.relationControl.seatsOfRowSupervisor;
+import generated.cinemaService.relationControl.rowToSeatsSupervisor;
 public class SeatProxy implements ISeat{
    private Integer id;
    private Optional<Seat> theObject;
@@ -21,9 +21,12 @@ public class SeatProxy implements ISeat{
       this(theObject.getId());
       this.theObject = Optional.of(theObject);
    }
+   public boolean isObjectPresent() {
+      return this.theObject.isPresent();
+   }
    public Seat getTheObject()
    {
-      try{if(!this.theObject.isPresent()) this.theObject = Optional.of(this.load());}catch(PersistenceException pe){assert false : "Fatal Error Occured when loading an existing object from DB: " + "Seat";}
+      try{if(!this.isObjectPresent()) this.theObject = Optional.of(this.load());}catch(PersistenceException pe){assert false : "Fatal Error Occured when loading an existing object from DB: " + "Seat";}
       return this.theObject.get();
    }
    public Integer getId(){
@@ -39,8 +42,8 @@ public class SeatProxy implements ISeat{
       try {
          rs = DBExecuterFactory.getConfiguredFactory().getDBDMLExecuter().selectIdSpecifiedCursorAleadyAtFirstRow("Seat", this.id);
          Integer number = rs.getInt("number");
-         AbstractRow row = seatsOfRowSupervisor.getInstance().getRow(this).getTheObject();
-         return Seat.createAlreadyPersistent(id, number, row);
+         AbstractRow row = rowToSeatsSupervisor.getInstance().getRow(this).getTheObject();
+         return Seat.createAlreadyPersistent(this, number, row);
       } catch (Exception e) {throw new PersistenceException(e.getMessage());}
    }
    public Integer getNumber() {
@@ -51,8 +54,5 @@ public class SeatProxy implements ISeat{
    }
    public AbstractRow getRow() throws PersistenceException{
       return this.getTheObject().getRow();
-   }
-   public Integer price(){
-      return this.getTheObject().price();
    }
 }

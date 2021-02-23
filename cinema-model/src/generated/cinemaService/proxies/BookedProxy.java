@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -7,7 +7,11 @@ import java.util.Optional;
 import db.executer.*;
 import generated.cinemaService.Booked;
 import java.sql.ResultSet;
-public class BookedProxy implements IBooked{
+import generated.cinemaService.Ticket;
+import generated.cinemaService.relationControl.TicketToStateSupervisor;
+import generated.cinemaService.User;
+import generated.cinemaService.ModelException;
+public class BookedProxy extends TicketStateProxy implements IBooked{
    private Integer id;
    private Optional<Booked> theObject;
    private DBDMLExecuter dmlExecuter = PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter();
@@ -19,9 +23,12 @@ public class BookedProxy implements IBooked{
       this(theObject.getId());
       this.theObject = Optional.of(theObject);
    }
+   public boolean isObjectPresent() {
+      return this.theObject.isPresent();
+   }
    public Booked getTheObject()
    {
-      try{if(!this.theObject.isPresent()) this.theObject = Optional.of(this.load());}catch(PersistenceException pe){assert false : "Fatal Error Occured when loading an existing object from DB: " + "Booked";}
+      try{if(!this.isObjectPresent()) this.theObject = Optional.of(this.load());}catch(PersistenceException pe){assert false : "Fatal Error Occured when loading an existing object from DB: " + "Booked";}
       return this.theObject.get();
    }
    public Integer getId(){
@@ -35,8 +42,18 @@ public class BookedProxy implements IBooked{
    private Booked load() throws PersistenceException {
       ResultSet rs = null;
       try {
-         rs = DBExecuterFactory.getConfiguredFactory().getDBDMLExecuter().selectIdSpecifiedCursorAleadyAtFirstRow("Booked", this.id);
-         return Booked.createAlreadyPersistent(id);
+         rs = DBExecuterFactory.getConfiguredFactory().getDBDMLExecuter().selectIdSpecifiedCursorAleadyAtFirstRow("TicketAction", this.id);
+         Ticket ticket = TicketToStateSupervisor.getInstance().getTicket(this).getTheObject();
+         return Booked.createAlreadyPersistent(this, ticket);
       } catch (Exception e) {throw new PersistenceException(e.getMessage());}
+   }
+   public Ticket reserve(User user)throws ModelException{
+      return this.getTheObject().reserve(user);
+   }
+   public Ticket book()throws ModelException{
+      return this.getTheObject().book();
+   }
+   public Ticket unreserve()throws ModelException{
+      return this.getTheObject().unreserve();
    }
 }

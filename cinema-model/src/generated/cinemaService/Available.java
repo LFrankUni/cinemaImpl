@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -8,39 +8,38 @@ import java.sql.SQLException;
 import db.connection.NoConnectionException;
 import db.connection.TypeKeyManager;
 import db.executer.PersistenceExecuterFactory;
-import observation.Observable;
+import generated.cinemaService.proxies.AvailableProxy;
 import generated.cinemaService.proxies.IAvailable;
 import db.executer.PersistenceException;
 import exceptions.ConstraintViolation;
 //20 ===== Editable : Your Import Section =========
 
 //25 ===== GENERATED:      Header Section =========
-public class Available extends Observable implements java.io.Serializable, IAvailable
+public class Available extends TicketState implements java.io.Serializable, IAvailable
 {
    //30 ===== GENERATED:      Attribute Section ======
-   private Integer id;
    //40 ===== Editable : Your Attribute Section ======
    
    //50 ===== GENERATED:      Constructor ============
-   private Available(Integer id, boolean objectOnly)
-   {
-      super();
-      this.setId(id);
+   private Available(Integer id, Ticket ticket, boolean objectOnly)
+   throws ConstraintViolation, PersistenceException{
+      super(id, ticket, objectOnly);
       if(objectOnly) return;
    }
-   public static Available createAlreadyPersistent(Integer id){
-      return new Available(id, true);
+   /** Caution: A Call to this Method Requires to add any newly instantiated Object to its Cache! */
+   public static Available createAlreadyPersistent(AvailableProxy proxy, Ticket ticket)throws ConstraintViolation, PersistenceException{
+      if(proxy.isObjectPresent()) return proxy.getTheObject();
+      return new Available(proxy.getId(), ticket, true);
    }
-   public static Available createFresh()throws PersistenceException{
+   public static Available createFresh(Ticket ticket)throws ConstraintViolation, PersistenceException{
       db.executer.DBDMLExecuter dmlExecuter = PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter();
       Integer id = dmlExecuter.getNextId();
       try{
-         dmlExecuter.insertInto("Available", "id, typeKey", 
+         dmlExecuter.insertInto("TicketAction", "id, typeKey", 
          id.toString() + ", " + TypeKeyManager.getTheInstance().getTypeKey("CinemaService", "Available").toString());
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
-      Available me = new Available(id, false);
-      generated.cinemaService.proxies.AvailableProxy p = new generated.cinemaService.proxies.AvailableProxy(me);
-      CinemaService.getInstance().addAvailableProxy(p);
+      Available me = new Available(id, ticket, false);
+      CinemaService.getInstance().addAvailableProxy(new AvailableProxy(me));
       return me;
    }
    //60 ===== Editable : Your Constructors ===========
@@ -49,17 +48,27 @@ public class Available extends Observable implements java.io.Serializable, IAvai
    public Available getTheObject(){
       return this;
    }
-   public Integer getId(){
-      return this.id;
-   }
-   protected void setId(Integer id){
-      this.id = id;
-   }
-   public boolean equals(Object o) {
-      if(!(o instanceof IAvailable)) return false;
-      return ((IAvailable)o).getId().equals(this.getId());
-   }
-   public int hashCode() {return this.getId().hashCode();}
    //80 ===== Editable : Your Operations =============
+/**
+ * Reserves the ticket if possible.
+ */
+   public Ticket reserve(User user)throws ModelException{
+      // TODO: Implement Operation reserve
+      return null;
+   }
+/**
+ * Books the ticket if possible.
+ */
+   public Ticket book()throws ModelException{
+      // TODO: Implement Operation book
+      return null;
+   }
+/**
+ * Unreserves the ticket if possible.
+ */
+   public Ticket unreserve()throws ModelException{
+      // TODO: Implement Operation unreserve
+      return null;
+   }
 //90 ===== GENERATED: End of Your Operations ======
 }

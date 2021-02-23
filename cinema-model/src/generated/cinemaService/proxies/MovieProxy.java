@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -8,7 +8,9 @@ import db.executer.*;
 import generated.cinemaService.Movie;
 import java.sql.ResultSet;
 import generated.cinemaService.MovieShow;
-import java.util.Set;
+import generated.cinemaService.relationControl.movieOfMovieShowSupervisor;
+import java.util.Collection;
+import generated.cinemaService.ModelException;
 public class MovieProxy extends HasIncomeProxy implements IMovie{
    private Integer id;
    private Optional<Movie> theObject;
@@ -21,9 +23,12 @@ public class MovieProxy extends HasIncomeProxy implements IMovie{
       this(theObject.getId());
       this.theObject = Optional.of(theObject);
    }
+   public boolean isObjectPresent() {
+      return this.theObject.isPresent();
+   }
    public Movie getTheObject()
    {
-      try{if(!this.theObject.isPresent()) this.theObject = Optional.of(this.load());}catch(PersistenceException pe){assert false : "Fatal Error Occured when loading an existing object from DB: " + "Movie";}
+      try{if(!this.isObjectPresent()) this.theObject = Optional.of(this.load());}catch(PersistenceException pe){assert false : "Fatal Error Occured when loading an existing object from DB: " + "Movie";}
       return this.theObject.get();
    }
    public Integer getId(){
@@ -38,17 +43,18 @@ public class MovieProxy extends HasIncomeProxy implements IMovie{
       ResultSet rs = null;
       try {
          rs = DBExecuterFactory.getConfiguredFactory().getDBDMLExecuter().selectIdSpecifiedCursorAleadyAtFirstRow("HasIncome", this.id);
-         String titel = rs.getString("titel");
+         String title = rs.getString("title");
          String description = rs.getString("description");
          Integer minutes = rs.getInt("minutes");
-         return Movie.createAlreadyPersistent(id, titel, description, minutes);
+         MovieShow movieShow = movieOfMovieShowSupervisor.getInstance().getMovieShow(this).getTheObject();
+         return Movie.createAlreadyPersistent(this, title, description, minutes, movieShow);
       } catch (Exception e) {throw new PersistenceException(e.getMessage());}
    }
-   public String getTitel() {
-      return this.getTheObject().getTitel();
+   public String getTitle() {
+      return this.getTheObject().getTitle();
    }
-   public void setTitel(String newTitel) throws PersistenceException{
-      this.getTheObject().setTitel(newTitel);
+   public void setTitle(String newTitle) throws PersistenceException{
+      this.getTheObject().setTitle(newTitle);
    }
    public String getDescription() {
       return this.getTheObject().getDescription();
@@ -62,10 +68,13 @@ public class MovieProxy extends HasIncomeProxy implements IMovie{
    public void setMinutes(Integer newMinutes) throws PersistenceException{
       this.getTheObject().setMinutes(newMinutes);
    }
-   public Set<MovieShow> getShow() throws PersistenceException{
-      return this.getTheObject().getShow();
+   public MovieShow getMovieShow() throws PersistenceException{
+      return this.getTheObject().getMovieShow();
    }
-   public Integer income(){
+   public Collection<MovieShow> getAllMovieShows(String from, String to)throws ModelException{
+      return this.getTheObject().getAllMovieShows(from, to);
+   }
+   public Integer income()throws ModelException{
       return this.getTheObject().income();
    }
 }

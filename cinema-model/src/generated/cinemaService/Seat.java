@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import db.connection.NoConnectionException;
 import db.connection.TypeKeyManager;
 import db.executer.PersistenceExecuterFactory;
+import generated.cinemaService.proxies.SeatProxy;
 import observation.Observable;
 import generated.cinemaService.proxies.ISeat;
 import db.executer.PersistenceException;
@@ -30,10 +31,12 @@ public class Seat extends Observable implements java.io.Serializable, ISeat
       this.setId(id);
       this.number = number;
       if(objectOnly) return;
-      try{seatsOfRowSupervisor.getInstance().add(row,this);}catch(ConstraintViolation cv){}// Ok, because consistency is guaranteed with this statement
+      try{rowToSeatsSupervisor.getInstance().add(row,this);}catch(ConstraintViolation cv){}// Ok, because consistency is guaranteed with this statement
    }
-   public static Seat createAlreadyPersistent(Integer id, Integer number, AbstractRow row)throws PersistenceException{
-      return new Seat(id, number, row, true);
+   /** Caution: A Call to this Method Requires to add any newly instantiated Object to its Cache! */
+   public static Seat createAlreadyPersistent(SeatProxy proxy, Integer number, AbstractRow row)throws PersistenceException{
+      if(proxy.isObjectPresent()) return proxy.getTheObject();
+      return new Seat(proxy.getId(), number, row, true);
    }
    public static Seat createFresh(Integer number, AbstractRow row)throws PersistenceException{
       db.executer.DBDMLExecuter dmlExecuter = PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter();
@@ -43,8 +46,7 @@ public class Seat extends Observable implements java.io.Serializable, ISeat
          id.toString() + ", " + TypeKeyManager.getTheInstance().getTypeKey("CinemaService", "Seat").toString() + ", " + number.toString());
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
       Seat me = new Seat(id, number, row, false);
-      generated.cinemaService.proxies.SeatProxy p = new generated.cinemaService.proxies.SeatProxy(me);
-      CinemaService.getInstance().addSeatProxy(p);
+      CinemaService.getInstance().addSeatProxy(new SeatProxy(me));
       return me;
    }
    //60 ===== Editable : Your Constructors ===========
@@ -73,15 +75,8 @@ public class Seat extends Observable implements java.io.Serializable, ISeat
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
    }
    public AbstractRow getRow() throws PersistenceException{
-      return seatsOfRowSupervisor.getInstance().getRow(this).getTheObject();
+      return rowToSeatsSupervisor.getInstance().getRow(this).getTheObject();
    }
    //80 ===== Editable : Your Operations =============
-/**
- * Price of this seat. Depends on row.
- */
-   public Integer price(){
-      // TODO: Implement Operation price
-      return null;
-   }
 //90 ===== GENERATED: End of Your Operations ======
 }

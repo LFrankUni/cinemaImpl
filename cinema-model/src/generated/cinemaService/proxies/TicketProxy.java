@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -7,14 +7,15 @@ import java.util.Optional;
 import db.executer.*;
 import generated.cinemaService.Ticket;
 import java.sql.ResultSet;
-import generated.cinemaService.TicketState;
-import generated.cinemaService.relationControl.ticketStateSupervisor;
 import generated.cinemaService.Seat;
-import generated.cinemaService.relationControl.ticketSeatSupervisor;
+import generated.cinemaService.relationControl.ticketToSeatSupervisor;
+import generated.cinemaService.TicketState;
+import exceptions.ConstraintViolation;
 import generated.cinemaService.MovieShow;
-import generated.cinemaService.relationControl.ticketsOfMovieShowSupervisor;
+import generated.cinemaService.relationControl.movieShowToTicketSupervisor;
 import generated.cinemaService.User;
-import generated.cinemaService.relationControl.ticketsOfUserSupervisor;
+import generated.cinemaService.relationControl.userToTicketSupervisor;
+import generated.cinemaService.ModelException;
 public class TicketProxy extends TicketActionProxy implements ITicket{
    private Integer id;
    private Optional<Ticket> theObject;
@@ -27,9 +28,12 @@ public class TicketProxy extends TicketActionProxy implements ITicket{
       this(theObject.getId());
       this.theObject = Optional.of(theObject);
    }
+   public boolean isObjectPresent() {
+      return this.theObject.isPresent();
+   }
    public Ticket getTheObject()
    {
-      try{if(!this.theObject.isPresent()) this.theObject = Optional.of(this.load());}catch(PersistenceException pe){assert false : "Fatal Error Occured when loading an existing object from DB: " + "Ticket";}
+      try{if(!this.isObjectPresent()) this.theObject = Optional.of(this.load());}catch(PersistenceException pe){assert false : "Fatal Error Occured when loading an existing object from DB: " + "Ticket";}
       return this.theObject.get();
    }
    public Integer getId(){
@@ -44,18 +48,11 @@ public class TicketProxy extends TicketActionProxy implements ITicket{
       ResultSet rs = null;
       try {
          rs = DBExecuterFactory.getConfiguredFactory().getDBDMLExecuter().selectIdSpecifiedCursorAleadyAtFirstRow("TicketAction", this.id);
-         TicketState state = ticketStateSupervisor.getInstance().getState(this).getTheObject();
-         Seat seat = ticketSeatSupervisor.getInstance().getSeat(this).getTheObject();
-         MovieShow movieShow = ticketsOfMovieShowSupervisor.getInstance().getMovieShow(this).getTheObject();
-         User by = ticketsOfUserSupervisor.getInstance().getBy(this).getTheObject();
-         return Ticket.createAlreadyPersistent(id, state, seat, movieShow, by);
+         Seat seat = ticketToSeatSupervisor.getInstance().getSeat(this).getTheObject();
+         MovieShow movieShow = movieShowToTicketSupervisor.getInstance().getMovieShow(this).getTheObject();
+         User user = userToTicketSupervisor.getInstance().getUser(this).getTheObject();
+         return Ticket.createAlreadyPersistent(this, seat, movieShow, user);
       } catch (Exception e) {throw new PersistenceException(e.getMessage());}
-   }
-   public TicketState getState() throws PersistenceException{
-      return this.getTheObject().getState();
-   }
-   public void setState(TicketState newState)throws PersistenceException{
-      this.getTheObject().setState(newState);
    }
    public Seat getSeat() throws PersistenceException{
       return this.getTheObject().getSeat();
@@ -63,22 +60,31 @@ public class TicketProxy extends TicketActionProxy implements ITicket{
    public void setSeat(Seat newSeat)throws PersistenceException{
       this.getTheObject().setSeat(newSeat);
    }
+   public Optional<TicketState> getState() throws PersistenceException{
+      return this.getTheObject().getState();
+   }
+   public void setState(TicketState newState)throws ConstraintViolation, PersistenceException{
+      this.getTheObject().setState(newState);
+   }
    public MovieShow getMovieShow() throws PersistenceException{
       return this.getTheObject().getMovieShow();
    }
-   public User getBy() throws PersistenceException{
-      return this.getTheObject().getBy();
+   public User getUser() throws PersistenceException{
+      return this.getTheObject().getUser();
    }
-   public Integer getPrice(){
+   public Seat getTheSeat()throws ModelException{
+      return this.getTheObject().getTheSeat();
+   }
+   public Integer getPrice()throws ModelException{
       return this.getTheObject().getPrice();
    }
-   public TicketState book(){
+   public Ticket reserve(User user)throws ModelException{
+      return this.getTheObject().reserve(user);
+   }
+   public Ticket book()throws ModelException{
       return this.getTheObject().book();
    }
-   public TicketState reserve(){
-      return this.getTheObject().reserve();
-   }
-   public TicketState unreserve(){
+   public Ticket unreserve()throws ModelException{
       return this.getTheObject().unreserve();
    }
 }

@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -9,8 +9,9 @@ import generated.cinemaService.MovieShow;
 import java.util.Set;
 import exceptions.ConstraintViolation;
 import generated.cinemaService.AbstractRow;
-import generated.cinemaService.Cinema;
-import generated.cinemaService.ScheduleError;
+import generated.cinemaService.Movie;
+import generated.cinemaService.ModelException;
+import java.util.Collection;
 public interface IRoom extends IHasIncome{
    public Room getTheObject();
    public Integer getId();
@@ -18,15 +19,16 @@ public interface IRoom extends IHasIncome{
    public void addToMovieShows(MovieShow arg) throws ConstraintViolation, PersistenceException;
    public boolean removeFromMovieShows(MovieShow arg) throws ConstraintViolation, PersistenceException;
    public Set<AbstractRow> getRows() throws PersistenceException;
-   public void addToRows(AbstractRow arg) throws ConstraintViolation, PersistenceException;
-   public boolean removeFromRows(AbstractRow arg) throws ConstraintViolation, PersistenceException;
-   public String getRoomName() ;
-   public void setRoomName(String newRoomName) throws PersistenceException;
+   public void addToRows(AbstractRow arg) throws PersistenceException;
+   public boolean removeFromRows(AbstractRow arg) throws PersistenceException;
+   public String getNameOfRoom() ;
+   public void setNameOfRoom(String newNameOfRoom) throws PersistenceException;
    public Boolean getOpen() ;
    public void setOpen(Boolean newOpen) throws PersistenceException;
-   public Cinema getCinema() throws PersistenceException;
-   public void open();
-   public void scheduleShow(MovieShow show)throws ScheduleError;
-   public void close();
-   public Integer income();
+   public MovieShow scheduleMovieShow(Movie movie, String start, String end, Boolean threeDimensional, Integer price)throws ModelException;
+   public void addRow(AbstractRow row)throws ModelException;
+   public void close()throws ModelException;
+   public void open()throws ModelException;
+   public Collection<Room> getAllRows()throws ModelException;
+   public Integer income()throws ModelException;
 }

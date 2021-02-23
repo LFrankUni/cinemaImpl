@@ -3,7 +3,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
+import db.DBConstants;
 import db.connection.DBConnectionManager;
 import db.connection.NoConnectionException;
 import db.connection.TypeKeyManager;
@@ -35,6 +35,9 @@ public class DBDMLExecuter {
 	public ResultSet selectIdsOfEntriesOfTable(String tableName, Integer typeKey) throws SQLException, NoConnectionException {
 		return stmt().executeQuery(this.dml.selectIdsOfEntriesOfTable(tableName, typeKey));
 	}
+	public ResultSet selectEntriesOfTable(String tableName, Integer typeKey) throws SQLException, NoConnectionException {
+		return stmt().executeQuery(this.dml.selectEntriesOfTable(tableName, typeKey));
+	}
 	public ResultSet selectAllEntriesOfRelationTable(String tableName) throws SQLException, NoConnectionException {
 		return stmt().executeQuery(this.dml.selectAllEntriesOfRelationTable(tableName));
 	}
@@ -56,7 +59,7 @@ public class DBDMLExecuter {
  * @throws PersistenceException 
  */
 	public String getNameOfConcreteType(Integer id, String tableName, String serviceName) throws PersistenceException {
-		ResultSet rs1 = null;
+		ResultSet rs1,rs2 = null;
 		try {
 			rs1 = stmt().executeQuery("SELECT typeKey FROM " + tableName + " WHERE id = " + id);
 			if(!rs1.next()) throw new PersistenceException("Retrieving typekey for id " + id + ", but found no entry in table " + tableName);

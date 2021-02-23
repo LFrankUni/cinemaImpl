@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -7,7 +7,7 @@ import generated.cinemaService.AbstractRow;
 import generated.cinemaService.Seat;
 import java.util.Set;
 import exceptions.ConstraintViolation;
-import generated.cinemaService.Room;
+import generated.cinemaService.ModelException;
 public abstract class AbstractRowProxy implements IAbstractRow{
    public abstract AbstractRow getTheObject();
    public boolean equals(Object o) {
@@ -24,19 +24,19 @@ public abstract class AbstractRowProxy implements IAbstractRow{
    public boolean removeFromSeats(Seat arg) throws ConstraintViolation, PersistenceException{
       return this.getTheObject().removeFromSeats(arg);
    }
-   public Integer getPrice() {
-      return this.getTheObject().getPrice();
+   public String getName() {
+      return this.getTheObject().getName();
    }
-   public void setPrice(Integer newPrice) throws PersistenceException{
-      this.getTheObject().setPrice(newPrice);
+   public void setName(String newName) throws PersistenceException{
+      this.getTheObject().setName(newName);
    }
-   public Integer getNumber() {
-      return this.getTheObject().getNumber();
+   public Integer getPriceInCent() {
+      return this.getTheObject().getPriceInCent();
    }
-   public void setNumber(Integer newNumber) throws PersistenceException{
-      this.getTheObject().setNumber(newNumber);
+   public void setPriceInCent(Integer newPriceInCent) throws PersistenceException{
+      this.getTheObject().setPriceInCent(newPriceInCent);
    }
-   public Room getRoom() throws PersistenceException{
-      return this.getTheObject().getRoom();
+   public void addSeat(Seat seat)throws ModelException{
+      this.getTheObject().addSeat(seat);
    }
 }

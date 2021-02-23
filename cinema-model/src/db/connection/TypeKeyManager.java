@@ -17,7 +17,7 @@ public class TypeKeyManager {
 	private static final TypeKeyManager theInstance = new TypeKeyManager();
 	private TypeKeyManager() {
 		this.dmlExecuter = new DBExecuterFactory().getDBDMLExecuter();
-		this.typeKeys = new HashMap<String, Map<Integer, String>>();
+		this.typeKeys = new HashMap<>();
 	}
 	public static TypeKeyManager getTheInstance() {return theInstance;}
 	public void initializeFor(String serviceName) {

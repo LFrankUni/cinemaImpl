@@ -1,11 +1,8 @@
 package db.executer;
 
-public class PersistenceException extends Exception {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+import generated.cinemaService.ModelException;
 
+public class PersistenceException extends ModelException {
 	public PersistenceException(String message) {
 		super("Exception when trying to communicate with database: " + message);
 	}

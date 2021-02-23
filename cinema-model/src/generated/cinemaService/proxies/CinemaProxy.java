@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -9,8 +9,10 @@ import generated.cinemaService.Cinema;
 import java.sql.ResultSet;
 import generated.cinemaService.Room;
 import java.util.Set;
-import exceptions.ConstraintViolation;
 import generated.cinemaService.Movie;
+import java.util.Collection;
+import generated.cinemaService.ModelException;
+import generated.cinemaService.MovieShow;
 public class CinemaProxy extends HasIncomeProxy implements ICinema{
    private Integer id;
    private Optional<Cinema> theObject;
@@ -23,9 +25,12 @@ public class CinemaProxy extends HasIncomeProxy implements ICinema{
       this(theObject.getId());
       this.theObject = Optional.of(theObject);
    }
+   public boolean isObjectPresent() {
+      return this.theObject.isPresent();
+   }
    public Cinema getTheObject()
    {
-      try{if(!this.theObject.isPresent()) this.theObject = Optional.of(this.load());}catch(PersistenceException pe){assert false : "Fatal Error Occured when loading an existing object from DB: " + "Cinema";}
+      try{if(!this.isObjectPresent()) this.theObject = Optional.of(this.load());}catch(PersistenceException pe){assert false : "Fatal Error Occured when loading an existing object from DB: " + "Cinema";}
       return this.theObject.get();
    }
    public Integer getId(){
@@ -40,17 +45,17 @@ public class CinemaProxy extends HasIncomeProxy implements ICinema{
       ResultSet rs = null;
       try {
          rs = DBExecuterFactory.getConfiguredFactory().getDBDMLExecuter().selectIdSpecifiedCursorAleadyAtFirstRow("HasIncome", this.id);
-         String name = rs.getString("name");
-         return Cinema.createAlreadyPersistent(id, name);
+         String nameOfCinema = rs.getString("nameOfCinema");
+         return Cinema.createAlreadyPersistent(this, nameOfCinema);
       } catch (Exception e) {throw new PersistenceException(e.getMessage());}
    }
    public Set<Room> getRoomes() throws PersistenceException{
       return this.getTheObject().getRoomes();
    }
-   public void addToRoomes(Room arg) throws ConstraintViolation, PersistenceException{
+   public void addToRoomes(Room arg) throws PersistenceException{
       this.getTheObject().addToRoomes(arg);
    }
-   public boolean removeFromRoomes(Room arg) throws ConstraintViolation, PersistenceException{
+   public boolean removeFromRoomes(Room arg) throws PersistenceException{
       return this.getTheObject().removeFromRoomes(arg);
    }
    public Set<Movie> getMovies() throws PersistenceException{
@@ -62,13 +67,25 @@ public class CinemaProxy extends HasIncomeProxy implements ICinema{
    public boolean removeFromMovies(Movie arg) throws PersistenceException{
       return this.getTheObject().removeFromMovies(arg);
    }
-   public String getName() {
-      return this.getTheObject().getName();
+   public String getNameOfCinema() {
+      return this.getTheObject().getNameOfCinema();
    }
-   public void setName(String newName) throws PersistenceException{
-      this.getTheObject().setName(newName);
+   public void setNameOfCinema(String newNameOfCinema) throws PersistenceException{
+      this.getTheObject().setNameOfCinema(newNameOfCinema);
    }
-   public Integer income(){
+   public Collection<Room> getAllRooms()throws ModelException{
+      return this.getTheObject().getAllRooms();
+   }
+   public Collection<MovieShow> getScheduledMovieShows(String from, String to)throws ModelException{
+      return this.getTheObject().getScheduledMovieShows(from, to);
+   }
+   public Collection<Movie> getAllMovies()throws ModelException{
+      return this.getTheObject().getAllMovies();
+   }
+   public void addMovie(Movie movie)throws ModelException{
+      this.getTheObject().addMovie(movie);
+   }
+   public Integer income()throws ModelException{
       return this.getTheObject().income();
    }
 }

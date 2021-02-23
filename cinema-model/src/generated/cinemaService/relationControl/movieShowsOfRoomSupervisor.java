@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -21,7 +21,7 @@ public class movieShowsOfRoomSupervisor
    //40 ===== Editable : Your Attribute Section ======
    
    //50 ===== GENERATED:      Constructor ============
-   public movieShowsOfRoomSupervisor(){
+   private movieShowsOfRoomSupervisor(){
       this.elements = new Relation<>("movieShowsOfRoom");
    }
    //60 ===== Editable : Your Constructors ===========

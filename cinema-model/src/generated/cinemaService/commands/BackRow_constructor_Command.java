@@ -1,22 +1,20 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
 public class BackRow_constructor_Command extends ServiceCommand<BackRow>{
-   private static final long serialVersionUID = 322278379L;
-   private Integer  price;
-   private Integer  number;
-   private Room room;
-   public BackRow_constructor_Command(Integer  price, Integer  number, Room room){
+   private static final long serialVersionUID = -147393691L;
+   private String  name;
+   private Integer  priceInCent;
+   public BackRow_constructor_Command(String  name, Integer  priceInCent){
       super();
-      this.price = price;
-      this.number = number;
-      this.room = room;
+      this.name = name;
+      this.priceInCent = priceInCent;
    }
    public void execute(){
-      try{this.result = BackRow.createFresh(price, number, room);
+      try{this.result = BackRow.createFresh(name, priceInCent);
       }catch(Exception e){this.e = e;
       }finally{CinemaService.getInstance().notifyObservers(this);}
    }

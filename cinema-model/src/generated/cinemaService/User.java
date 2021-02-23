@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import db.connection.NoConnectionException;
 import db.connection.TypeKeyManager;
 import db.executer.PersistenceExecuterFactory;
+import generated.cinemaService.proxies.UserProxy;
 import observation.Observable;
 import generated.cinemaService.proxies.IUser;
 import generated.cinemaService.relationControl.*;
@@ -16,6 +17,7 @@ import db.executer.PersistenceException;
 import java.util.Set;
 import java.util.HashSet;
 import exceptions.ConstraintViolation;
+import java.util.Collection;
 //20 ===== Editable : Your Import Section =========
 
 //25 ===== GENERATED:      Header Section =========
@@ -25,30 +27,35 @@ public class User extends Observable implements java.io.Serializable, IUser
    private Integer id;
    private String firstName;
    private String lastName;
+   private String email;
+   private String password;
    //40 ===== Editable : Your Attribute Section ======
    
    //50 ===== GENERATED:      Constructor ============
-   private User(Integer id, String firstName, String lastName, boolean objectOnly)
+   private User(Integer id, String firstName, String lastName, String email, String password, boolean objectOnly)
    {
       super();
       this.setId(id);
       this.firstName = firstName;
       this.lastName = lastName;
+      this.email = email;
+      this.password = password;
       if(objectOnly) return;
    }
-   public static User createAlreadyPersistent(Integer id, String firstName, String lastName){
-      return new User(id, firstName, lastName, true);
+   /** Caution: A Call to this Method Requires to add any newly instantiated Object to its Cache! */
+   public static User createAlreadyPersistent(UserProxy proxy, String firstName, String lastName, String email, String password){
+      if(proxy.isObjectPresent()) return proxy.getTheObject();
+      return new User(proxy.getId(), firstName, lastName, email, password, true);
    }
-   public static User createFresh(String firstName, String lastName)throws PersistenceException{
+   public static User createFresh(String firstName, String lastName, String email, String password)throws PersistenceException{
       db.executer.DBDMLExecuter dmlExecuter = PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter();
       Integer id = dmlExecuter.getNextId();
       try{
-         dmlExecuter.insertInto("User", "id, typeKey, firstName, lastName", 
-         id.toString() + ", " + TypeKeyManager.getTheInstance().getTypeKey("CinemaService", "User").toString() + ", " + "'" + firstName + "'" + ", " + "'" + lastName + "'");
+         dmlExecuter.insertInto("User", "id, typeKey, firstName, lastName, email, password", 
+         id.toString() + ", " + TypeKeyManager.getTheInstance().getTypeKey("CinemaService", "User").toString() + ", " + "'" + firstName + "'" + ", " + "'" + lastName + "'" + ", " + "'" + email + "'" + ", " + "'" + password + "'");
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
-      User me = new User(id, firstName, lastName, false);
-      generated.cinemaService.proxies.UserProxy p = new generated.cinemaService.proxies.UserProxy(me);
-      CinemaService.getInstance().addUserProxy(p);
+      User me = new User(id, firstName, lastName, email, password, false);
+      CinemaService.getInstance().addUserProxy(new UserProxy(me));
       return me;
    }
    //60 ===== Editable : Your Constructors ===========
@@ -70,14 +77,14 @@ public class User extends Observable implements java.io.Serializable, IUser
    public int hashCode() {return this.getId().hashCode();}
    public Set<Ticket> getTickets() throws PersistenceException{
       Set<Ticket> result = new HashSet<>();
-      for (ITicket i : ticketsOfUserSupervisor.getInstance().getTickets(this)) result.add(i.getTheObject());
+      for (ITicket i : userToTicketSupervisor.getInstance().getTickets(this)) result.add(i.getTheObject());
       return result;
    }
    public void addToTickets(Ticket arg) throws ConstraintViolation, PersistenceException{
-      ticketsOfUserSupervisor.getInstance().add(this, arg);
+      userToTicketSupervisor.getInstance().add(this, arg);
    }
    public boolean removeFromTickets(Ticket arg) throws ConstraintViolation, PersistenceException{
-      return ticketsOfUserSupervisor.getInstance().remove(this, arg);
+      return userToTicketSupervisor.getInstance().remove(this, arg);
    }
    public String getFirstName() {
       return this.firstName;
@@ -95,6 +102,29 @@ public class User extends Observable implements java.io.Serializable, IUser
       try{PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter().update("User", "lastName", "'" + newLastName + "'", this.getId());
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
    }
+   public String getEmail() {
+      return this.email;
+   }
+   public void setEmail(String newEmail) throws PersistenceException{
+      this.email = newEmail;
+      try{PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter().update("User", "email", "'" + newEmail + "'", this.getId());
+      }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
+   }
+   public String getPassword() {
+      return this.password;
+   }
+   public void setPassword(String newPassword) throws PersistenceException{
+      this.password = newPassword;
+      try{PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter().update("User", "password", "'" + newPassword + "'", this.getId());
+      }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
+   }
    //80 ===== Editable : Your Operations =============
+/**
+ * Returns all the Tickets of a user.
+ */
+   public Collection<Ticket> getAllTickets()throws ModelException{
+      // TODO: Implement Operation getAllTickets
+      return null;
+   }
 //90 ===== GENERATED: End of Your Operations ======
 }

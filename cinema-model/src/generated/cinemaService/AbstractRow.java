@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -23,19 +23,18 @@ public abstract class AbstractRow extends Observable implements java.io.Serializ
 {
    //30 ===== GENERATED:      Attribute Section ======
    private Integer id;
-   private Integer price;
-   private Integer number;
+   private String name;
+   private Integer priceInCent;
    //40 ===== Editable : Your Attribute Section ======
    
    //50 ===== GENERATED:      Constructor ============
-   public AbstractRow(Integer id, Integer price, Integer number, Room room, boolean objectOnly)
-   throws PersistenceException{
+   public AbstractRow(Integer id, String name, Integer priceInCent, boolean objectOnly)
+   {
       super();
       this.setId(id);
-      this.price = price;
-      this.number = number;
+      this.name = name;
+      this.priceInCent = priceInCent;
       if(objectOnly) return;
-      try{rowsOfRoomSupervisor.getInstance().add(room,this);}catch(ConstraintViolation cv){}// Ok, because consistency is guaranteed with this statement
    }
    //60 ===== Editable : Your Constructors ===========
    
@@ -56,34 +55,38 @@ public abstract class AbstractRow extends Observable implements java.io.Serializ
    public int hashCode() {return this.getId().hashCode();}
    public Set<Seat> getSeats() throws PersistenceException{
       Set<Seat> result = new HashSet<>();
-      for (ISeat i : seatsOfRowSupervisor.getInstance().getSeats(this)) result.add(i.getTheObject());
+      for (ISeat i : rowToSeatsSupervisor.getInstance().getSeats(this)) result.add(i.getTheObject());
       return result;
    }
    public void addToSeats(Seat arg) throws ConstraintViolation, PersistenceException{
-      seatsOfRowSupervisor.getInstance().add(this, arg);
+      rowToSeatsSupervisor.getInstance().add(this, arg);
    }
    public boolean removeFromSeats(Seat arg) throws ConstraintViolation, PersistenceException{
-      return seatsOfRowSupervisor.getInstance().remove(this, arg);
+      return rowToSeatsSupervisor.getInstance().remove(this, arg);
    }
-   public Integer getPrice() {
-      return this.price;
+   public String getName() {
+      return this.name;
    }
-   public void setPrice(Integer newPrice) throws PersistenceException{
-      this.price = newPrice;
-      try{PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter().update("AbstractRow", "price", newPrice.toString(), this.getId());
+   public void setName(String newName) throws PersistenceException{
+      this.name = newName;
+      try{PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter().update("AbstractRow", "name", "'" + newName + "'", this.getId());
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
    }
-   public Integer getNumber() {
-      return this.number;
+   public Integer getPriceInCent() {
+      return this.priceInCent;
    }
-   public void setNumber(Integer newNumber) throws PersistenceException{
-      this.number = newNumber;
-      try{PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter().update("AbstractRow", "number", newNumber.toString(), this.getId());
+   public void setPriceInCent(Integer newPriceInCent) throws PersistenceException{
+      this.priceInCent = newPriceInCent;
+      try{PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter().update("AbstractRow", "priceInCent", newPriceInCent.toString(), this.getId());
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
-   }
-   public Room getRoom() throws PersistenceException{
-      return rowsOfRoomSupervisor.getInstance().getRoom(this).getTheObject();
    }
    //80 ===== Editable : Your Operations =============
+/**
+ * Adds a seat to the row.
+ */
+   public void addSeat(Seat seat)throws ModelException{
+      // TODO: Implement Operation addSeat
+      return;
+   }
 //90 ===== GENERATED: End of Your Operations ======
 }

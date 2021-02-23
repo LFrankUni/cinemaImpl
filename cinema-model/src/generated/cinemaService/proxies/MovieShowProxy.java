@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:25 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -8,15 +8,13 @@ import db.executer.*;
 import generated.cinemaService.MovieShow;
 import java.sql.ResultSet;
 import generated.cinemaService.Movie;
-import java.util.List;
+import exceptions.ConstraintViolation;
 import generated.cinemaService.Ticket;
 import java.util.Set;
-import exceptions.ConstraintViolation;
 import generated.cinemaService.Room;
 import generated.cinemaService.relationControl.movieShowsOfRoomSupervisor;
-import generated.cinemaService.Seat;
-import generated.cinemaService.User;
-import generated.cinemaService.SeatAlreadyReservedException;
+import generated.cinemaService.ModelException;
+import java.util.Collection;
 public class MovieShowProxy extends HasIncomeProxy implements IMovieShow{
    private Integer id;
    private Optional<MovieShow> theObject;
@@ -29,9 +27,12 @@ public class MovieShowProxy extends HasIncomeProxy implements IMovieShow{
       this(theObject.getId());
       this.theObject = Optional.of(theObject);
    }
+   public boolean isObjectPresent() {
+      return this.theObject.isPresent();
+   }
    public MovieShow getTheObject()
    {
-      try{if(!this.theObject.isPresent()) this.theObject = Optional.of(this.load());}catch(PersistenceException pe){assert false : "Fatal Error Occured when loading an existing object from DB: " + "MovieShow";}
+      try{if(!this.isObjectPresent()) this.theObject = Optional.of(this.load());}catch(PersistenceException pe){assert false : "Fatal Error Occured when loading an existing object from DB: " + "MovieShow";}
       return this.theObject.get();
    }
    public Integer getId(){
@@ -48,20 +49,17 @@ public class MovieShowProxy extends HasIncomeProxy implements IMovieShow{
          rs = DBExecuterFactory.getConfiguredFactory().getDBDMLExecuter().selectIdSpecifiedCursorAleadyAtFirstRow("HasIncome", this.id);
          String start = rs.getString("start");
          String end = rs.getString("end");
-         Integer price = rs.getInt("price");
-         Boolean threeD = rs.getBoolean("threeD");
+         Boolean threeDimensional = rs.getBoolean("threeDimensional");
+         Integer priceInCent = rs.getInt("priceInCent");
          Room room = movieShowsOfRoomSupervisor.getInstance().getRoom(this).getTheObject();
-         return MovieShow.createAlreadyPersistent(id, start, end, price, threeD, room);
+         return MovieShow.createAlreadyPersistent(this, start, end, threeDimensional, priceInCent, room);
       } catch (Exception e) {throw new PersistenceException(e.getMessage());}
    }
-   public List<Movie> getMovie() throws PersistenceException{
+   public Optional<Movie> getMovie() throws PersistenceException{
       return this.getTheObject().getMovie();
    }
-   public void addToMovie(Movie arg) throws PersistenceException{
-      this.getTheObject().addToMovie(arg);
-   }
-   public boolean removeFromMovie(Movie arg) throws PersistenceException{
-      return this.getTheObject().removeFromMovie(arg);
+   public void setMovie(Movie newMovie)throws ConstraintViolation, PersistenceException{
+      this.getTheObject().setMovie(newMovie);
    }
    public Set<Ticket> getTickets() throws PersistenceException{
       return this.getTheObject().getTickets();
@@ -84,25 +82,28 @@ public class MovieShowProxy extends HasIncomeProxy implements IMovieShow{
    public void setEnd(String newEnd) throws PersistenceException{
       this.getTheObject().setEnd(newEnd);
    }
-   public Integer getPrice() {
-      return this.getTheObject().getPrice();
+   public Boolean getThreeDimensional() {
+      return this.getTheObject().getThreeDimensional();
    }
-   public void setPrice(Integer newPrice) throws PersistenceException{
-      this.getTheObject().setPrice(newPrice);
+   public void setThreeDimensional(Boolean newThreeDimensional) throws PersistenceException{
+      this.getTheObject().setThreeDimensional(newThreeDimensional);
    }
-   public Boolean getThreeD() {
-      return this.getTheObject().getThreeD();
+   public Integer getPriceInCent() {
+      return this.getTheObject().getPriceInCent();
    }
-   public void setThreeD(Boolean newThreeD) throws PersistenceException{
-      this.getTheObject().setThreeD(newThreeD);
+   public void setPriceInCent(Integer newPriceInCent) throws PersistenceException{
+      this.getTheObject().setPriceInCent(newPriceInCent);
    }
    public Room getRoom() throws PersistenceException{
       return this.getTheObject().getRoom();
    }
-   public Ticket reserve(Seat seat, User by)throws SeatAlreadyReservedException{
-      return this.getTheObject().reserve(seat, by);
+   public Movie getTheMovie()throws ModelException{
+      return this.getTheObject().getTheMovie();
    }
-   public Integer income(){
+   public Collection<Ticket> getAllTickets()throws ModelException{
+      return this.getTheObject().getAllTickets();
+   }
+   public Integer income()throws ModelException{
       return this.getTheObject().income();
    }
 }

@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 21 20:25:26 CET 2021 
+/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -10,21 +10,21 @@ import generated.cinemaService.proxies.*;
 //20 ===== Editable : Your Import Section =========
 
 //25 ===== GENERATED:      Header Section =========
-public class ticketSeatSupervisor
+public class ticketToSeatSupervisor
 {
    //30 ===== GENERATED:      Attribute Section ======
-   private static ticketSeatSupervisor theInstance = new ticketSeatSupervisor();
+   private static ticketToSeatSupervisor theInstance = new ticketToSeatSupervisor();
    private Relation<ITicket,ISeat> elements;
    //40 ===== Editable : Your Attribute Section ======
    
    //50 ===== GENERATED:      Constructor ============
-   public ticketSeatSupervisor(){
-      this.elements = new Relation<>("ticketSeat");
+   private ticketToSeatSupervisor(){
+      this.elements = new Relation<>("ticketToSeat");
    }
    //60 ===== Editable : Your Constructors ===========
    
    //70 ===== GENERATED:      Feature Access =========
-   public static ticketSeatSupervisor getInstance(){return theInstance;}
+   public static ticketToSeatSupervisor getInstance(){return theInstance;}
    public ISeat getSeat(ITicket owner){
       return this.elements.getRelatedTargets(owner).isEmpty() ? null : this.elements.getRelatedTargets(owner).get(0);
    }
