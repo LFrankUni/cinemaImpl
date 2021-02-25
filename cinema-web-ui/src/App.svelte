@@ -1,11 +1,13 @@
 <script lang="ts">
-  import Income from "./features/Income.svelte";
-
-  const test: Number = 1;
+  import Router from "svelte-spa-router";
+  import Header from "./components/shell/Header.svelte";
+  import { APP_ROUTES, APP_ROUTING } from "./routes";
 </script>
 
-<main>{test} nice compiler</main>
-<Income />
+<Header routes={APP_ROUTES} />
+<main>
+  <Router routes={APP_ROUTING} />
+</main>
 
 <style>
 </style>
