@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -8,7 +8,8 @@ import relationManagement.Relation;
 import db.executer.PersistenceException;
 import generated.cinemaService.proxies.*;
 import exceptions.ConstraintViolation;
-import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 //20 ===== Editable : Your Import Section =========
 
 //25 ===== GENERATED:      Header Section =========
@@ -27,25 +28,22 @@ public class movieOfMovieShowSupervisor
    
    //70 ===== GENERATED:      Feature Access =========
    public static movieOfMovieShowSupervisor getInstance(){return theInstance;}
-   public Optional<IMovie> getMovie(IMovieShow owner){
-      return (this.elements.getRelatedTargets(owner).size() == 0) ? Optional.empty() : Optional.of(this.elements.getRelatedTargets(owner).get(0));
+   public IMovie getMovie(IMovieShow owner){
+      return this.elements.getRelatedTargets(owner).isEmpty() ? null : this.elements.getRelatedTargets(owner).get(0);
    }
-   public void set(IMovieShow owner, IMovie target) throws ConstraintViolation, PersistenceException{
-      IMovie targetOld = this.getMovie(owner).isPresent() ? this.getMovie(owner).get() : null; IMovie targetNew = target;
-      this.elements.willViolateContainment(owner, targetOld, targetNew);
+   public void set(IMovieShow owner, IMovie target) throws PersistenceException{
+      IMovie targetOld = this.getMovie(owner); IMovie targetNew = target;
       this.elements.change(owner, targetOld, targetNew);
    }
-   public void setAlreadyPersistent(IMovieShow owner, IMovie target) throws ConstraintViolation{
+   public void setAlreadyPersistent(IMovieShow owner, IMovie target) {
       IMovie targetOld = null; IMovie targetNew = target;
-      this.elements.willViolateContainment(owner, targetOld, targetNew);
       this.elements.setAlreadyPersistent(owner, targetNew);
    }
-   public void change(IMovieShow owner, IMovie targetOld, IMovie targetNew) throws ConstraintViolation, PersistenceException{
-      this.elements.willViolateContainment(owner, targetOld, targetNew);
+   public void change(IMovieShow owner, IMovie targetOld, IMovie targetNew) throws PersistenceException{
       this.elements.change(owner, targetOld, targetNew);
    }
-   public IMovieShow getMovieShow(IMovie target){
-      return this.elements.getRelatedSources(target).get(0);
+   public Set<IMovieShow> getMovieShow(IMovie target){
+      return this.elements.getRelatedSources(target).stream().collect(Collectors.toSet());
    }
    //80 ===== Editable : Your Operations =============
 //90 ===== GENERATED: End of Your Operations ======

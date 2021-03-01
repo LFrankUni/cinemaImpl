@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.Collection;
+import java.util.Iterator;
 
 //20 ===== Editable : Your import section =========
 //30 ===== GENERATED: Main Section ================
@@ -490,6 +491,14 @@ public class CinemaService extends Observable {
 	 */
 	public Collection<Cinema> getAllCinemas() {
 		return this.getCinemaCache().values().stream().map(proxy -> proxy.getTheObject()).collect(Collectors.toList());
+	}
+
+	public Integer income() throws ModelException {
+		Integer sum = 0;
+		for (Iterator<Cinema> iterator = this.getAllCinemas().iterator(); iterator.hasNext();) {
+			sum += iterator.next().income();
+		}
+		return sum;
 	}
 //90 ===== GENERATED: End of Your Operations ======
 }

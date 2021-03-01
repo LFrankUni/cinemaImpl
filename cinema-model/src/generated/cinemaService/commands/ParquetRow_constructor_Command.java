@@ -1,11 +1,11 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
 public class ParquetRow_constructor_Command extends ServiceCommand<ParquetRow>{
-   private static final long serialVersionUID = -1911384246L;
+   private static final long serialVersionUID = -1388981359L;
    private String  name;
    private Integer  priceInCent;
    public ParquetRow_constructor_Command(String  name, Integer  priceInCent){

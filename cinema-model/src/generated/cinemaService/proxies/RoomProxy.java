@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -11,9 +11,6 @@ import generated.cinemaService.MovieShow;
 import java.util.Set;
 import exceptions.ConstraintViolation;
 import generated.cinemaService.AbstractRow;
-import generated.cinemaService.Movie;
-import generated.cinemaService.ModelException;
-import java.util.Collection;
 public class RoomProxy extends HasIncomeProxy implements IRoom{
    private Integer id;
    private Optional<Room> theObject;
@@ -80,23 +77,5 @@ public class RoomProxy extends HasIncomeProxy implements IRoom{
    }
    public void setOpen(Boolean newOpen) throws PersistenceException{
       this.getTheObject().setOpen(newOpen);
-   }
-   public MovieShow scheduleMovieShow(Movie movie, String start, String end, Boolean threeDimensional, Integer price)throws ModelException{
-      return this.getTheObject().scheduleMovieShow(movie, start, end, threeDimensional, price);
-   }
-   public void addRow(AbstractRow row)throws ModelException{
-      this.getTheObject().addRow(row);
-   }
-   public void close()throws ModelException{
-      this.getTheObject().close();
-   }
-   public void open()throws ModelException{
-      this.getTheObject().open();
-   }
-   public Collection<Room> getAllRows()throws ModelException{
-      return this.getTheObject().getAllRows();
-   }
-   public Integer income()throws ModelException{
-      return this.getTheObject().income();
    }
 }

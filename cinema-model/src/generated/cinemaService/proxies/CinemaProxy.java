@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -10,9 +10,6 @@ import java.sql.ResultSet;
 import generated.cinemaService.Room;
 import java.util.Set;
 import generated.cinemaService.Movie;
-import java.util.Collection;
-import generated.cinemaService.ModelException;
-import generated.cinemaService.MovieShow;
 public class CinemaProxy extends HasIncomeProxy implements ICinema{
    private Integer id;
    private Optional<Cinema> theObject;
@@ -72,20 +69,5 @@ public class CinemaProxy extends HasIncomeProxy implements ICinema{
    }
    public void setNameOfCinema(String newNameOfCinema) throws PersistenceException{
       this.getTheObject().setNameOfCinema(newNameOfCinema);
-   }
-   public Collection<Room> getAllRooms()throws ModelException{
-      return this.getTheObject().getAllRooms();
-   }
-   public Collection<MovieShow> getScheduledMovieShows(String from, String to)throws ModelException{
-      return this.getTheObject().getScheduledMovieShows(from, to);
-   }
-   public Collection<Movie> getAllMovies()throws ModelException{
-      return this.getTheObject().getAllMovies();
-   }
-   public void addMovie(Movie movie)throws ModelException{
-      this.getTheObject().addMovie(movie);
-   }
-   public Integer income()throws ModelException{
-      return this.getTheObject().income();
    }
 }

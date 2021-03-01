@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -15,7 +15,6 @@ import generated.cinemaService.MovieShow;
 import generated.cinemaService.relationControl.movieShowToTicketSupervisor;
 import generated.cinemaService.User;
 import generated.cinemaService.relationControl.userToTicketSupervisor;
-import generated.cinemaService.ModelException;
 public class TicketProxy extends TicketActionProxy implements ITicket{
    private Integer id;
    private Optional<Ticket> theObject;
@@ -71,20 +70,5 @@ public class TicketProxy extends TicketActionProxy implements ITicket{
    }
    public User getUser() throws PersistenceException{
       return this.getTheObject().getUser();
-   }
-   public Seat getTheSeat()throws ModelException{
-      return this.getTheObject().getTheSeat();
-   }
-   public Integer getPrice()throws ModelException{
-      return this.getTheObject().getPrice();
-   }
-   public Ticket reserve(User user)throws ModelException{
-      return this.getTheObject().reserve(user);
-   }
-   public Ticket book()throws ModelException{
-      return this.getTheObject().book();
-   }
-   public Ticket unreserve()throws ModelException{
-      return this.getTheObject().unreserve();
    }
 }

@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -7,7 +7,6 @@ import generated.cinemaService.AbstractRow;
 import generated.cinemaService.Seat;
 import java.util.Set;
 import exceptions.ConstraintViolation;
-import generated.cinemaService.ModelException;
 public abstract class AbstractRowProxy implements IAbstractRow{
    public abstract AbstractRow getTheObject();
    public boolean equals(Object o) {
@@ -35,8 +34,5 @@ public abstract class AbstractRowProxy implements IAbstractRow{
    }
    public void setPriceInCent(Integer newPriceInCent) throws PersistenceException{
       this.getTheObject().setPriceInCent(newPriceInCent);
-   }
-   public void addSeat(Seat seat)throws ModelException{
-      this.getTheObject().addSeat(seat);
    }
 }

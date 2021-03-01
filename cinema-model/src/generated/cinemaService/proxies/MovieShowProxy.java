@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -8,13 +8,12 @@ import db.executer.*;
 import generated.cinemaService.MovieShow;
 import java.sql.ResultSet;
 import generated.cinemaService.Movie;
-import exceptions.ConstraintViolation;
+import generated.cinemaService.relationControl.movieOfMovieShowSupervisor;
 import generated.cinemaService.Ticket;
 import java.util.Set;
+import exceptions.ConstraintViolation;
 import generated.cinemaService.Room;
 import generated.cinemaService.relationControl.movieShowsOfRoomSupervisor;
-import generated.cinemaService.ModelException;
-import java.util.Collection;
 public class MovieShowProxy extends HasIncomeProxy implements IMovieShow{
    private Integer id;
    private Optional<MovieShow> theObject;
@@ -47,18 +46,19 @@ public class MovieShowProxy extends HasIncomeProxy implements IMovieShow{
       ResultSet rs = null;
       try {
          rs = DBExecuterFactory.getConfiguredFactory().getDBDMLExecuter().selectIdSpecifiedCursorAleadyAtFirstRow("HasIncome", this.id);
+         Movie movie = movieOfMovieShowSupervisor.getInstance().getMovie(this).getTheObject();
          String start = rs.getString("start");
          String end = rs.getString("end");
          Boolean threeDimensional = rs.getBoolean("threeDimensional");
          Integer priceInCent = rs.getInt("priceInCent");
          Room room = movieShowsOfRoomSupervisor.getInstance().getRoom(this).getTheObject();
-         return MovieShow.createAlreadyPersistent(this, start, end, threeDimensional, priceInCent, room);
+         return MovieShow.createAlreadyPersistent(this, movie, start, end, threeDimensional, priceInCent, room);
       } catch (Exception e) {throw new PersistenceException(e.getMessage());}
    }
-   public Optional<Movie> getMovie() throws PersistenceException{
+   public Movie getMovie() throws PersistenceException{
       return this.getTheObject().getMovie();
    }
-   public void setMovie(Movie newMovie)throws ConstraintViolation, PersistenceException{
+   public void setMovie(Movie newMovie)throws PersistenceException{
       this.getTheObject().setMovie(newMovie);
    }
    public Set<Ticket> getTickets() throws PersistenceException{
@@ -96,14 +96,5 @@ public class MovieShowProxy extends HasIncomeProxy implements IMovieShow{
    }
    public Room getRoom() throws PersistenceException{
       return this.getTheObject().getRoom();
-   }
-   public Movie getTheMovie()throws ModelException{
-      return this.getTheObject().getTheMovie();
-   }
-   public Collection<Ticket> getAllTickets()throws ModelException{
-      return this.getTheObject().getAllTickets();
-   }
-   public Integer income()throws ModelException{
-      return this.getTheObject().income();
    }
 }

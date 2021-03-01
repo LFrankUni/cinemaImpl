@@ -1,11 +1,11 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:44:13 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
 public class Room_scheduleMovieShow_Command extends ObjectCommand<Room, MovieShow>{
-   private static final long serialVersionUID = 1558768629L;
+   private static final long serialVersionUID = -4244132L;
    private Movie movie;
    private String start;
    private String end;

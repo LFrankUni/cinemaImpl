@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -46,6 +46,10 @@ public abstract class TicketAction extends Observable implements java.io.Seriali
    public int hashCode() {return this.getId().hashCode();}
    //80 ===== Editable : Your Operations =============
 /**
+ * Unreserves the ticket if possible.
+ */
+   public abstract Ticket unreserve()throws ModelException;
+/**
  * Reserves the ticket if possible.
  */
    public abstract Ticket reserve(User user)throws ModelException;
@@ -53,9 +57,5 @@ public abstract class TicketAction extends Observable implements java.io.Seriali
  * Books the ticket if possible.
  */
    public abstract Ticket book()throws ModelException;
-/**
- * Unreserves the ticket if possible.
- */
-   public abstract Ticket unreserve()throws ModelException;
 //90 ===== GENERATED: End of Your Operations ======
 }

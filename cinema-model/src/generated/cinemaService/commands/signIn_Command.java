@@ -1,11 +1,11 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:44:13 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
 public class signIn_Command extends ServiceCommand<User>{
-   private static final long serialVersionUID = 1672418925L;
+   private static final long serialVersionUID = -1760857543L;
    private String email;
    private String password;
    public signIn_Command(String email, String password){

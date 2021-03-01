@@ -1,11 +1,11 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
 public class MiddleRow_constructor_Command extends ServiceCommand<MiddleRow>{
-   private static final long serialVersionUID = -325014587L;
+   private static final long serialVersionUID = 1687797205L;
    private String  name;
    private Integer  priceInCent;
    public MiddleRow_constructor_Command(String  name, Integer  priceInCent){

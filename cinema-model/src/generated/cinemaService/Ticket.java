@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -89,6 +89,13 @@ public class Ticket extends TicketAction implements java.io.Serializable, ITicke
       return null;
    }
 /**
+ * Unreserves the ticket if possible.
+ */
+   public Ticket unreserve()throws ModelException{
+      // TODO: Implement Operation unreserve
+      return null;
+   }
+/**
  * Reserves the ticket if possible.
  */
    public Ticket reserve(User user)throws ModelException{
@@ -100,13 +107,6 @@ public class Ticket extends TicketAction implements java.io.Serializable, ITicke
  */
    public Ticket book()throws ModelException{
       // TODO: Implement Operation book
-      return null;
-   }
-/**
- * Unreserves the ticket if possible.
- */
-   public Ticket unreserve()throws ModelException{
-      // TODO: Implement Operation unreserve
       return null;
    }
 //90 ===== GENERATED: End of Your Operations ======

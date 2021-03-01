@@ -1,11 +1,11 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:44:13 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
 public class Ticket_getPrice_Command extends ObjectCommand<Ticket, Integer>{
-   private static final long serialVersionUID = 1712358440L;
+   private static final long serialVersionUID = -1618222386L;
    public Ticket_getPrice_Command(Ticket receiver){
       super(receiver);
    }

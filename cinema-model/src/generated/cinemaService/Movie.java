@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -12,6 +12,11 @@ import generated.cinemaService.proxies.MovieProxy;
 import generated.cinemaService.proxies.IMovie;
 import db.executer.PersistenceException;
 import generated.cinemaService.relationControl.*;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Iterator;
+
+import generated.cinemaService.proxies.IMovieShow;
 import exceptions.ConstraintViolation;
 import java.util.Collection;
 //20 ===== Editable : Your Import Section =========
@@ -26,29 +31,27 @@ public class Movie extends HasIncome implements java.io.Serializable, IMovie
    //40 ===== Editable : Your Attribute Section ======
    
    //50 ===== GENERATED:      Constructor ============
-   private Movie(Integer id, String title, String description, Integer minutes, MovieShow movieShow, boolean objectOnly)
-   throws ConstraintViolation, PersistenceException{
+   private Movie(Integer id, String title, String description, Integer minutes, boolean objectOnly)
+   {
       super(id, objectOnly);
       this.title = title;
       this.description = description;
       this.minutes = minutes;
       if(objectOnly) return;
-      if(movieShow.getMovie().isPresent()) throw new ConstraintViolation("Object cannot be instantiated, because " + movieShow+ " is full");
-      try{movieOfMovieShowSupervisor.getInstance().set(movieShow,this);}catch(ConstraintViolation cv){}// Ok, because consistency is guaranteed with this statement
    }
    /** Caution: A Call to this Method Requires to add any newly instantiated Object to its Cache! */
-   public static Movie createAlreadyPersistent(MovieProxy proxy, String title, String description, Integer minutes, MovieShow movieShow)throws ConstraintViolation, PersistenceException{
+   public static Movie createAlreadyPersistent(MovieProxy proxy, String title, String description, Integer minutes){
       if(proxy.isObjectPresent()) return proxy.getTheObject();
-      return new Movie(proxy.getId(), title, description, minutes, movieShow, true);
+      return new Movie(proxy.getId(), title, description, minutes, true);
    }
-   public static Movie createFresh(String title, String description, Integer minutes, MovieShow movieShow)throws ConstraintViolation, PersistenceException{
+   public static Movie createFresh(String title, String description, Integer minutes)throws PersistenceException{
       db.executer.DBDMLExecuter dmlExecuter = PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter();
       Integer id = dmlExecuter.getNextId();
       try{
          dmlExecuter.insertInto("HasIncome", "id, typeKey, title, description, minutes", 
          id.toString() + ", " + TypeKeyManager.getTheInstance().getTypeKey("CinemaService", "Movie").toString() + ", " + "'" + title + "'" + ", " + "'" + description + "'" + ", " + minutes.toString());
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
-      Movie me = new Movie(id, title, description, minutes, movieShow, false);
+      Movie me = new Movie(id, title, description, minutes, false);
       CinemaService.getInstance().addMovieProxy(new MovieProxy(me));
       return me;
    }
@@ -82,8 +85,10 @@ public class Movie extends HasIncome implements java.io.Serializable, IMovie
       try{PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter().update("HasIncome", "minutes", newMinutes.toString(), this.getId());
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
    }
-   public MovieShow getMovieShow() throws PersistenceException{
-      return movieOfMovieShowSupervisor.getInstance().getMovieShow(this).getTheObject();
+   public Set<MovieShow> getMovieShow() throws PersistenceException{
+      Set<MovieShow> result = new HashSet<>();
+      for (IMovieShow i : movieOfMovieShowSupervisor.getInstance().getMovieShow(this)) result.add(i.getTheObject());
+      return result;
    }
    //80 ===== Editable : Your Operations =============
 /**
@@ -97,8 +102,11 @@ public class Movie extends HasIncome implements java.io.Serializable, IMovie
  * Returns the income that the elements currently has.
  */
    public Integer income()throws ModelException{
-      // TODO: Implement Operation income
-      return null;
+	   Integer sum = 0;
+		for (Iterator<MovieShow> iterator = this.getMovieShow().iterator(); iterator.hasNext();) {
+			sum += iterator.next().income();
+		}
+		return sum;
    }
 //90 ===== GENERATED: End of Your Operations ======
 }

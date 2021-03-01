@@ -4,13 +4,13 @@
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
-public class TicketAction_unreserve_Command extends ObjectCommand<TicketAction, Ticket>{
-   private static final long serialVersionUID = 1707215653L;
-   public TicketAction_unreserve_Command(TicketAction receiver){
+public class MovieShow_getTheRoom_Command extends ObjectCommand<MovieShow, Room>{
+   private static final long serialVersionUID = 314340097L;
+   public MovieShow_getTheRoom_Command(MovieShow receiver){
       super(receiver);
    }
    public void execute(){
-      try{this.result = this.receiver.unreserve();
+      try{this.result = this.receiver.getTheRoom();
       }catch(Exception e){this.e = e;
       }finally{this.receiver.notifyObservers(this);}
    }

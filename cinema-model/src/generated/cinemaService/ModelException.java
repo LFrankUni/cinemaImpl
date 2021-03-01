@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:45:22 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -16,12 +16,11 @@ public class ModelException extends Exception {
 	public ModelException() {
 		super("1 not so nice error happend in model");
 	}
-	// 60 ===== Editable : Your Constructors ===========
 
+	// 60 ===== Editable : Your Constructors ===========
 	public ModelException(String msg) {
 		super(msg);
 	}
-
 	// 70 ===== GENERATED: Feature Access =========
 	// 80 ===== Editable : Your Operations =============
 //90 ===== GENERATED: End of Your Operations ======

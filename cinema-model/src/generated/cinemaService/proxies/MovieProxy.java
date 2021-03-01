@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -8,9 +8,7 @@ import db.executer.*;
 import generated.cinemaService.Movie;
 import java.sql.ResultSet;
 import generated.cinemaService.MovieShow;
-import generated.cinemaService.relationControl.movieOfMovieShowSupervisor;
-import java.util.Collection;
-import generated.cinemaService.ModelException;
+import java.util.Set;
 public class MovieProxy extends HasIncomeProxy implements IMovie{
    private Integer id;
    private Optional<Movie> theObject;
@@ -46,8 +44,7 @@ public class MovieProxy extends HasIncomeProxy implements IMovie{
          String title = rs.getString("title");
          String description = rs.getString("description");
          Integer minutes = rs.getInt("minutes");
-         MovieShow movieShow = movieOfMovieShowSupervisor.getInstance().getMovieShow(this).getTheObject();
-         return Movie.createAlreadyPersistent(this, title, description, minutes, movieShow);
+         return Movie.createAlreadyPersistent(this, title, description, minutes);
       } catch (Exception e) {throw new PersistenceException(e.getMessage());}
    }
    public String getTitle() {
@@ -68,13 +65,7 @@ public class MovieProxy extends HasIncomeProxy implements IMovie{
    public void setMinutes(Integer newMinutes) throws PersistenceException{
       this.getTheObject().setMinutes(newMinutes);
    }
-   public MovieShow getMovieShow() throws PersistenceException{
+   public Set<MovieShow> getMovieShow() throws PersistenceException{
       return this.getTheObject().getMovieShow();
-   }
-   public Collection<MovieShow> getAllMovieShows(String from, String to)throws ModelException{
-      return this.getTheObject().getAllMovieShows(from, to);
-   }
-   public Integer income()throws ModelException{
-      return this.getTheObject().income();
    }
 }

@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -8,8 +8,6 @@ import generated.cinemaService.User;
 import generated.cinemaService.Ticket;
 import java.util.Set;
 import exceptions.ConstraintViolation;
-import java.util.Collection;
-import generated.cinemaService.ModelException;
 public interface IUser extends Identifiable{
    public User getTheObject();
    public Integer getId();
@@ -24,5 +22,4 @@ public interface IUser extends Identifiable{
    public void setEmail(String newEmail) throws PersistenceException;
    public String getPassword() ;
    public void setPassword(String newPassword) throws PersistenceException;
-   public Collection<Ticket> getAllTickets()throws ModelException;
 }

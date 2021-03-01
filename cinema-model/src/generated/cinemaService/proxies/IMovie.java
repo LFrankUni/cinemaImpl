@@ -1,4 +1,4 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -6,8 +6,7 @@ import idManagement.Identifiable;
 import db.executer.PersistenceException;
 import generated.cinemaService.Movie;
 import generated.cinemaService.MovieShow;
-import java.util.Collection;
-import generated.cinemaService.ModelException;
+import java.util.Set;
 public interface IMovie extends IHasIncome{
    public Movie getTheObject();
    public Integer getId();
@@ -17,7 +16,5 @@ public interface IMovie extends IHasIncome{
    public void setDescription(String newDescription) throws PersistenceException;
    public Integer getMinutes() ;
    public void setMinutes(Integer newMinutes) throws PersistenceException;
-   public MovieShow getMovieShow() throws PersistenceException;
-   public Collection<MovieShow> getAllMovieShows(String from, String to)throws ModelException;
-   public Integer income()throws ModelException;
+   public Set<MovieShow> getMovieShow() throws PersistenceException;
 }

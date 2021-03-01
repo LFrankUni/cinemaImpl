@@ -4,14 +4,13 @@
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
-import java.util.Collection;
-public class getAllCinemas_Command extends ServiceCommand<Collection<Cinema>>{
-   private static final long serialVersionUID = 1044780057L;
-   public getAllCinemas_Command(){
+public class income_Command extends ServiceCommand<Integer>{
+   private static final long serialVersionUID = 1828916120L;
+   public income_Command(){
       super();
    }
    public void execute(){
-      try{this.result = CinemaService.getInstance().getAllCinemas();
+      try{this.result = CinemaService.getInstance().income();
       }catch(Exception e){this.e = e;
       }finally{CinemaService.getInstance().notifyObservers(this);}
    }

@@ -1,18 +1,20 @@
-/**--- Generated at Sun Feb 28 12:35:27 CET 2021 
+/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
 public class MovieShow_constructor_Command extends ServiceCommand<MovieShow>{
-   private static final long serialVersionUID = -833435283L;
+   private static final long serialVersionUID = 768462409L;
+   private Movie movie;
    private String  start;
    private String  end;
    private Boolean  threeDimensional;
    private Integer  priceInCent;
    private Room  room;
-   public MovieShow_constructor_Command(String  start, String  end, Boolean  threeDimensional, Integer  priceInCent, Room  room){
+   public MovieShow_constructor_Command(Movie movie, String  start, String  end, Boolean  threeDimensional, Integer  priceInCent, Room  room){
       super();
+      this.movie = movie;
       this.start = start;
       this.end = end;
       this.threeDimensional = threeDimensional;
@@ -20,7 +22,7 @@ public class MovieShow_constructor_Command extends ServiceCommand<MovieShow>{
       this.room = room;
    }
    public void execute(){
-      try{this.result = MovieShow.createFresh(start, end, threeDimensional, priceInCent, room);
+      try{this.result = MovieShow.createFresh(movie, start, end, threeDimensional, priceInCent, room);
       }catch(Exception e){this.e = e;
       }finally{CinemaService.getInstance().notifyObservers(this);}
    }
