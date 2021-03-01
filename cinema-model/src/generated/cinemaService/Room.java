@@ -142,8 +142,7 @@ public class Room extends HasIncome implements java.io.Serializable, IRoom {
 	 * Closes the room so that no MovieShow can be hosted.
 	 */
 	public void close() throws ModelException {
-		// TODO: Implement Operation close
-		return;
+		this.setOpen(false);
 	}
 
 	/**
@@ -167,8 +166,7 @@ public class Room extends HasIncome implements java.io.Serializable, IRoom {
 	 * Opens the room for service.
 	 */
 	public void open() throws ModelException {
-		// TODO: Implement Operation open
-		return;
+		this.setOpen(true);
 	}
 
 	/**
