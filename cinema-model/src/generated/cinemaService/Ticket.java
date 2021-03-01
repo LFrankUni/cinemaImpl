@@ -102,12 +102,12 @@ public class Ticket extends TicketAction implements java.io.Serializable, ITicke
 	}
 
 	// 80 ===== Editable : Your Operations =============
-/**
- * Returns the seat of this ticket.
- */
-   public Seat getTheSeat()throws ModelException{
-     return this.getSeat();
-   }
+	/**
+	 * Returns the seat of this ticket.
+	 */
+	public Seat getTheSeat() throws ModelException {
+		return this.getSeat();
+	}
 
 	/**
 	 * Cost of this ticket.
@@ -120,24 +120,21 @@ public class Ticket extends TicketAction implements java.io.Serializable, ITicke
 	 * Unreserves the ticket if possible.
 	 */
 	public Ticket unreserve() throws ModelException {
-		// TODO: Implement Operation unreserve
-		return null;
+		return this.getState().get().unreserve();
 	}
 
 	/**
 	 * Reserves the ticket if possible.
 	 */
 	public Ticket reserve(User user) throws ModelException {
-		// TODO: Implement Operation reserve
-		return null;
+		return this.getState().get().reserve(user);
 	}
 
 	/**
 	 * Books the ticket if possible.
 	 */
 	public Ticket book() throws ModelException {
-		// TODO: Implement Operation book
-		return null;
+		return this.getState().get().book();
 	}
 //90 ===== GENERATED: End of Your Operations ======
 }
