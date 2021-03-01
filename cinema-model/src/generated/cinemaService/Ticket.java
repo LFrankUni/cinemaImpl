@@ -113,8 +113,7 @@ public class Ticket extends TicketAction implements java.io.Serializable, ITicke
 	 * Cost of this ticket.
 	 */
 	public Integer getPrice() throws ModelException {
-		// TODO: Implement Operation getPrice
-		return null;
+		return this.getMovieShow().getPriceInCent() + this.getSeat().getRow().getPriceInCent();
 	}
 
 	/**
