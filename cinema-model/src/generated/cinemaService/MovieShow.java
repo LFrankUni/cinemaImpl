@@ -178,7 +178,8 @@ public class MovieShow extends HasIncome implements java.io.Serializable, IMovie
 
 	/**
 	 * Returns the room of this show.
-	 * @throws PersistenceException 
+	 * 
+	 * @throws PersistenceException
 	 */
 	public Room getTheRoom() throws ModelException {
 		return this.getRoom();
@@ -188,8 +189,7 @@ public class MovieShow extends HasIncome implements java.io.Serializable, IMovie
 	 * Returns the movie of this show.
 	 */
 	public Movie getTheMovie() throws ModelException {
-		// TODO: Implement Operation getTheMovie
-		return null;
+		return this.getMovie();
 	}
 
 	/**
