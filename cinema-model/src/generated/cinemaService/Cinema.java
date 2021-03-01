@@ -117,8 +117,7 @@ public class Cinema extends HasIncome implements java.io.Serializable, ICinema {
 	 * Returns all movies of this cinema.
 	 */
 	public Collection<Movie> getAllMovies() throws ModelException {
-		// TODO: Implement Operation getAllMovies
-		return null;
+		return this.getMovies();
 	}
 
 	/**
