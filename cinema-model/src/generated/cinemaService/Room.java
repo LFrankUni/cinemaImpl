@@ -134,8 +134,7 @@ public class Room extends HasIncome implements java.io.Serializable, IRoom {
 	 * Returns all rows of this room.
 	 */
 	public Collection<Room> getAllRows() throws ModelException {
-		// TODO: Implement Operation getAllRows
-		return null;
+		return this.getAllRows();
 	}
 
 	/**
