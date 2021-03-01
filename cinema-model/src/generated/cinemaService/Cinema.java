@@ -133,8 +133,8 @@ public class Cinema extends HasIncome implements java.io.Serializable, ICinema {
 	 * Adds a movie to this cinema
 	 */
 	public void addMovie(Movie movie) throws ModelException {
-		// TODO: Implement Operation addMovie
-		return;
+		// TODO validate???
+		this.addToMovies(movie);
 	}
 
 	/**
