@@ -173,16 +173,15 @@ public class MovieShow extends HasIncome implements java.io.Serializable, IMovie
 	 * Returns all tickets of this show.
 	 */
 	public Collection<Ticket> getAllTickets() throws ModelException {
-		// TODO: Implement Operation getAllTickets
-		return null;
+		return this.getTickets();
 	}
 
 	/**
 	 * Returns the room of this show.
+	 * @throws PersistenceException 
 	 */
-	public Room getTheRoom() {
-		// TODO: Implement Operation getTheRoom
-		return null;
+	public Room getTheRoom() throws ModelException {
+		return this.getRoom();
 	}
 
 	/**
