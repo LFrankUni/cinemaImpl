@@ -6,17 +6,21 @@ package generated.cinemaService;
 
 //10 ===== GENERATED:      Import Section =========
 import java.sql.SQLException;
+import java.time.Instant;
+
 import db.connection.NoConnectionException;
 import db.connection.TypeKeyManager;
 import db.executer.PersistenceExecuterFactory;
 import generated.cinemaService.proxies.RoomProxy;
 import generated.cinemaService.proxies.IRoom;
 import generated.cinemaService.relationControl.*;
+import utilities.TimeConverter;
 import generated.cinemaService.proxies.*;
 import db.executer.PersistenceException;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Optional;
 
 import exceptions.ConstraintViolation;
 import java.util.Collection;
@@ -134,7 +138,8 @@ public class Room extends HasIncome implements java.io.Serializable, IRoom {
 	 * Returns all rows of this room.
 	 */
 	public Collection<Room> getAllRows() throws ModelException {
-		return this.getAllRows();
+		// TODO MPS
+		return null;
 	}
 
 	/**
@@ -149,8 +154,36 @@ public class Room extends HasIncome implements java.io.Serializable, IRoom {
 	 */
 	public MovieShow scheduleMovieShow(Movie movie, String start, String end, Boolean threeDimensional, Integer price)
 			throws ModelException {
-		// TODO: Implement Operation scheduleMovieShow
-		return null;
+
+		final Instant _start = TimeConverter.toInstant(start);
+		final Instant _end = TimeConverter.toInstant(end);
+
+		if (movie == null || start == null || end == null || threeDimensional == null || price == null)
+			throw new ModelException("Must provide non null-values!");
+
+		if (_end.isBefore(_start))
+			throw new ModelException("");
+
+		if (movie.getMinutes() * 60 > TimeConverter.toInstant(end).getEpochSecond() - _start.getEpochSecond())
+			throw new ModelException(String.format(
+					"Movie length longer than requested time slot! Minutes of requested movie: %s <-> Length of requested timeslot %s",
+					movie.getMinutes(), TimeConverter.toInstant(end).getEpochSecond() - _start.getEpochSecond()));
+
+		if (this.getMovieShows().stream().filter(show -> _start.isBefore(TimeConverter.toInstant(show.getEnd()))
+				&& _end.isAfter(TimeConverter.toInstant(show.getStart()))).findAny().isPresent())
+			throw new ModelException("Requested time slot not available!");
+
+		final MovieShow show = MovieShow.createFresh(movie, start, end, threeDimensional, price, this);
+		for (AbstractRow row : this.getRows()) {
+			for (Seat seat : row.getSeats()) {
+				final Ticket ticket = Ticket.createFresh(seat, show, null); // TODO MPS -> set to partial map
+				ticket.setState(Available.createFresh(ticket));
+			}
+		}
+
+		this.addToMovieShows(show);
+		
+		return show;
 	}
 
 	/**
