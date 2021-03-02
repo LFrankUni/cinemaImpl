@@ -154,7 +154,7 @@ public class Room extends HasIncome implements java.io.Serializable, IRoom {
 	 */
 	public MovieShow scheduleMovieShow(Movie movie, String start, String end, Boolean threeDimensional, Integer price)
 			throws ModelException {
-
+		// TODO time arg and refactor impl
 		final Instant _start = TimeConverter.toInstant(start);
 		final Instant _end = TimeConverter.toInstant(end);
 
