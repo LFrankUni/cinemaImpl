@@ -6,15 +6,19 @@ package generated.cinemaService;
 
 //10 ===== GENERATED:      Import Section =========
 import java.sql.SQLException;
+import java.time.Instant;
+
 import db.connection.NoConnectionException;
 import db.connection.TypeKeyManager;
 import db.executer.PersistenceExecuterFactory;
 import generated.cinemaService.proxies.CinemaProxy;
 import generated.cinemaService.proxies.ICinema;
 import generated.cinemaService.relationControl.*;
+import utilities.TimeConverter;
 import generated.cinemaService.proxies.*;
 import db.executer.PersistenceException;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -124,8 +128,19 @@ public class Cinema extends HasIncome implements java.io.Serializable, ICinema {
 	 * Returns all movie shows between from and to (inclusive).
 	 */
 	public Collection<MovieShow> getScheduledMovieShows(String from, String to) throws ModelException {
-		// TODO: Implement Operation getScheduledMovieShows
-		return null;
+		final Instant _from = TimeConverter.toInstant(from);
+		final Instant _to = TimeConverter.toInstant(to);
+
+		final Set<MovieShow> out = new HashSet<MovieShow>();
+		Instant showStart;
+		for (Room room : this.getRoomes()) {
+			for (MovieShow show : room.getMovieShows()) {
+				showStart = TimeConverter.toInstant(show.getStart());
+				if (showStart.isAfter(_from) && showStart.isBefore(_to))
+					out.add(show);
+			}
+		}
+		return out;
 	}
 
 	/**
