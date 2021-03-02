@@ -190,6 +190,7 @@ public class Room extends HasIncome implements java.io.Serializable, IRoom {
 	 * Adds a row to the Room.
 	 */
 	public void addRow(AbstractRow row) throws ModelException {
+		// TODO pass name of row and row type, not full row
 		if (this.getOpen())
 			throw new ModelException("Must not add a row to a room, when it is closed!");
 		else
