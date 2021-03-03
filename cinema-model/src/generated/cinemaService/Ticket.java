@@ -1,4 +1,4 @@
-/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
+/**--- Generated at Wed Mar 03 11:50:31 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -14,8 +14,8 @@ import generated.cinemaService.proxies.ITicket;
 import generated.cinemaService.relationControl.*;
 import generated.cinemaService.proxies.*;
 import db.executer.PersistenceException;
-import exceptions.ConstraintViolation;
 import java.util.Optional;
+import exceptions.ConstraintViolation;
 //20 ===== Editable : Your Import Section =========
 
 //25 ===== GENERATED:      Header Section =========
@@ -24,7 +24,7 @@ public class Ticket extends TicketAction implements java.io.Serializable, ITicke
 	// 40 ===== Editable : Your Attribute Section ======
 
 	// 50 ===== GENERATED: Constructor ============
-	private Ticket(Integer id, Seat seat, MovieShow movieShow, User user, boolean objectOnly)
+	private Ticket(Integer id, Seat seat, MovieShow movieShow, boolean objectOnly)
 			throws PersistenceException, ConstraintViolation {
 		super(id, objectOnly);
 		ticketToSeatSupervisor.getInstance().set(this, seat);
@@ -34,25 +34,20 @@ public class Ticket extends TicketAction implements java.io.Serializable, ITicke
 			movieShowToTicketSupervisor.getInstance().add(movieShow, this);
 		} catch (ConstraintViolation cv) {
 		} // Ok, because consistency is guaranteed with this statement
-		try {
-			userToTicketSupervisor.getInstance().add(user, this);
-		} catch (ConstraintViolation cv) {
-		} // Ok, because consistency is guaranteed with this statement
 	}
 
 	/**
 	 * Caution: A Call to this Method Requires to add any newly instantiated Object
 	 * to its Cache!
 	 */
-	public static Ticket createAlreadyPersistent(TicketProxy proxy, Seat seat, MovieShow movieShow, User user)
+	public static Ticket createAlreadyPersistent(TicketProxy proxy, Seat seat, MovieShow movieShow)
 			throws PersistenceException, ConstraintViolation {
 		if (proxy.isObjectPresent())
 			return proxy.getTheObject();
-		return new Ticket(proxy.getId(), seat, movieShow, user, true);
+		return new Ticket(proxy.getId(), seat, movieShow, true);
 	}
 
-	public static Ticket createFresh(Seat seat, MovieShow movieShow, User user)
-			throws PersistenceException, ConstraintViolation {
+	public static Ticket createFresh(Seat seat, MovieShow movieShow) throws PersistenceException, ConstraintViolation {
 		db.executer.DBDMLExecuter dmlExecuter = PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter();
 		Integer id = dmlExecuter.getNextId();
 		try {
@@ -61,7 +56,7 @@ public class Ticket extends TicketAction implements java.io.Serializable, ITicke
 		} catch (SQLException | NoConnectionException e) {
 			throw new PersistenceException(e.getMessage());
 		}
-		Ticket me = new Ticket(id, seat, movieShow, user, false);
+		Ticket me = new Ticket(id, seat, movieShow, false);
 		CinemaService.getInstance().addTicketProxy(new TicketProxy(me));
 		return me;
 	}
@@ -78,6 +73,19 @@ public class Ticket extends TicketAction implements java.io.Serializable, ITicke
 
 	public void setSeat(Seat newSeat) throws PersistenceException {
 		ticketToSeatSupervisor.getInstance().change(this, this.getSeat(), newSeat);
+	}
+
+	public Optional<User> getUser() throws PersistenceException {
+		Optional<IUser> opt = TicketsOfUserSupervisor.getInstance().getUser(this);
+		return opt.isPresent() ? Optional.of(TicketsOfUserSupervisor.getInstance().getUser(this).get().getTheObject())
+				: Optional.empty();
+	}
+
+	public void setUser(User newUser) throws PersistenceException {
+		if (this.getUser().isPresent())
+			TicketsOfUserSupervisor.getInstance().change(this, this.getUser().get(), newUser);
+		else
+			TicketsOfUserSupervisor.getInstance().set(this, newUser);
 	}
 
 	public Optional<TicketState> getState() throws PersistenceException {
@@ -97,10 +105,6 @@ public class Ticket extends TicketAction implements java.io.Serializable, ITicke
 		return movieShowToTicketSupervisor.getInstance().getMovieShow(this).getTheObject();
 	}
 
-	public User getUser() throws PersistenceException {
-		return userToTicketSupervisor.getInstance().getUser(this).getTheObject();
-	}
-
 	// 80 ===== Editable : Your Operations =============
 	/**
 	 * Returns the seat of this ticket.
@@ -113,7 +117,7 @@ public class Ticket extends TicketAction implements java.io.Serializable, ITicke
 	 * Cost of this ticket.
 	 */
 	public Integer getPrice() throws ModelException {
-		return this.getMovieShow().getPriceInCent() + this.getSeat().getRow().getPriceInCent();
+		return this.getMovieShow().getPriceInCent() + this.getSeat().getRow().getCategory().getPriceInCents();
 	}
 
 	/**

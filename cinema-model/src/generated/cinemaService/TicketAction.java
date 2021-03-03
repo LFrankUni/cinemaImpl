@@ -1,4 +1,4 @@
-/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
+/**--- Generated at Wed Mar 03 11:50:32 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -50,12 +50,12 @@ public abstract class TicketAction extends Observable implements java.io.Seriali
  */
    public abstract Ticket unreserve()throws ModelException;
 /**
- * Reserves the ticket if possible.
- */
-   public abstract Ticket reserve(User user)throws ModelException;
-/**
  * Books the ticket if possible.
  */
    public abstract Ticket book()throws ModelException;
+/**
+ * Reserves the ticket if possible.
+ */
+   public abstract Ticket reserve(User user)throws ModelException;
 //90 ===== GENERATED: End of Your Operations ======
 }

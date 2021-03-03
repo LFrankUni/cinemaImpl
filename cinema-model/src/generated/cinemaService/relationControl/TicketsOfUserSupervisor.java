@@ -8,41 +8,42 @@ import relationManagement.Relation;
 import db.executer.PersistenceException;
 import generated.cinemaService.proxies.*;
 import exceptions.ConstraintViolation;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 //20 ===== Editable : Your Import Section =========
 
 //25 ===== GENERATED:      Header Section =========
-public class movieOfMovieShowSupervisor
+public class TicketsOfUserSupervisor
 {
    //30 ===== GENERATED:      Attribute Section ======
-   private static movieOfMovieShowSupervisor theInstance = new movieOfMovieShowSupervisor();
-   private Relation<IMovieShow,IMovie> elements;
+   private static TicketsOfUserSupervisor theInstance = new TicketsOfUserSupervisor();
+   private Relation<ITicket,IUser> elements;
    //40 ===== Editable : Your Attribute Section ======
    
    //50 ===== GENERATED:      Constructor ============
-   private movieOfMovieShowSupervisor(){
-      this.elements = new Relation<>("movieOfMovieShow");
+   private TicketsOfUserSupervisor(){
+      this.elements = new Relation<>("TicketsOfUser");
    }
    //60 ===== Editable : Your Constructors ===========
    
    //70 ===== GENERATED:      Feature Access =========
-   public static movieOfMovieShowSupervisor getInstance(){return theInstance;}
-   public IMovie getMovie(IMovieShow owner){
-      return this.elements.getRelatedTargets(owner).isEmpty() ? null : this.elements.getRelatedTargets(owner).get(0);
+   public static TicketsOfUserSupervisor getInstance(){return theInstance;}
+   public Optional<IUser> getUser(ITicket owner){
+      return (this.elements.getRelatedTargets(owner).size() == 0) ? Optional.empty() : Optional.of(this.elements.getRelatedTargets(owner).get(0));
    }
-   public void set(IMovieShow owner, IMovie target) throws PersistenceException{
-      IMovie targetOld = this.getMovie(owner); IMovie targetNew = target;
+   public void set(ITicket owner, IUser target) throws PersistenceException{
+      IUser targetOld = this.getUser(owner).isPresent() ? this.getUser(owner).get() : null; IUser targetNew = target;
       this.elements.change(owner, targetOld, targetNew);
    }
-   public void setAlreadyPersistent(IMovieShow owner, IMovie target) {
-      IMovie targetOld = null; IMovie targetNew = target;
+   public void setAlreadyPersistent(ITicket owner, IUser target) {
+      IUser targetOld = null; IUser targetNew = target;
       this.elements.setAlreadyPersistent(owner, targetNew);
    }
-   public void change(IMovieShow owner, IMovie targetOld, IMovie targetNew) throws PersistenceException{
+   public void change(ITicket owner, IUser targetOld, IUser targetNew) throws PersistenceException{
       this.elements.change(owner, targetOld, targetNew);
    }
-   public Set<IMovieShow> getMovieShows(IMovie target){
+   public Set<ITicket> getTicket(IUser target){
       return this.elements.getRelatedSources(target).stream().collect(Collectors.toSet());
    }
    //80 ===== Editable : Your Operations =============

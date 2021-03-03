@@ -1,4 +1,4 @@
-/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
+/**--- Generated at Wed Mar 03 11:50:31 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -10,6 +10,8 @@ import generated.cinemaService.Ticket;
 import java.util.Set;
 import exceptions.ConstraintViolation;
 import generated.cinemaService.Room;
+import generated.cinemaService.ModelException;
+import java.util.Collection;
 public interface IMovieShow extends IHasIncome{
    public MovieShow getTheObject();
    public Integer getId();
@@ -27,4 +29,8 @@ public interface IMovieShow extends IHasIncome{
    public Integer getPriceInCent() ;
    public void setPriceInCent(Integer newPriceInCent) throws PersistenceException;
    public Room getRoom() throws PersistenceException;
+   public Room getTheRoom()throws ModelException;
+   public Collection<Ticket> getAllTickets()throws ModelException;
+   public Movie getTheMovie()throws ModelException;
+   public Integer income()throws ModelException;
 }

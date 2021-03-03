@@ -1,4 +1,4 @@
-/**--- Generated at Mon Mar 01 13:45:22 CET 2021 
+/**--- Generated at Wed Mar 03 11:50:32 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -17,7 +17,7 @@ public class rowToSeatsSupervisor
 {
    //30 ===== GENERATED:      Attribute Section ======
    private static rowToSeatsSupervisor theInstance = new rowToSeatsSupervisor();
-   private Relation<IAbstractRow,ISeat> elements;
+   private Relation<IRoomRow,ISeat> elements;
    //40 ===== Editable : Your Attribute Section ======
    
    //50 ===== GENERATED:      Constructor ============
@@ -28,28 +28,28 @@ public class rowToSeatsSupervisor
    
    //70 ===== GENERATED:      Feature Access =========
    public static rowToSeatsSupervisor getInstance(){return theInstance;}
-   public Set<ISeat> getSeats(IAbstractRow owner){
+   public Set<ISeat> getSeats(IRoomRow owner){
       return this.elements.getRelatedTargets(owner).stream().collect(Collectors.toSet());
    }
-   public void add(IAbstractRow owner, ISeat target) throws ConstraintViolation, PersistenceException{
+   public void add(IRoomRow owner, ISeat target) throws ConstraintViolation, PersistenceException{
       this.elements.willViolateInjectivity(owner, target);
       this.elements.addElement(owner,target);
    }
-   public void addAlreadyPersistent(IAbstractRow owner, ISeat target) throws ConstraintViolation, PersistenceException{
+   public void addAlreadyPersistent(IRoomRow owner, ISeat target) throws ConstraintViolation, PersistenceException{
       this.elements.willViolateInjectivity(owner, target);
       this.elements.addElementAlreadyPersistent(owner,target);
    }
-   public boolean remove(IAbstractRow owner, ISeat target) throws ConstraintViolation, PersistenceException{
+   public boolean remove(IRoomRow owner, ISeat target) throws ConstraintViolation, PersistenceException{
       boolean loop = this.removeOnce(owner, target);
       boolean result = loop;
       while(loop) loop = this.removeOnce(owner, target);
       return result;
    }
-   private boolean removeOnce(IAbstractRow owner, ISeat target) throws ConstraintViolation, PersistenceException{
+   private boolean removeOnce(IRoomRow owner, ISeat target) throws ConstraintViolation, PersistenceException{
       this.elements.willViolateSurjectivity(owner, target);
       return this.elements.removeElement(owner,target);
    }
-   public IAbstractRow getRow(ISeat target){
+   public IRoomRow getRow(ISeat target){
       return this.elements.getRelatedSources(target).get(0);
    }
    //80 ===== Editable : Your Operations =============

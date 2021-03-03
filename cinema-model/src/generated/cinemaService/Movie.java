@@ -1,4 +1,4 @@
-/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
+/**--- Generated at Wed Mar 03 11:50:31 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -119,9 +119,9 @@ public class Movie extends HasIncome implements java.io.Serializable, IMovie {
 		}
 	}
 
-	public Set<MovieShow> getMovieShow() throws PersistenceException {
+	public Set<MovieShow> getMovieShows() throws PersistenceException {
 		Set<MovieShow> result = new HashSet<>();
-		for (IMovieShow i : movieOfMovieShowSupervisor.getInstance().getMovieShow(this))
+		for (IMovieShow i : movieOfMovieShowSupervisor.getInstance().getMovieShows(this))
 			result.add(i.getTheObject());
 		return result;
 	}
@@ -133,7 +133,7 @@ public class Movie extends HasIncome implements java.io.Serializable, IMovie {
 	public Collection<MovieShow> getAllMovieShows(String from, String to) throws ModelException {
 		final Instant _from = TimeConverter.toInstant(from);
 		final Instant _to = TimeConverter.toInstant(to);
-		return this.getMovieShow().stream().filter(show -> TimeConverter.toInstant(show.getStart()).isAfter(_from)
+		return this.getMovieShows().stream().filter(show -> TimeConverter.toInstant(show.getStart()).isAfter(_from)
 				&& TimeConverter.toInstant(show.getStart()).isBefore(_to)).collect(Collectors.toSet());
 	}
 
@@ -142,7 +142,7 @@ public class Movie extends HasIncome implements java.io.Serializable, IMovie {
 	 */
 	public Integer income() throws ModelException {
 		Integer sum = 0;
-		for (Iterator<MovieShow> iterator = this.getMovieShow().iterator(); iterator.hasNext();) {
+		for (Iterator<MovieShow> iterator = this.getMovieShows().iterator(); iterator.hasNext();) {
 			sum += iterator.next().income();
 		}
 		return sum;

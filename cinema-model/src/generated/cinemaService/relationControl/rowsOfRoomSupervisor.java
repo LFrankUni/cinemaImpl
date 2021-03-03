@@ -1,4 +1,4 @@
-/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
+/**--- Generated at Wed Mar 03 11:50:32 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -16,7 +16,7 @@ public class rowsOfRoomSupervisor
 {
    //30 ===== GENERATED:      Attribute Section ======
    private static rowsOfRoomSupervisor theInstance = new rowsOfRoomSupervisor();
-   private Relation<IRoom,IAbstractRow> elements;
+   private Relation<IRoom,IRoomRow> elements;
    //40 ===== Editable : Your Attribute Section ======
    
    //50 ===== GENERATED:      Constructor ============
@@ -27,22 +27,22 @@ public class rowsOfRoomSupervisor
    
    //70 ===== GENERATED:      Feature Access =========
    public static rowsOfRoomSupervisor getInstance(){return theInstance;}
-   public Set<IAbstractRow> getRows(IRoom owner){
+   public Set<IRoomRow> getRows(IRoom owner){
       return this.elements.getRelatedTargets(owner).stream().collect(Collectors.toSet());
    }
-   public void add(IRoom owner, IAbstractRow target) throws PersistenceException{
+   public void add(IRoom owner, IRoomRow target) throws PersistenceException{
       this.elements.addElement(owner,target);
    }
-   public void addAlreadyPersistent(IRoom owner, IAbstractRow target) throws PersistenceException{
+   public void addAlreadyPersistent(IRoom owner, IRoomRow target) throws PersistenceException{
       this.elements.addElementAlreadyPersistent(owner,target);
    }
-   public boolean remove(IRoom owner, IAbstractRow target) throws PersistenceException{
+   public boolean remove(IRoom owner, IRoomRow target) throws PersistenceException{
       boolean loop = this.removeOnce(owner, target);
       boolean result = loop;
       while(loop) loop = this.removeOnce(owner, target);
       return result;
    }
-   private boolean removeOnce(IRoom owner, IAbstractRow target) throws PersistenceException{
+   private boolean removeOnce(IRoom owner, IRoomRow target) throws PersistenceException{
       return this.elements.removeElement(owner,target);
    }
    //80 ===== Editable : Your Operations =============

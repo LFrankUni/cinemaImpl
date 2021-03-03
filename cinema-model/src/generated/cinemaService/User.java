@@ -1,4 +1,4 @@
-/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
+/**--- Generated at Wed Mar 03 11:50:32 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -12,11 +12,11 @@ import db.executer.PersistenceExecuterFactory;
 import generated.cinemaService.proxies.UserProxy;
 import observation.Observable;
 import generated.cinemaService.proxies.IUser;
-import generated.cinemaService.relationControl.*;
-import generated.cinemaService.proxies.*;
 import db.executer.PersistenceException;
+import generated.cinemaService.relationControl.*;
 import java.util.Set;
 import java.util.HashSet;
+import generated.cinemaService.proxies.ITicket;
 import exceptions.ConstraintViolation;
 import java.util.Collection;
 //20 ===== Editable : Your Import Section =========
@@ -96,21 +96,6 @@ public class User extends Observable implements java.io.Serializable, IUser {
 		return this.getId().hashCode();
 	}
 
-	public Set<Ticket> getTickets() throws PersistenceException {
-		Set<Ticket> result = new HashSet<>();
-		for (ITicket i : userToTicketSupervisor.getInstance().getTickets(this))
-			result.add(i.getTheObject());
-		return result;
-	}
-
-	public void addToTickets(Ticket arg) throws ConstraintViolation, PersistenceException {
-		userToTicketSupervisor.getInstance().add(this, arg);
-	}
-
-	public boolean removeFromTickets(Ticket arg) throws ConstraintViolation, PersistenceException {
-		return userToTicketSupervisor.getInstance().remove(this, arg);
-	}
-
 	public String getFirstName() {
 		return this.firstName;
 	}
@@ -165,6 +150,13 @@ public class User extends Observable implements java.io.Serializable, IUser {
 		} catch (SQLException | NoConnectionException e) {
 			throw new PersistenceException(e.getMessage());
 		}
+	}
+
+	public Set<Ticket> getTickets() throws PersistenceException {
+		Set<Ticket> result = new HashSet<>();
+		for (ITicket i : TicketsOfUserSupervisor.getInstance().getTicket(this))
+			result.add(i.getTheObject());
+		return result;
 	}
 
 	// 80 ===== Editable : Your Operations =============

@@ -1,4 +1,4 @@
-/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
+/**--- Generated at Wed Mar 03 11:50:32 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -9,7 +9,8 @@ import generated.cinemaService.User;
 import java.sql.ResultSet;
 import generated.cinemaService.Ticket;
 import java.util.Set;
-import exceptions.ConstraintViolation;
+import java.util.Collection;
+import generated.cinemaService.ModelException;
 public class UserProxy implements IUser{
    private Integer id;
    private Optional<User> theObject;
@@ -49,15 +50,6 @@ public class UserProxy implements IUser{
          return User.createAlreadyPersistent(this, firstName, lastName, email, password);
       } catch (Exception e) {throw new PersistenceException(e.getMessage());}
    }
-   public Set<Ticket> getTickets() throws PersistenceException{
-      return this.getTheObject().getTickets();
-   }
-   public void addToTickets(Ticket arg) throws ConstraintViolation, PersistenceException{
-      this.getTheObject().addToTickets(arg);
-   }
-   public boolean removeFromTickets(Ticket arg) throws ConstraintViolation, PersistenceException{
-      return this.getTheObject().removeFromTickets(arg);
-   }
    public String getFirstName() {
       return this.getTheObject().getFirstName();
    }
@@ -81,5 +73,11 @@ public class UserProxy implements IUser{
    }
    public void setPassword(String newPassword) throws PersistenceException{
       this.getTheObject().setPassword(newPassword);
+   }
+   public Set<Ticket> getTickets() throws PersistenceException{
+      return this.getTheObject().getTickets();
+   }
+   public Collection<Ticket> getAllTickets()throws ModelException{
+      return this.getTheObject().getAllTickets();
    }
 }

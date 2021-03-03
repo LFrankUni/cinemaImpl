@@ -1,4 +1,4 @@
-/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
+/**--- Generated at Wed Mar 03 11:50:31 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -7,7 +7,7 @@ import java.util.Optional;
 import db.executer.*;
 import generated.cinemaService.Seat;
 import java.sql.ResultSet;
-import generated.cinemaService.AbstractRow;
+import generated.cinemaService.RoomRow;
 import generated.cinemaService.relationControl.rowToSeatsSupervisor;
 public class SeatProxy implements ISeat{
    private Integer id;
@@ -42,7 +42,7 @@ public class SeatProxy implements ISeat{
       try {
          rs = DBExecuterFactory.getConfiguredFactory().getDBDMLExecuter().selectIdSpecifiedCursorAleadyAtFirstRow("Seat", this.id);
          Integer number = rs.getInt("number");
-         AbstractRow row = rowToSeatsSupervisor.getInstance().getRow(this).getTheObject();
+         RoomRow row = rowToSeatsSupervisor.getInstance().getRow(this).getTheObject();
          return Seat.createAlreadyPersistent(this, number, row);
       } catch (Exception e) {throw new PersistenceException(e.getMessage());}
    }
@@ -52,7 +52,7 @@ public class SeatProxy implements ISeat{
    public void setNumber(Integer newNumber) throws PersistenceException{
       this.getTheObject().setNumber(newNumber);
    }
-   public AbstractRow getRow() throws PersistenceException{
+   public RoomRow getRow() throws PersistenceException{
       return this.getTheObject().getRow();
    }
 }

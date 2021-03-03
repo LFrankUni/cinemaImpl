@@ -1,4 +1,4 @@
-/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
+/**--- Generated at Wed Mar 03 11:50:31 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -18,7 +18,6 @@ import utilities.TimeConverter;
 import generated.cinemaService.proxies.*;
 import db.executer.PersistenceException;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -147,7 +146,6 @@ public class Cinema extends HasIncome implements java.io.Serializable, ICinema {
 	 * Adds a movie to this cinema
 	 */
 	public void addMovie(Movie movie) throws ModelException {
-		// TODO validate???
 		this.addToMovies(movie);
 	}
 
@@ -168,6 +166,5 @@ public class Cinema extends HasIncome implements java.io.Serializable, ICinema {
 		}
 		return sum;
 	}
-
 //90 ===== GENERATED: End of Your Operations ======
 }

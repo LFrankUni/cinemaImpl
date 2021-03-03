@@ -1,4 +1,4 @@
-/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
+/**--- Generated at Wed Mar 03 11:50:31 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -8,38 +8,65 @@ package generated.cinemaService;
 import java.sql.SQLException;
 import db.connection.NoConnectionException;
 import db.connection.TypeKeyManager;
+import db.executer.PersistenceExecuterFactory;
+import generated.cinemaService.proxies.RoomRowProxy;
 import observation.Observable;
-import generated.cinemaService.proxies.IAbstractRow;
+import generated.cinemaService.proxies.IRoomRow;
 import generated.cinemaService.relationControl.*;
 import generated.cinemaService.proxies.*;
 import db.executer.PersistenceException;
 import java.util.Set;
 import java.util.HashSet;
 import exceptions.ConstraintViolation;
-import db.executer.PersistenceExecuterFactory;
 //20 ===== Editable : Your Import Section =========
 
 //25 ===== GENERATED:      Header Section =========
-public abstract class AbstractRow extends Observable implements java.io.Serializable, IAbstractRow {
+public class RoomRow extends Observable implements java.io.Serializable, IRoomRow {
 	// 30 ===== GENERATED: Attribute Section ======
 	private Integer id;
 	private String name;
-	private Integer priceInCent;
 	// 40 ===== Editable : Your Attribute Section ======
 
 	// 50 ===== GENERATED: Constructor ============
-	public AbstractRow(Integer id, String name, Integer priceInCent, boolean objectOnly) {
+	private RoomRow(Integer id, RowCategory category, String name, boolean objectOnly) throws PersistenceException {
 		super();
 		this.setId(id);
+		rowToCategorySupervisor.getInstance().set(this, category);
 		this.name = name;
-		this.priceInCent = priceInCent;
 		if (objectOnly)
 			return;
+	}
+
+	/**
+	 * Caution: A Call to this Method Requires to add any newly instantiated Object
+	 * to its Cache!
+	 */
+	public static RoomRow createAlreadyPersistent(RoomRowProxy proxy, RowCategory category, String name)
+			throws PersistenceException {
+		if (proxy.isObjectPresent())
+			return proxy.getTheObject();
+		return new RoomRow(proxy.getId(), category, name, true);
+	}
+
+	public static RoomRow createFresh(RowCategory category, String name) throws PersistenceException {
+		db.executer.DBDMLExecuter dmlExecuter = PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter();
+		Integer id = dmlExecuter.getNextId();
+		try {
+			dmlExecuter.insertInto("RoomRow", "id, typeKey, name",
+					id.toString() + ", "
+							+ TypeKeyManager.getTheInstance().getTypeKey("CinemaService", "RoomRow").toString() + ", "
+							+ "'" + name + "'");
+		} catch (SQLException | NoConnectionException e) {
+			throw new PersistenceException(e.getMessage());
+		}
+		RoomRow me = new RoomRow(id, category, name, false);
+		CinemaService.getInstance().addRoomRowProxy(new RoomRowProxy(me));
+		return me;
 	}
 	// 60 ===== Editable : Your Constructors ===========
 
 	// 70 ===== GENERATED: Feature Access =========
-	public AbstractRow getTheObject() {
+	public RoomRow getTheObject() {
 		return this;
 	}
 
@@ -52,13 +79,21 @@ public abstract class AbstractRow extends Observable implements java.io.Serializ
 	}
 
 	public boolean equals(Object o) {
-		if (!(o instanceof IAbstractRow))
+		if (!(o instanceof IRoomRow))
 			return false;
-		return ((IAbstractRow) o).getId().equals(this.getId());
+		return ((IRoomRow) o).getId().equals(this.getId());
 	}
 
 	public int hashCode() {
 		return this.getId().hashCode();
+	}
+
+	public RowCategory getCategory() throws PersistenceException {
+		return rowToCategorySupervisor.getInstance().getCategory(this).getTheObject();
+	}
+
+	public void setCategory(RowCategory newCategory) throws PersistenceException {
+		rowToCategorySupervisor.getInstance().change(this, this.getCategory(), newCategory);
 	}
 
 	public Set<Seat> getSeats() throws PersistenceException {
@@ -83,22 +118,8 @@ public abstract class AbstractRow extends Observable implements java.io.Serializ
 	public void setName(String newName) throws PersistenceException {
 		this.name = newName;
 		try {
-			PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter().update("AbstractRow", "name",
+			PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter().update("RoomRow", "name",
 					"'" + newName + "'", this.getId());
-		} catch (SQLException | NoConnectionException e) {
-			throw new PersistenceException(e.getMessage());
-		}
-	}
-
-	public Integer getPriceInCent() {
-		return this.priceInCent;
-	}
-
-	public void setPriceInCent(Integer newPriceInCent) throws PersistenceException {
-		this.priceInCent = newPriceInCent;
-		try {
-			PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter().update("AbstractRow", "priceInCent",
-					newPriceInCent.toString(), this.getId());
 		} catch (SQLException | NoConnectionException e) {
 			throw new PersistenceException(e.getMessage());
 		}

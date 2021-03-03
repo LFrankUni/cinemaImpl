@@ -1,4 +1,4 @@
-/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
+/**--- Generated at Wed Mar 03 11:50:32 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -70,8 +70,7 @@ public class Available extends TicketState implements java.io.Serializable, IAva
 	 * Reserves the ticket if possible.
 	 */
 	public Ticket reserve(User user) throws ModelException {
-		// TODO MPS user optional
-		// this.getTicket().setUser(user)
+		this.getTicket().setUser(user);
 		this.getTicket().setState(Reserved.createFresh(this.getTicket()));
 		return this.getTicket();
 	}

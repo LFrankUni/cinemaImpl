@@ -1,4 +1,4 @@
-/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
+/**--- Generated at Wed Mar 03 11:50:32 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -63,7 +63,7 @@ public class Reserved extends TicketState implements java.io.Serializable, IRese
 	 * Unreserves the ticket if possible.
 	 */
 	public Ticket unreserve() throws ModelException {
-		// this.getTicket().setUser(null); TODO
+		this.getTicket().setUser(null);
 		this.getTicket().setState(Available.createFresh(this.getTicket()));
 		return this.getTicket();
 	}

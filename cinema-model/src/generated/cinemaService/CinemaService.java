@@ -1,4 +1,4 @@
-/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
+/**--- Generated at Wed Mar 03 11:50:31 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -32,9 +32,8 @@ public class CinemaService extends Observable {
 	private Map<Integer, RoomProxy> roomCache;
 	private Map<Integer, MovieProxy> movieCache;
 	private Map<Integer, MovieShowProxy> movieShowCache;
-	private Map<Integer, ParquetRowProxy> parquetRowCache;
-	private Map<Integer, MiddleRowProxy> middleRowCache;
-	private Map<Integer, BackRowProxy> backRowCache;
+	private Map<Integer, RoomRowProxy> roomRowCache;
+	private Map<Integer, RowCategoryProxy> rowCategoryCache;
 	private Map<Integer, SeatProxy> seatCache;
 	private Map<Integer, TicketProxy> ticketCache;
 	private Map<Integer, UserProxy> userCache;
@@ -69,12 +68,10 @@ public class CinemaService extends Observable {
 				"HasIncome").perform();
 		this.movieShowCache = new InitialProxyLoader<MovieShowProxy>("generated", "CinemaService", "cinemaService",
 				"MovieShow", "HasIncome").perform();
-		this.parquetRowCache = new InitialProxyLoader<ParquetRowProxy>("generated", "CinemaService", "cinemaService",
-				"ParquetRow", "AbstractRow").perform();
-		this.middleRowCache = new InitialProxyLoader<MiddleRowProxy>("generated", "CinemaService", "cinemaService",
-				"MiddleRow", "AbstractRow").perform();
-		this.backRowCache = new InitialProxyLoader<BackRowProxy>("generated", "CinemaService", "cinemaService",
-				"BackRow", "AbstractRow").perform();
+		this.roomRowCache = new InitialProxyLoader<RoomRowProxy>("generated", "CinemaService", "cinemaService",
+				"RoomRow", "RoomRow").perform();
+		this.rowCategoryCache = new InitialProxyLoader<RowCategoryProxy>("generated", "CinemaService", "cinemaService",
+				"RowCategory", "RowCategory").perform();
 		this.seatCache = new InitialProxyLoader<SeatProxy>("generated", "CinemaService", "cinemaService", "Seat",
 				"Seat").perform();
 		this.ticketCache = new InitialProxyLoader<TicketProxy>("generated", "CinemaService", "cinemaService", "Ticket",
@@ -119,7 +116,7 @@ public class CinemaService extends Observable {
 		}
 		for (IntegerPair pair : new InitialRelationLoader("rowsOfRoom").perform().values()) {
 			String className1 = this.dmlExecuter.getNameOfConcreteType(pair.getP1(), "HasIncome", "CinemaService");
-			String className2 = this.dmlExecuter.getNameOfConcreteType(pair.getP2(), "AbstractRow", "CinemaService");
+			String className2 = this.dmlExecuter.getNameOfConcreteType(pair.getP2(), "RoomRow", "CinemaService");
 			try {
 				this.addrowsOfRoomElement(pair.getP1(), className1, pair.getP2(), className2);
 			} catch (ConstraintViolation cv) {
@@ -144,8 +141,17 @@ public class CinemaService extends Observable {
 				throw new PersistenceException(cv.getMessage());
 			}
 		}
+		for (IntegerPair pair : new InitialRelationLoader("rowToCategory").perform().values()) {
+			String className1 = this.dmlExecuter.getNameOfConcreteType(pair.getP1(), "RoomRow", "CinemaService");
+			String className2 = this.dmlExecuter.getNameOfConcreteType(pair.getP2(), "RowCategory", "CinemaService");
+			try {
+				this.addrowToCategoryElement(pair.getP1(), className1, pair.getP2(), className2);
+			} catch (ConstraintViolation cv) {
+				throw new PersistenceException(cv.getMessage());
+			}
+		}
 		for (IntegerPair pair : new InitialRelationLoader("rowToSeats").perform().values()) {
-			String className1 = this.dmlExecuter.getNameOfConcreteType(pair.getP1(), "AbstractRow", "CinemaService");
+			String className1 = this.dmlExecuter.getNameOfConcreteType(pair.getP1(), "RoomRow", "CinemaService");
 			String className2 = this.dmlExecuter.getNameOfConcreteType(pair.getP2(), "Seat", "CinemaService");
 			try {
 				this.addrowToSeatsElement(pair.getP1(), className1, pair.getP2(), className2);
@@ -162,11 +168,11 @@ public class CinemaService extends Observable {
 				throw new PersistenceException(cv.getMessage());
 			}
 		}
-		for (IntegerPair pair : new InitialRelationLoader("userToTicket").perform().values()) {
-			String className1 = this.dmlExecuter.getNameOfConcreteType(pair.getP1(), "User", "CinemaService");
-			String className2 = this.dmlExecuter.getNameOfConcreteType(pair.getP2(), "TicketAction", "CinemaService");
+		for (IntegerPair pair : new InitialRelationLoader("TicketsOfUser").perform().values()) {
+			String className1 = this.dmlExecuter.getNameOfConcreteType(pair.getP1(), "TicketAction", "CinemaService");
+			String className2 = this.dmlExecuter.getNameOfConcreteType(pair.getP2(), "User", "CinemaService");
 			try {
-				this.adduserToTicketElement(pair.getP1(), className1, pair.getP2(), className2);
+				this.addTicketsOfUserElement(pair.getP1(), className1, pair.getP2(), className2);
 			} catch (ConstraintViolation cv) {
 				throw new PersistenceException(cv.getMessage());
 			}
@@ -218,15 +224,11 @@ public class CinemaService extends Observable {
 	private void addrowsOfRoomElement(Integer id1, String className1, Integer id2, String className2)
 			throws ConstraintViolation, PersistenceException {
 		IRoom proxy1 = null;
-		IAbstractRow proxy2 = null;
+		IRoomRow proxy2 = null;
 		if (className1.equals("Room"))
 			proxy1 = this.roomCache.get(id1);
-		if (className2.equals("ParquetRow"))
-			proxy2 = this.parquetRowCache.get(id2);
-		if (className2.equals("MiddleRow"))
-			proxy2 = this.middleRowCache.get(id2);
-		if (className2.equals("BackRow"))
-			proxy2 = this.backRowCache.get(id2);
+		if (className2.equals("RoomRow"))
+			proxy2 = this.roomRowCache.get(id2);
 		rowsOfRoomSupervisor.getInstance().addAlreadyPersistent(proxy1, proxy2);
 	}
 
@@ -252,16 +254,23 @@ public class CinemaService extends Observable {
 		movieShowToTicketSupervisor.getInstance().addAlreadyPersistent(proxy1, proxy2);
 	}
 
+	private void addrowToCategoryElement(Integer id1, String className1, Integer id2, String className2)
+			throws ConstraintViolation, PersistenceException {
+		IRoomRow proxy1 = null;
+		IRowCategory proxy2 = null;
+		if (className1.equals("RoomRow"))
+			proxy1 = this.roomRowCache.get(id1);
+		if (className2.equals("RowCategory"))
+			proxy2 = this.rowCategoryCache.get(id2);
+		rowToCategorySupervisor.getInstance().setAlreadyPersistent(proxy1, proxy2);
+	}
+
 	private void addrowToSeatsElement(Integer id1, String className1, Integer id2, String className2)
 			throws ConstraintViolation, PersistenceException {
-		IAbstractRow proxy1 = null;
+		IRoomRow proxy1 = null;
 		ISeat proxy2 = null;
-		if (className1.equals("ParquetRow"))
-			proxy1 = this.parquetRowCache.get(id1);
-		if (className1.equals("MiddleRow"))
-			proxy1 = this.middleRowCache.get(id1);
-		if (className1.equals("BackRow"))
-			proxy1 = this.backRowCache.get(id1);
+		if (className1.equals("RoomRow"))
+			proxy1 = this.roomRowCache.get(id1);
 		if (className2.equals("Seat"))
 			proxy2 = this.seatCache.get(id2);
 		rowToSeatsSupervisor.getInstance().addAlreadyPersistent(proxy1, proxy2);
@@ -278,15 +287,15 @@ public class CinemaService extends Observable {
 		ticketToSeatSupervisor.getInstance().setAlreadyPersistent(proxy1, proxy2);
 	}
 
-	private void adduserToTicketElement(Integer id1, String className1, Integer id2, String className2)
+	private void addTicketsOfUserElement(Integer id1, String className1, Integer id2, String className2)
 			throws ConstraintViolation, PersistenceException {
-		IUser proxy1 = null;
-		ITicket proxy2 = null;
-		if (className2.equals("Ticket"))
-			proxy2 = this.ticketCache.get(id2);
-		if (className1.equals("User"))
-			proxy1 = this.userCache.get(id1);
-		userToTicketSupervisor.getInstance().addAlreadyPersistent(proxy1, proxy2);
+		ITicket proxy1 = null;
+		IUser proxy2 = null;
+		if (className1.equals("Ticket"))
+			proxy1 = this.ticketCache.get(id1);
+		if (className2.equals("User"))
+			proxy2 = this.userCache.get(id2);
+		TicketsOfUserSupervisor.getInstance().setAlreadyPersistent(proxy1, proxy2);
 	}
 
 	private void addTicketToStateElement(Integer id1, String className1, Integer id2, String className2)
@@ -352,40 +361,28 @@ public class CinemaService extends Observable {
 		return this.movieShowCache;
 	}
 
-	public ParquetRow getParquetRow(Integer id) {
-		return this.parquetRowCache.get(id).getTheObject();
+	public RoomRow getRoomRow(Integer id) {
+		return this.roomRowCache.get(id).getTheObject();
 	}
 
-	public void addParquetRowProxy(ParquetRowProxy p) throws PersistenceException {
-		this.parquetRowCache.put(p.getId(), p);
+	public void addRoomRowProxy(RoomRowProxy p) throws PersistenceException {
+		this.roomRowCache.put(p.getId(), p);
 	}
 
-	public Map<Integer, ParquetRowProxy> getParquetRowCache() {
-		return this.parquetRowCache;
+	public Map<Integer, RoomRowProxy> getRoomRowCache() {
+		return this.roomRowCache;
 	}
 
-	public MiddleRow getMiddleRow(Integer id) {
-		return this.middleRowCache.get(id).getTheObject();
+	public RowCategory getRowCategory(Integer id) {
+		return this.rowCategoryCache.get(id).getTheObject();
 	}
 
-	public void addMiddleRowProxy(MiddleRowProxy p) throws PersistenceException {
-		this.middleRowCache.put(p.getId(), p);
+	public void addRowCategoryProxy(RowCategoryProxy p) throws PersistenceException {
+		this.rowCategoryCache.put(p.getId(), p);
 	}
 
-	public Map<Integer, MiddleRowProxy> getMiddleRowCache() {
-		return this.middleRowCache;
-	}
-
-	public BackRow getBackRow(Integer id) {
-		return this.backRowCache.get(id).getTheObject();
-	}
-
-	public void addBackRowProxy(BackRowProxy p) throws PersistenceException {
-		this.backRowCache.put(p.getId(), p);
-	}
-
-	public Map<Integer, BackRowProxy> getBackRowCache() {
-		return this.backRowCache;
+	public Map<Integer, RowCategoryProxy> getRowCategoryCache() {
+		return this.rowCategoryCache;
 	}
 
 	public Seat getSeat(Integer id) {
@@ -465,6 +462,9 @@ public class CinemaService extends Observable {
 	}
 
 	// 80 ===== Editable : Your Operations =============
+	/**
+	 * Sign Up.
+	 */
 	public User signIn(String email, String password) throws ModelException {
 		try {
 			return this.getUserCache().values().stream().filter(user -> user.getEmail().equals(email)).findAny().get()

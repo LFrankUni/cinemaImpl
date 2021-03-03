@@ -1,11 +1,11 @@
-/**--- Generated at Mon Mar 01 13:44:13 CET 2021 
+/**--- Generated at Wed Mar 03 11:50:31 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
 public class Cinema_addMovie_Command extends ObjectCommand<Cinema, Void>{
-   private static final long serialVersionUID = 546462287L;
+   private static final long serialVersionUID = 1143762626L;
    private Movie movie;
    public Cinema_addMovie_Command(Cinema receiver, Movie movie){
       super(receiver);

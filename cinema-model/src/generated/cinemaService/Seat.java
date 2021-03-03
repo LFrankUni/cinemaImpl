@@ -1,4 +1,4 @@
-/**--- Generated at Mon Mar 01 13:45:21 CET 2021 
+/**--- Generated at Wed Mar 03 11:50:31 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -25,7 +25,7 @@ public class Seat extends Observable implements java.io.Serializable, ISeat
    //40 ===== Editable : Your Attribute Section ======
    
    //50 ===== GENERATED:      Constructor ============
-   private Seat(Integer id, Integer number, AbstractRow row, boolean objectOnly)
+   private Seat(Integer id, Integer number, RoomRow row, boolean objectOnly)
    throws PersistenceException{
       super();
       this.setId(id);
@@ -34,11 +34,11 @@ public class Seat extends Observable implements java.io.Serializable, ISeat
       try{rowToSeatsSupervisor.getInstance().add(row,this);}catch(ConstraintViolation cv){}// Ok, because consistency is guaranteed with this statement
    }
    /** Caution: A Call to this Method Requires to add any newly instantiated Object to its Cache! */
-   public static Seat createAlreadyPersistent(SeatProxy proxy, Integer number, AbstractRow row)throws PersistenceException{
+   public static Seat createAlreadyPersistent(SeatProxy proxy, Integer number, RoomRow row)throws PersistenceException{
       if(proxy.isObjectPresent()) return proxy.getTheObject();
       return new Seat(proxy.getId(), number, row, true);
    }
-   public static Seat createFresh(Integer number, AbstractRow row)throws PersistenceException{
+   public static Seat createFresh(Integer number, RoomRow row)throws PersistenceException{
       db.executer.DBDMLExecuter dmlExecuter = PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter();
       Integer id = dmlExecuter.getNextId();
       try{
@@ -74,7 +74,7 @@ public class Seat extends Observable implements java.io.Serializable, ISeat
       try{PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter().update("Seat", "number", newNumber.toString(), this.getId());
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
    }
-   public AbstractRow getRow() throws PersistenceException{
+   public RoomRow getRow() throws PersistenceException{
       return rowToSeatsSupervisor.getInstance().getRow(this).getTheObject();
    }
    //80 ===== Editable : Your Operations =============
