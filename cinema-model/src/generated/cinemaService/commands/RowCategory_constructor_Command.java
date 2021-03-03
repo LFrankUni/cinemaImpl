@@ -1,11 +1,11 @@
-/**--- Generated at Wed Mar 03 18:19:11 CET 2021 
+/**--- Generated at Wed Mar 03 19:05:41 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
 public class RowCategory_constructor_Command extends ServiceCommand<RowCategory>{
-   private static final long serialVersionUID = -1065149304L;
+   private static final long serialVersionUID = -552475363L;
    private String  name;
    private Integer  priceInCents;
    public RowCategory_constructor_Command(String  name, Integer  priceInCents){

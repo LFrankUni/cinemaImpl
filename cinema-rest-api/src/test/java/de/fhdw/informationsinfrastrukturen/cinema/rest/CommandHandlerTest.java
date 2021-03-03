@@ -37,7 +37,7 @@ public class CommandHandlerTest {
 
 	@Test
 	public void createCinema() {
-		assertNull(this.createCinema("1 nice cinema").getError());
+		assertNull(this.createCinema("1 nice nice cinema").getError());
 	}
 
 	@Test
@@ -49,8 +49,7 @@ public class CommandHandlerTest {
 	public void createMovieShow() {
 		assertNull(this.scheduleMovieShow((Room) this.createRoom("42", true).getValue(),
 				(Movie) this.createMovie("1 nice movie", 42, "1 nice description").getValue(),
-				TimeConverter.toInstant("2007-12-03T10:15:30.00Z"), TimeConverter.toInstant("2007-12-12T10:15:30.00Z"),
-				true, 1000).getError());
+				TimeConverter.toInstant("2007-12-03T10:00:00.00Z"), 3, true, 1000).getError());
 	}
 
 	private CommandResponse createRoom(String name, Boolean open) {
@@ -68,12 +67,13 @@ public class CommandHandlerTest {
 				new Function(CommandHandler.COMMAND_CONSTRUCTOR, List.of(new Parameter(name, "String"))), "Cinema"));
 	}
 
-	private CommandResponse scheduleMovieShow(Room room, Movie movie, Instant start, Instant end,
+	private CommandResponse scheduleMovieShow(Room room, Movie movie, Instant start, Integer days,
 			Boolean threeDimensional, Integer price) {
-		return this.handler.handle(new CommandRequest(new Function("scheduleMovieShow",
-				List.of(new Parameter(movie.getId(), "Movie"), new Parameter(TimeConverter.toString(start), "String"),
-						new Parameter(TimeConverter.toString(end), "String"),
-						new Parameter(threeDimensional, "Boolean"), new Parameter(price, "Integer"))),
+		return this.handler.handle(new CommandRequest(
+				new Function("scheduleMovieShow",
+						List.of(new Parameter(movie.getId(), "Movie"),
+								new Parameter(TimeConverter.toString(start), "String"), new Parameter(days, "Integer"),
+								new Parameter(threeDimensional, "Boolean"), new Parameter(price, "Integer"))),
 				"Room", room.getId()));
 	}
 
