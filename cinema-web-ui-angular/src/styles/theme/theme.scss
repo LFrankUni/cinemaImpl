@@ -1,0 +1,35 @@
+@import "~@angular/material/theming";
+@import "./app.components.scss";
+
+@include mat-core();
+
+$cinema-primary: mat-palette($mat-pink, 700, 500, 900);
+$cinema-accent: mat-palette($mat-blue-grey, A200, A100, A400);
+$cinema-warn: mat-palette($mat-red);
+
+$cinema-theme-light: mat-light-theme(
+  (
+    color: (
+      primary: $cinema-primary,
+      accent: $cinema-accent,
+      warn: $cinema-warn,
+    ),
+  )
+);
+
+$cinema-theme-dark: mat-dark-theme(
+  (
+    color: (
+      primary: $cinema-primary,
+      accent: $cinema-accent,
+      warn: $cinema-warn,
+    ),
+  )
+);
+
+@include angular-material-theme($cinema-theme-light);
+@include app-components-theme($cinema-theme-light);
+
+.dark {
+  @include angular-material-color($cinema-theme-dark);
+}
