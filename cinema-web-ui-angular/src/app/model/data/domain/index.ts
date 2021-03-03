@@ -1,1 +1,3 @@
-export * from "./Cinema";
+export * from './Cinema';
+export * from './Movie';
+export * from './MovieShow';

@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { OverviewComponent, CinemaOverviewComponent } from './pages';
 import { RoutingModule } from './routes';
-import { CinemaCardComponent } from './components';
+import {
+  CinemaCardComponent,
+  MovieCardComponent,
+  MovieShowCardComponent,
+} from './components';
 import { SharedModule } from '@shared';
 
 @NgModule({
@@ -9,6 +13,8 @@ import { SharedModule } from '@shared';
     OverviewComponent,
     CinemaCardComponent,
     CinemaOverviewComponent,
+    MovieCardComponent,
+    MovieShowCardComponent,
   ],
   imports: [SharedModule, RoutingModule],
 })
