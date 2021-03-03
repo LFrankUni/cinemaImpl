@@ -1,0 +1,14 @@
+<section class="page">
+  <h1>Cinemas</h1>
+  <app-cinema-card [cinema]="cinema" *ngFor="let cinema of cinemas$ | async">
+    <button
+      slot="action"
+      mat-raised-button
+      color="primary"
+      routerLink="../cinema"
+      [queryParams]="{ id: cinema.id }"
+    >
+      More
+    </button>
+  </app-cinema-card>
+</section>
