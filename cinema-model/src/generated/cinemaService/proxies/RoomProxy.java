@@ -82,8 +82,8 @@ public class RoomProxy extends HasIncomeProxy implements IRoom{
    public void setOpen(Boolean newOpen) throws PersistenceException{
       this.getTheObject().setOpen(newOpen);
    }
-   public MovieShow scheduleMovieShow(Movie movie, String start, String end, String begin, Boolean threeDimensional, Integer price)throws ModelException{
-      return this.getTheObject().scheduleMovieShow(movie, start, end, begin, threeDimensional, price);
+   public MovieShow scheduleMovieShow(Movie movie, String start, String end,  Boolean threeDimensional, Integer price)throws ModelException{
+      return this.getTheObject().scheduleMovieShow(movie, start, end, threeDimensional, price);
    }
    public RoomRow addRow(String name, RowCategory type)throws ModelException{
       return this.getTheObject().addRow(name, type);

@@ -26,7 +26,7 @@ public interface IRoom extends IHasIncome{
    public void setNameOfRoom(String newNameOfRoom) throws PersistenceException;
    public Boolean getOpen() ;
    public void setOpen(Boolean newOpen) throws PersistenceException;
-   public MovieShow scheduleMovieShow(Movie movie, String start, String end, String begin, Boolean threeDimensional, Integer price)throws ModelException;
+   public MovieShow scheduleMovieShow(Movie movie, String start, String end,  Boolean threeDimensional, Integer price)throws ModelException;
    public RoomRow addRow(String name, RowCategory category)throws ModelException;
    public Collection<RoomRow> getAllRows()throws ModelException;
    public void open()throws ModelException;
