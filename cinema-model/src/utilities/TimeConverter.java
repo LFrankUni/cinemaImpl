@@ -1,7 +1,6 @@
 package utilities;
 
 import java.time.Instant;
-import java.time.OffsetDateTime;
 
 public class TimeConverter {
 	public static String toString(Instant timestamp) {
@@ -9,6 +8,6 @@ public class TimeConverter {
 	}
 
 	public static Instant toInstant(String timestamp) {
-		return OffsetDateTime.parse(timestamp).toInstant();
+		return Instant.parse(timestamp);
 	}
 }
