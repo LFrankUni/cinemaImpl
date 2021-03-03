@@ -1,6 +1,6 @@
 import type { Observable } from "rxjs";
 import { ajax } from "rxjs/ajax";
-import { pluck } from "rxjs/operators";
+import { pluck, shareReplay } from "rxjs/operators";
 import type { CinemaRequest, CinemaResponse, Parameter } from "../../model";
 
 const CONSTRUCTOR_COMMAND: string = "constructor";
@@ -14,7 +14,7 @@ function createRequest<T>(body: CinemaRequest): Observable<CinemaResponse<T>> {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
-  }).pipe(pluck("response"));
+  }).pipe(pluck("response"), shareReplay(1));
 }
 
 export function createObject<T>(type: string): Observable<CinemaResponse<T>> {
