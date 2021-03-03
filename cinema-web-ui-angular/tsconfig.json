@@ -18,6 +18,8 @@
       "@core": ["src/app/core"],
       "@shared/*": ["src/app/shared/*"],
       "@shared": ["src/app/shared"],
+      "@model/*": ["src/app/model/*"],
+      "@model": ["src/app/model"],
       "@environment": ["src/environments/environment.ts"],
       "@features/*": ["src/app/features/*"]
     }
