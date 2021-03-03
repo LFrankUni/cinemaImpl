@@ -1,4 +1,4 @@
-/**--- Generated at Wed Mar 03 11:50:32 CET 2021 
+/**--- Generated at Wed Mar 03 18:19:11 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -9,8 +9,6 @@ import generated.cinemaService.User;
 import java.sql.ResultSet;
 import generated.cinemaService.Ticket;
 import java.util.Set;
-import java.util.Collection;
-import generated.cinemaService.ModelException;
 public class UserProxy implements IUser{
    private Integer id;
    private Optional<User> theObject;
@@ -76,8 +74,5 @@ public class UserProxy implements IUser{
    }
    public Set<Ticket> getTickets() throws PersistenceException{
       return this.getTheObject().getTickets();
-   }
-   public Collection<Ticket> getAllTickets()throws ModelException{
-      return this.getTheObject().getAllTickets();
    }
 }

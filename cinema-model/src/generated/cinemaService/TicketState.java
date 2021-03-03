@@ -1,4 +1,4 @@
-/**--- Generated at Wed Mar 03 11:50:32 CET 2021 
+/**--- Generated at Wed Mar 03 18:19:11 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -18,8 +18,8 @@ public abstract class TicketState extends TicketAction implements java.io.Serial
 {
    //30 ===== GENERATED:      Attribute Section ======
    //40 ===== Editable : Your Attribute Section ======
-   
-   //50 ===== GENERATED:      Constructor ============
+
+	//50 ===== GENERATED:      Constructor ============
    public TicketState(Integer id, Ticket ticket, boolean objectOnly)
    throws ConstraintViolation, PersistenceException{
       super(id, objectOnly);
@@ -28,8 +28,8 @@ public abstract class TicketState extends TicketAction implements java.io.Serial
       try{TicketToStateSupervisor.getInstance().set(ticket,this);}catch(ConstraintViolation cv){}// Ok, because consistency is guaranteed with this statement
    }
    //60 ===== Editable : Your Constructors ===========
-   
-   //70 ===== GENERATED:      Feature Access =========
+
+	//70 ===== GENERATED:      Feature Access =========
    public TicketState getTheObject(){
       return this;
    }

@@ -1,9 +1,8 @@
-/**--- Generated at Wed Mar 03 11:50:32 CET 2021 
+/**--- Generated at Wed Mar 03 18:19:11 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
 package generated.cinemaService;
-
 //10 ===== GENERATED:      Import Section =========
 import java.sql.SQLException;
 import db.connection.NoConnectionException;
@@ -16,49 +15,40 @@ import exceptions.ConstraintViolation;
 //20 ===== Editable : Your Import Section =========
 
 //25 ===== GENERATED:      Header Section =========
-public class Booked extends TicketState implements java.io.Serializable, IBooked {
-	// 30 ===== GENERATED: Attribute Section ======
-	// 40 ===== Editable : Your Attribute Section ======
+public class Booked extends TicketState implements java.io.Serializable, IBooked
+{
+   //30 ===== GENERATED:      Attribute Section ======
+   //40 ===== Editable : Your Attribute Section ======
 
-	// 50 ===== GENERATED: Constructor ============
-	private Booked(Integer id, Ticket ticket, boolean objectOnly) throws ConstraintViolation, PersistenceException {
-		super(id, ticket, objectOnly);
-		if (objectOnly)
-			return;
-	}
+	//50 ===== GENERATED:      Constructor ============
+   private Booked(Integer id, Ticket ticket, boolean objectOnly)
+   throws ConstraintViolation, PersistenceException{
+      super(id, ticket, objectOnly);
+      if(objectOnly) return;
+   }
+   /** Caution: A Call to this Method Requires to add any newly instantiated Object to its Cache! */
+   public static Booked createAlreadyPersistent(BookedProxy proxy, Ticket ticket)throws ConstraintViolation, PersistenceException{
+      if(proxy.isObjectPresent()) return proxy.getTheObject();
+      return new Booked(proxy.getId(), ticket, true);
+   }
+   public static Booked createFresh(Ticket ticket)throws ConstraintViolation, PersistenceException{
+      db.executer.DBDMLExecuter dmlExecuter = PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter();
+      Integer id = dmlExecuter.getNextId();
+      try{
+         dmlExecuter.insertInto("TicketAction", "id, typeKey", 
+         id.toString() + ", " + TypeKeyManager.getTheInstance().getTypeKey("CinemaService", "Booked").toString());
+      }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
+      Booked me = new Booked(id, ticket, false);
+      CinemaService.getInstance().addBookedProxy(new BookedProxy(me));
+      return me;
+   }
+   //60 ===== Editable : Your Constructors ===========
 
-	/**
-	 * Caution: A Call to this Method Requires to add any newly instantiated Object
-	 * to its Cache!
-	 */
-	public static Booked createAlreadyPersistent(BookedProxy proxy, Ticket ticket)
-			throws ConstraintViolation, PersistenceException {
-		if (proxy.isObjectPresent())
-			return proxy.getTheObject();
-		return new Booked(proxy.getId(), ticket, true);
-	}
-
-	public static Booked createFresh(Ticket ticket) throws ConstraintViolation, PersistenceException {
-		db.executer.DBDMLExecuter dmlExecuter = PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter();
-		Integer id = dmlExecuter.getNextId();
-		try {
-			dmlExecuter.insertInto("TicketAction", "id, typeKey", id.toString() + ", "
-					+ TypeKeyManager.getTheInstance().getTypeKey("CinemaService", "Booked").toString());
-		} catch (SQLException | NoConnectionException e) {
-			throw new PersistenceException(e.getMessage());
-		}
-		Booked me = new Booked(id, ticket, false);
-		CinemaService.getInstance().addBookedProxy(new BookedProxy(me));
-		return me;
-	}
-	// 60 ===== Editable : Your Constructors ===========
-
-	// 70 ===== GENERATED: Feature Access =========
-	public Booked getTheObject() {
-		return this;
-	}
-
-	// 80 ===== Editable : Your Operations =============
+	//70 ===== GENERATED:      Feature Access =========
+   public Booked getTheObject(){
+      return this;
+   }
+   //80 ===== Editable : Your Operations =============
 	/**
 	 * Unreserves the ticket if possible.
 	 */

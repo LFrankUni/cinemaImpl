@@ -1,4 +1,4 @@
-/**--- Generated at Wed Mar 03 11:50:31 CET 2021 
+/**--- Generated at Wed Mar 03 18:19:11 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -31,12 +31,12 @@ import java.util.Collection;
 
 //25 ===== GENERATED:      Header Section =========
 public class Room extends HasIncome implements java.io.Serializable, IRoom {
-	// 30 ===== GENERATED: Attribute Section ======
+	//30 ===== GENERATED:      Attribute Section ======
 	private String nameOfRoom;
 	private Boolean open;
-	// 40 ===== Editable : Your Attribute Section ======
+	//40 ===== Editable : Your Attribute Section ======
 
-	// 50 ===== GENERATED: Constructor ============
+	//50 ===== GENERATED:      Constructor ============
 	private Room(Integer id, String nameOfRoom, Boolean open, boolean objectOnly) throws PersistenceException {
 		super(id, objectOnly);
 		this.nameOfRoom = nameOfRoom;
@@ -45,10 +45,7 @@ public class Room extends HasIncome implements java.io.Serializable, IRoom {
 			return;
 	}
 
-	/**
-	 * Caution: A Call to this Method Requires to add any newly instantiated Object
-	 * to its Cache!
-	 */
+	/** Caution: A Call to this Method Requires to add any newly instantiated Object to its Cache! */
 	public static Room createAlreadyPersistent(RoomProxy proxy, String nameOfRoom, Boolean open)
 			throws PersistenceException {
 		if (proxy.isObjectPresent())
@@ -71,9 +68,9 @@ public class Room extends HasIncome implements java.io.Serializable, IRoom {
 		CinemaService.getInstance().addRoomProxy(new RoomProxy(me));
 		return me;
 	}
-	// 60 ===== Editable : Your Constructors ===========
+	//60 ===== Editable : Your Constructors ===========
 
-	// 70 ===== GENERATED: Feature Access =========
+	//70 ===== GENERATED:      Feature Access =========
 	public Room getTheObject() {
 		return this;
 	}
@@ -135,59 +132,7 @@ public class Room extends HasIncome implements java.io.Serializable, IRoom {
 			throw new PersistenceException(e.getMessage());
 		}
 	}
-
-	// 80 ===== Editable : Your Operations =============
-	/**
-	 * Schedules a MovieShow if schedule is free.
-	 */
-	public MovieShow scheduleMovieShow(Movie movie, String start, String end, Boolean threeDimensional,
-			Integer price) throws ModelException {
-
-		final Instant _start = TimeConverter.toInstant(start);
-		final Instant _end = TimeConverter.toInstant(end);
-
-		if (movie == null || start == null || end == null || threeDimensional == null || price == null )
-			throw new ModelException("Must provide non null-values!");
-
-		if (_end.isBefore(_start))
-			throw new ModelException("End must be after start!");
-
-		if (movie.getMinutes() * 60 > TimeConverter.toInstant(end).getEpochSecond() - _start.getEpochSecond())
-			throw new ModelException(String.format(
-					"Movie length longer than requested time slot! Minutes of requested movie: %s <-> Length of requested timeslot %s",
-					movie.getMinutes(), TimeConverter.toInstant(end).getEpochSecond() - _start.getEpochSecond()));
-
-		final Set<MovieShow> possibleConflicts = this.getMovieShows().stream()
-				.filter(show -> _start.isBefore(TimeConverter.toInstant(show.getEnd()))
-						&& _end.isAfter(TimeConverter.toInstant(show.getStart())))
-				.collect(Collectors.toSet());
-
-		Instant currentStart = _start;
-		Instant currentEnd = _start.plus(movie.getMinutes(), ChronoUnit.MINUTES);
-
-		while (currentStart.isBefore(_end)) {
-			for (MovieShow show : possibleConflicts) {
-				if (currentStart.isBefore(TimeConverter.toInstant(show.getEnd()))
-						&& currentEnd.isAfter(TimeConverter.toInstant(show.getStart())))
-					throw new ModelException("Requested shedule not available!");
-			}
-			currentEnd = currentEnd.plus(1, ChronoUnit.DAYS);
-			currentStart = currentStart.plus(1, ChronoUnit.DAYS);
-		}
-
-		final MovieShow show = MovieShow.createFresh(movie, start, end, threeDimensional, price, this);
-		for (RoomRow row : this.getRows()) {
-			for (Seat seat : row.getSeats()) {
-				final Ticket ticket = Ticket.createFresh(seat, show);
-				ticket.setState(Available.createFresh(ticket));
-				show.addToTickets(ticket);
-			}
-		}
-
-		this.addToMovieShows(show);
-
-		return show;
-	}
+	//80 ===== Editable : Your Operations =============
 
 	/**
 	 * Adds a row to the Room.
@@ -228,6 +173,57 @@ public class Room extends HasIncome implements java.io.Serializable, IRoom {
 	 */
 	public void close() throws ModelException {
 		this.setOpen(false);
+	}
+
+	/**
+	 * Schedules a MovieShow if schedule is free.
+	 */
+	public MovieShow scheduleMovieShow(Movie movie, String start, String end, Boolean threeDimensional, Integer price)
+			throws ModelException {
+		final Instant _start = TimeConverter.toInstant(start);
+		final Instant _end = TimeConverter.toInstant(end);
+
+		if (movie == null || start == null || end == null || threeDimensional == null || price == null)
+			throw new ModelException("Must provide non null-values!");
+
+		if (_end.isBefore(_start))
+			throw new ModelException("End must be after start!");
+
+		if (movie.getMinutes() * 60 > TimeConverter.toInstant(end).getEpochSecond() - _start.getEpochSecond())
+			throw new ModelException(String.format(
+					"Movie length longer than requested time slot! Minutes of requested movie: %s <-> Length of requested timeslot %s",
+					movie.getMinutes(), TimeConverter.toInstant(end).getEpochSecond() - _start.getEpochSecond()));
+
+		final Set<MovieShow> possibleConflicts = this.getMovieShows().stream()
+				.filter(show -> _start.isBefore(TimeConverter.toInstant(show.getEnd()))
+						&& _end.isAfter(TimeConverter.toInstant(show.getStart())))
+				.collect(Collectors.toSet());
+
+		Instant currentStart = _start;
+		Instant currentEnd = _start.plus(movie.getMinutes(), ChronoUnit.MINUTES);
+
+		while (currentStart.isBefore(_end)) {
+			for (MovieShow show : possibleConflicts) {
+				if (currentStart.isBefore(TimeConverter.toInstant(show.getEnd()))
+						&& currentEnd.isAfter(TimeConverter.toInstant(show.getStart())))
+					throw new ModelException("Requested shedule not available!");
+			}
+			currentEnd = currentEnd.plus(1, ChronoUnit.DAYS);
+			currentStart = currentStart.plus(1, ChronoUnit.DAYS);
+		}
+
+		final MovieShow show = MovieShow.createFresh(movie, start, end, threeDimensional, price, this);
+		for (RoomRow row : this.getRows()) {
+			for (Seat seat : row.getSeats()) {
+				final Ticket ticket = Ticket.createFresh(seat, show);
+				ticket.setState(Available.createFresh(ticket));
+				show.addToTickets(ticket);
+			}
+		}
+
+		this.addToMovieShows(show);
+
+		return show;
 	}
 //90 ===== GENERATED: End of Your Operations ======
 }

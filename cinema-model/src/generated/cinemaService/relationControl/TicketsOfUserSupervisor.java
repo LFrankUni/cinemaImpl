@@ -1,4 +1,4 @@
-/**--- Generated at Wed Mar 03 11:50:32 CET 2021 
+/**--- Generated at Wed Mar 03 18:19:11 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -43,7 +43,7 @@ public class TicketsOfUserSupervisor
    public void change(ITicket owner, IUser targetOld, IUser targetNew) throws PersistenceException{
       this.elements.change(owner, targetOld, targetNew);
    }
-   public Set<ITicket> getTicket(IUser target){
+   public Set<ITicket> getTickets(IUser target){
       return this.elements.getRelatedSources(target).stream().collect(Collectors.toSet());
    }
    //80 ===== Editable : Your Operations =============

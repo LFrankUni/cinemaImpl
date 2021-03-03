@@ -1,4 +1,4 @@
-/**--- Generated at Wed Mar 03 11:50:32 CET 2021 
+/**--- Generated at Wed Mar 03 18:19:11 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -9,8 +9,6 @@ import generated.cinemaService.Reserved;
 import java.sql.ResultSet;
 import generated.cinemaService.Ticket;
 import generated.cinemaService.relationControl.TicketToStateSupervisor;
-import generated.cinemaService.ModelException;
-import generated.cinemaService.User;
 public class ReservedProxy extends TicketStateProxy implements IReserved{
    private Integer id;
    private Optional<Reserved> theObject;
@@ -46,14 +44,5 @@ public class ReservedProxy extends TicketStateProxy implements IReserved{
          Ticket ticket = TicketToStateSupervisor.getInstance().getTicket(this).getTheObject();
          return Reserved.createAlreadyPersistent(this, ticket);
       } catch (Exception e) {throw new PersistenceException(e.getMessage());}
-   }
-   public Ticket unreserve()throws ModelException{
-      return this.getTheObject().unreserve();
-   }
-   public Ticket book()throws ModelException{
-      return this.getTheObject().book();
-   }
-   public Ticket reserve(User user)throws ModelException{
-      return this.getTheObject().reserve(user);
    }
 }
