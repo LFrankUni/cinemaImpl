@@ -1,6 +1,8 @@
 package de.fhdw.informationsinfrastrukturen.cinema.rest.resources.command;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,11 +46,12 @@ public class CommandHandler {
 					(Map<Integer, Identifiable>) getter.invoke(service));
 		}
 
-		this.commandsPackage = service.getClass().getPackageName().concat(".")
-				.concat(CommandHandler.COMMAND_PACKAGE_SUBPATH);
+		final String typesPackage = service.getClass().getPackageName();
+
+		this.commandsPackage = typesPackage.concat(".").concat(CommandHandler.COMMAND_PACKAGE_SUBPATH);
 
 		this.parameterTypes = Stream
-				.concat(this.targets.keySet().stream().map(key -> Map.entry(key, this.commandsPackage)),
+				.concat(this.targets.keySet().stream().map(key -> Map.entry(key, typesPackage.concat(".").concat(key))),
 						CommandHandler.BASE_TYPES.entrySet().stream())
 				.collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue()));
 
@@ -61,10 +64,19 @@ public class CommandHandler {
 		try {
 			// 1. validate request
 			Class<?> commandClass = this.validate(request);
+			final List<Parameter> parameters = new ArrayList<Parameter>();
+			if (request.targetId != null) {
+				Object target = this.targets.get(request.targetType).get(request.targetId);
+				if (target == null)
+					throw new Exception(String.format("Target \"%s\" of type \"%s\" does not exists", request.targetId,
+							request.targetType));
+				parameters.add(new Parameter(request.targetId, request.targetType));
+			}
+			if (request.targetFunction.parameter != null)
+				parameters.addAll(request.targetFunction.parameter);
 			// 2. create actual command
 			Command<?> command;
-			if (request.targetFunction.parameter != null) {
-				final List<Parameter> parameters = request.targetFunction.parameter;
+			if (!parameters.isEmpty()) {
 				Class<?>[] commandConstructorTypes = new Class<?>[parameters.size()];
 				Object[] commandConstructorArgs = new Object[parameters.size()];
 				for (int i = 0; i < parameters.size(); i++) {
@@ -136,7 +148,13 @@ public class CommandHandler {
 	}
 
 	private Optional<?> getObject(String type, Integer id) {
-		return Optional.ofNullable(this.targets.get(type).get(id));
+		try {
+			return Optional.ofNullable(this.targets.get(type).get(id).getClass().getMethod("getTheObject")
+					.invoke(this.targets.get(type).get(id)));
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+				| SecurityException e) {
+			return Optional.empty();
+		}
 	}
 
 	private String capitalize(String str) {

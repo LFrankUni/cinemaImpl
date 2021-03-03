@@ -18,6 +18,8 @@ public class CommandRequest implements Serializable {
 
 	String targetType;
 
+	Integer targetId;
+
 	public CommandRequest() {
 	}
 
@@ -27,9 +29,17 @@ public class CommandRequest implements Serializable {
 		this.targetType = targetType;
 	}
 
+	public CommandRequest(Function targetFunction, String targetType, Integer targetId) {
+		super();
+		this.targetFunction = targetFunction;
+		this.targetType = targetType;
+		this.targetId = targetId;
+	}
+
 	@Override
 	public String toString() {
-		return "CommandRequest [targetFunction=" + targetFunction + ", targetType=" + targetType + "]";
+		return "CommandRequest [targetFunction=" + targetFunction + ", targetType=" + targetType + ", targetId="
+				+ targetId + "]";
 	}
 
 }
