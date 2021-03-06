@@ -1,4 +1,4 @@
-/**--- Generated at Wed Mar 03 19:05:41 CET 2021 
+/**--- Generated at Sat Mar 06 15:37:56 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;

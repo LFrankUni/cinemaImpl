@@ -1,4 +1,4 @@
-/**--- Generated at Wed Mar 03 19:05:41 CET 2021 
+/**--- Generated at Sat Mar 06 15:37:57 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -98,8 +98,10 @@ public class RoomRow extends Observable implements java.io.Serializable, IRoomRo
 	/**
 	 * Adds a seat to the row.
 	 */
-	public void addSeat(Seat seat) throws ModelException {
+	public Seat addSeat(Seat seat) throws ModelException {
 		this.addToSeats(seat);
+		return seat;
 	}
+
 //90 ===== GENERATED: End of Your Operations ======
 }

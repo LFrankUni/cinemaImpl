@@ -4,15 +4,15 @@
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
-public class Cinema_addMovie_Command extends ObjectCommand<Cinema, Movie>{
-   private static final long serialVersionUID = -356557159L;
-   private Movie movie;
-   public Cinema_addMovie_Command(Cinema receiver, Movie movie){
+public class Cinema_addRoom_Command extends ObjectCommand<Cinema, Room>{
+   private static final long serialVersionUID = 2000992047L;
+   private String name;
+   public Cinema_addRoom_Command(Cinema receiver, String name){
       super(receiver);
-      this.movie = movie;
+      this.name = name;
    }
    public void execute(){
-      try{this.result = this.receiver.addMovie(movie);
+      try{this.result = this.receiver.addRoom(name);
       }catch(Exception e){this.e = e;
       }finally{this.receiver.notifyObservers(this);}
    }
