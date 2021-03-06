@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-
+import { SharedModule } from '@shared';
+import { CreateCinemaComponent } from './components';
+import { ControlComponent } from './pages';
+import { RoutingModule } from './routes';
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
+  declarations: [CreateCinemaComponent, ControlComponent],
+  imports: [SharedModule, RoutingModule],
 })
-export class AdminModule { }
+export class AdminModule {}

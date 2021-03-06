@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environment';
-import { CinemaRequest, CinemaResponse, Parameter } from '@model';
+import { Cinema, CinemaRequest, CinemaResponse, Parameter } from '@model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -24,10 +24,13 @@ export class CinemaService {
     );
   }
 
-  public createObject<T>(type: string): Observable<CinemaResponse<T>> {
+  public createObject<T>(
+    type: string,
+    parameter?: Parameter[]
+  ): Observable<CinemaResponse<T>> {
     return this.createRequest({
       targetType: type,
-      targetFunction: { name: this.CONSTRUCTOR_COMMAND },
+      targetFunction: { name: this.CONSTRUCTOR_COMMAND, parameter },
     });
   }
 
@@ -40,5 +43,9 @@ export class CinemaService {
       targetFunction: { name, parameter },
       targetType,
     });
+  }
+
+  public createCinema(name: string): Observable<CinemaResponse<Cinema>> {
+    return this.createObject('Cinema', [{ type: 'String', value: name }]);
   }
 }
