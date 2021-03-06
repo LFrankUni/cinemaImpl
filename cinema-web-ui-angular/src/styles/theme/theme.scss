@@ -27,9 +27,9 @@ $cinema-theme-dark: mat-dark-theme(
   )
 );
 
-@include angular-material-theme($cinema-theme-light);
-@include app-components-theme($cinema-theme-light);
+@include angular-material-theme($cinema-theme-dark);
+@include app-components-theme($cinema-theme-dark);
 
-.dark {
-  @include angular-material-color($cinema-theme-dark);
+.light {
+  @include angular-material-color($cinema-theme-light);
 }

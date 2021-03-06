@@ -1,0 +1,23 @@
+<div id="shellContainer">
+  <mat-toolbar id="header" color="primary">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <button routerLink="" mat-button>Cinema App</button>
+    <span class="flex-spacer"></span>
+  </mat-toolbar>
+
+  <mat-sidenav-container id="sidenavContainer">
+    <mat-sidenav
+      #sidenav
+      id="sidenav"
+      [opened]="!(media.small$ | async)"
+      [mode]="(media.small$ | async) ? 'over' : 'side'"
+    >
+      <app-route-tree [routes]="routes"></app-route-tree>
+    </mat-sidenav>
+    <mat-sidenav-content id="sidenavContent">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
