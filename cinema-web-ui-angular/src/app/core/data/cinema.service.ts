@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environment';
-import { Cinema, CinemaRequest, CinemaResponse, Parameter } from '@model';
-import { Observable } from 'rxjs';
+import { Cinema, CinemaRequest, CinemaResponse, Parameter, Room } from '@model';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -37,15 +37,37 @@ export class CinemaService {
   public executeFunction<T>(
     name: string,
     parameter?: Parameter[],
-    targetType: string = this.SERVICE_NAME
+    targetId?: number,
+    targetType: string = targetId == null ? this.SERVICE_NAME : undefined
   ): Observable<CinemaResponse<T>> {
     return this.createRequest({
       targetFunction: { name, parameter },
       targetType,
+      targetId,
     });
   }
 
-  public createCinema(name: string): Observable<CinemaResponse<Cinema>> {
-    return this.createObject('Cinema', [{ type: 'String', value: name }]);
+  public createCinema({
+    nameOfCinema,
+  }: Omit<Cinema, 'id'>): Observable<CinemaResponse<Cinema>> {
+    return this.createObject('Cinema', [
+      { type: 'String', value: nameOfCinema },
+    ]);
+  }
+
+  public getAllCinemas(): Observable<CinemaResponse<Cinema[]>> {
+    return this.executeFunction<Cinema[]>('getAllCinemas');
+  }
+
+  public addRoom(
+    name: string,
+    target: Cinema
+  ): Observable<CinemaResponse<Room>> {
+    return this.executeFunction(
+      'addRoom',
+      [{ type: 'String', value: name }],
+      target.id,
+      'Cinema'
+    );
   }
 }

@@ -16,7 +16,7 @@ export class OverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this._cinemas$ = this.cinemaService
-      .executeFunction<Cinema[]>('getAllCinemas')
+      .getAllCinemas()
       .pipe(map((res) => res.value));
   }
 

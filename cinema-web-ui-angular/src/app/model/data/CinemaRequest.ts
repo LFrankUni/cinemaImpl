@@ -1,6 +1,7 @@
 export interface CinemaRequest {
   targetType: string;
   targetFunction: Function;
+  targetId?: number;
 }
 
 export interface Function {
