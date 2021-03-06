@@ -20,15 +20,19 @@ export class CreateCinemaComponent {
   public _submit() {
     if (this.form.valid) {
       this.cinemaService.createCinema(this.form.value).subscribe({
-        next: (res) =>
+        next: (res) => {
+          this.form.reset();
           this.messageService.openSnackBar(
             `Created new cinema "${res.value.nameOfCinema}"`
-          ),
-        error: (res: HttpErrorResponse) =>
+          );
+        },
+        error: (res: HttpErrorResponse) => {
+          this.form.reset();
           this.messageService.openDialog({
             title: 'Error',
             message: res.error.error,
-          }),
+          });
+        },
       });
     }
   }
