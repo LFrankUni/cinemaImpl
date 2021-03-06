@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MediaService } from '@core/services';
 import { Route } from '@model/routing';
+import { APP_ROUTES, CINEMA_FEAUTURE } from 'src/app/app-routing.module';
 
 @Component({
   selector: 'app-shell',
@@ -8,11 +9,11 @@ import { Route } from '@model/routing';
   styleUrls: ['./shell.component.scss'],
 })
 export class ShellComponent {
-  public readonly home: string = '';
+  public readonly home: string = CINEMA_FEAUTURE;
   public readonly routes: Route[];
 
   constructor(public readonly media: MediaService) {
-    this.routes = this.createAbsolutePaths([]);
+    this.routes = this.createAbsolutePaths(APP_ROUTES);
   }
 
   private createAbsolutePaths(routes: Route[], prefix: string = ''): Route[] {

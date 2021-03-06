@@ -1,19 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { Route } from '@model/routing';
 import { CinemaOverviewComponent, OverviewComponent } from '../pages';
+
+export const OVERVIEW: string = 'overview';
+export const CINEMA: string = 'cinema';
+
+export const CINEMA_ROUTES: Route[] = [
+  {
+    name: 'Overview',
+    path: OVERVIEW,
+  },
+];
 
 const routes: Routes = [
   {
-    path: 'overview',
+    path: OVERVIEW,
     component: OverviewComponent,
   },
   {
-    path: 'cinema',
+    path: CINEMA,
     component: CinemaOverviewComponent,
   },
   {
     path: '**',
-    redirectTo: 'overview',
+    redirectTo: OVERVIEW,
     pathMatch: 'full',
   },
 ];
