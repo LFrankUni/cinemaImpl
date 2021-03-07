@@ -1,8 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environment';
-import { Cinema, CinemaRequest, CinemaResponse, Parameter, Room } from '@model';
-import { Observable, throwError } from 'rxjs';
+import {
+  Cinema,
+  CinemaRequest,
+  CinemaResponse,
+  Parameter,
+  Room,
+  RowCategory,
+} from '@model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -69,5 +76,19 @@ export class CinemaService {
       target.id,
       'Cinema'
     );
+  }
+
+  public createRowCategory({
+    name,
+    priceInCents,
+  }: Omit<RowCategory, 'id'>): Observable<CinemaResponse<RowCategory>> {
+    return this.createObject('RowCategory', [
+      { type: 'String', value: name },
+      { type: 'Integer', value: priceInCents },
+    ]);
+  }
+
+  public getAllRowCategories(): Observable<CinemaResponse<RowCategory[]>> {
+    return this.executeFunction('getAllRowCategories');
   }
 }

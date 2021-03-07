@@ -1,0 +1,16 @@
+<form
+  class="form"
+  [formGroup]="form"
+  #formDirective="ngForm"
+  (ngSubmit)="_submit(formDirective)"
+>
+  <mat-form-field appearance="standard">
+    <mat-label>Name</mat-label>
+    <input autocomplete="off" matInput [formControl]="nameControl" />
+  </mat-form-field>
+  <mat-form-field appearance="standard">
+    <mat-label>Price</mat-label>
+    <input autocomplete="off" matInput [formControl]="priceControl" />
+  </mat-form-field>
+  <button type="submit" mat-raised-button color="primary">Create Row</button>
+</form>
