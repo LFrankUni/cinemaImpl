@@ -4,15 +4,14 @@
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
-public class Available_constructor_Command extends ServiceCommand<Available>{
-   private static final long serialVersionUID = -348433043L;
-   private Ticket ticket;
-   public Available_constructor_Command(Ticket ticket){
+import java.util.Collection;
+public class getAllRowCategories_Command extends ServiceCommand<Collection<RowCategory>>{
+   private static final long serialVersionUID = 637064637L;
+   public getAllRowCategories_Command(){
       super();
-      this.ticket = ticket;
    }
    public void execute(){
-      try{this.result = Available.createFresh(ticket);
+      try{this.result = CinemaService.getInstance().getAllRowCategories();
       }catch(Exception e){this.e = e;
       }finally{CinemaService.getInstance().notifyObservers(this);}
    }
