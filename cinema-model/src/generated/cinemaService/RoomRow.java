@@ -17,9 +17,12 @@ import generated.cinemaService.proxies.*;
 import db.executer.PersistenceException;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
 import exceptions.ConstraintViolation;
+
+import java.util.ArrayList;
 import java.util.Collection;
 //20 ===== Editable : Your Import Section =========
 
@@ -137,7 +140,7 @@ public class RoomRow extends Observable implements java.io.Serializable, IRoomRo
 			else
 				return a;
 		});
-		final Set<Seat> newSeats = new HashSet<Seat>();
+		final List<Seat> newSeats = new ArrayList<Seat>();
 		if (lastSeat.isPresent())
 			number = lastSeat.get().getNumber() + 1;
 		for (int i = 0; i < numberOfSeats; i++) {
