@@ -7,7 +7,9 @@ import {
   CinemaResponse,
   Parameter,
   Room,
+  Row,
   RowCategory,
+  Seat,
 } from '@model';
 import { Observable } from 'rxjs';
 
@@ -66,6 +68,10 @@ export class CinemaService {
     return this.executeFunction<Cinema[]>('getAllCinemas');
   }
 
+  public getAllCategories(): Observable<CinemaResponse<RowCategory[]>> {
+    return this.executeFunction<RowCategory[]>('getAllRowCategories');
+  }
+
   public addRoom(
     name: string,
     target: Cinema
@@ -76,6 +82,30 @@ export class CinemaService {
       target.id,
       'Cinema'
     );
+  }
+
+  public addRow(
+    name: string,
+    category: RowCategory,
+    target: Room
+  ): Observable<CinemaResponse<Row>> {
+    return this.executeFunction(
+      'addRow',
+      [
+        { type: 'String', value: name },
+        { type: 'RowCategory', value: category.id },
+      ],
+      target.id,
+      'Room'
+    );
+  }
+
+  public getAllRooms(cinema: Cinema): Observable<CinemaResponse<Room[]>> {
+    return this.executeFunction('getAllRooms', null, cinema.id, 'Cinema');
+  }
+
+  public getAllRows(room: Room): Observable<CinemaResponse<Row[]>> {
+    return this.executeFunction('getAllRows', null, room.id, 'Room');
   }
 
   public createRowCategory({
@@ -90,5 +120,17 @@ export class CinemaService {
 
   public getAllRowCategories(): Observable<CinemaResponse<RowCategory[]>> {
     return this.executeFunction('getAllRowCategories');
+  }
+
+  public addSeats(
+    numberOfSeats: number,
+    target: Row
+  ): Observable<CinemaResponse<Seat[]>> {
+    return this.executeFunction(
+      'addSeats',
+      [{ type: 'Integer', value: numberOfSeats }],
+      target.id,
+      'RoomRow'
+    );
   }
 }

@@ -21,7 +21,9 @@
       "@model/*": ["src/app/model/*"],
       "@model": ["src/app/model"],
       "@environment": ["src/environments/environment.ts"],
-      "@features/*": ["src/app/features/*"]
+      "@features/*": ["src/app/features/*"],
+      "@utilities/*": ["src/app/utilities/*"],
+      "@utilities": ["src/app/utilities"]
     }
   },
   "angularCompilerOptions": {
