@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Route } from '@model/routing';
-import { ControlComponent } from '../pages';
+import { BuilderComponent } from '../pages';
 
-export const CONTROL: string = 'control';
+export const BUILDER: string = 'builder';
 export const INCOME: string = 'income';
 
 export const ADMIN_ROUTES: Route[] = [
   {
-    name: 'Control',
-    path: CONTROL,
+    name: 'Builder',
+    path: BUILDER,
   },
   {
     name: 'Income',
@@ -19,12 +19,12 @@ export const ADMIN_ROUTES: Route[] = [
 
 const routes: Routes = [
   {
-    path: CONTROL,
-    component: ControlComponent,
+    path: BUILDER,
+    component: BuilderComponent,
   },
   {
     path: '**',
-    redirectTo: CONTROL,
+    redirectTo: BUILDER,
     pathMatch: 'full',
   },
 ];
