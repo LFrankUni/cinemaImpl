@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>9</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>280</x>
-      <y>0</y>
-      <w>400</w>
-      <h>160</h>
+      <x>297</x>
+      <y>27</y>
+      <w>360</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>CinemaService
 --
@@ -24,10 +24,10 @@ createUser(firstName: String, lastName: String):User</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>380</x>
-      <y>200</y>
-      <w>170</w>
-      <h>50</h>
+      <x>387</x>
+      <y>207</y>
+      <w>153</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>Cinema
 --
@@ -39,10 +39,10 @@ name: String
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>460</x>
-      <y>150</y>
-      <w>110</w>
-      <h>70</h>
+      <x>459</x>
+      <y>162</y>
+      <w>99</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= cinemas 0..n
@@ -53,10 +53,10 @@ m1= cinemas 0..n
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>720</x>
-      <y>500</y>
-      <w>170</w>
-      <h>60</h>
+      <x>693</x>
+      <y>477</y>
+      <w>153</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>/AbstractRow/
 --
@@ -67,10 +67,10 @@ price: Integer</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>710</x>
-      <y>650</y>
-      <w>170</w>
-      <h>50</h>
+      <x>684</x>
+      <y>612</y>
+      <w>153</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>Seat
 --
@@ -80,10 +80,10 @@ number: Integer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>830</x>
-      <y>550</y>
-      <w>90</w>
-      <h>120</h>
+      <x>792</x>
+      <y>522</y>
+      <w>81</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= seats 0..n
@@ -94,10 +94,10 @@ m1= seats 0..n
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>800</x>
-      <y>400</y>
-      <w>90</w>
-      <h>120</h>
+      <x>765</x>
+      <y>387</y>
+      <w>81</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= rows 0..n
@@ -108,10 +108,10 @@ m1= rows 0..n
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>320</x>
-      <y>740</y>
-      <w>320</w>
-      <h>110</h>
+      <x>333</x>
+      <y>693</y>
+      <w>288</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>MovieShow
 --
@@ -127,10 +127,10 @@ reserve(seat:Seat,user:User):Ticket
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>250</x>
-      <y>500</y>
-      <w>150</w>
-      <h>80</h>
+      <x>270</x>
+      <y>477</y>
+      <w>135</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>Movie
 --
@@ -142,10 +142,10 @@ minutes: Integer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>360</x>
-      <y>570</y>
-      <w>80</w>
-      <h>190</h>
+      <x>369</x>
+      <y>540</y>
+      <w>72</w>
+      <h>171</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= movie 1
@@ -156,10 +156,10 @@ m1= movie 1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>250</x>
-      <y>290</y>
-      <w>630</w>
-      <h>120</h>
+      <x>270</x>
+      <y>288</y>
+      <w>567</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>Room
 --
@@ -175,10 +175,10 @@ scheduleMovieShow(movie:Movie, start: Date, end: Date, 3d: Boolean, price: Integ
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>460</x>
-      <y>240</y>
-      <w>110</w>
-      <h>70</h>
+      <x>459</x>
+      <y>243</y>
+      <w>99</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= roomes 0..n
@@ -189,10 +189,10 @@ m1= roomes 0..n
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>560</x>
-      <y>400</y>
-      <w>140</w>
-      <h>360</h>
+      <x>549</x>
+      <y>387</y>
+      <w>126</w>
+      <h>324</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= movieShows 0..n
@@ -204,9 +204,9 @@ m1= movieShows 0..n
     <id>Relation</id>
     <coordinates>
       <x>450</x>
-      <y>400</y>
-      <w>80</w>
-      <h>360</h>
+      <y>387</y>
+      <w>72</w>
+      <h>324</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= room 1
@@ -217,10 +217,10 @@ m1= room 1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>740</x>
-      <y>550</y>
-      <w>70</w>
-      <h>120</h>
+      <x>711</x>
+      <y>522</y>
+      <w>63</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= row 1
@@ -231,10 +231,10 @@ m1= row 1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>810</x>
-      <y>780</y>
-      <w>170</w>
-      <h>60</h>
+      <x>774</x>
+      <y>729</y>
+      <w>153</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>Ticket
 --
@@ -245,10 +245,10 @@ getPrice():Integer
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>630</x>
-      <y>780</y>
-      <w>200</w>
-      <h>50</h>
+      <x>612</x>
+      <y>729</y>
+      <w>180</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= tickets 0..n
@@ -259,10 +259,10 @@ m1= tickets 0..n
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>830</x>
-      <y>690</y>
-      <w>70</w>
-      <h>110</h>
+      <x>792</x>
+      <y>648</y>
+      <w>63</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= seat 1
@@ -273,10 +273,10 @@ m1= seat 1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>630</x>
-      <y>810</y>
-      <w>200</w>
-      <h>50</h>
+      <x>612</x>
+      <y>756</y>
+      <w>180</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= movieShow 1
@@ -287,10 +287,10 @@ m1= movieShow 1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>960</x>
-      <y>440</y>
-      <w>100</w>
-      <h>30</h>
+      <x>909</x>
+      <y>423</y>
+      <w>90</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>ParquetRow</panel_attributes>
     <additional_attributes/>
@@ -298,10 +298,10 @@ m1= movieShow 1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>960</x>
-      <y>510</y>
-      <w>100</w>
-      <h>30</h>
+      <x>909</x>
+      <y>486</y>
+      <w>90</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>MiddleRow</panel_attributes>
     <additional_attributes/>
@@ -309,10 +309,10 @@ m1= movieShow 1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>960</x>
-      <y>570</y>
-      <w>100</w>
-      <h>30</h>
+      <x>909</x>
+      <y>540</y>
+      <w>90</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>BackRow</panel_attributes>
     <additional_attributes/>
@@ -320,10 +320,10 @@ m1= movieShow 1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>880</x>
-      <y>450</y>
-      <w>100</w>
-      <h>80</h>
+      <x>837</x>
+      <y>432</y>
+      <w>90</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;60.0;50.0;60.0;50.0;10.0;80.0;10.0</additional_attributes>
@@ -331,10 +331,10 @@ m1= movieShow 1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>880</x>
-      <y>540</y>
-      <w>100</w>
-      <h>60</h>
+      <x>837</x>
+      <y>513</y>
+      <w>90</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;50.0;10.0;50.0;40.0;80.0;40.0</additional_attributes>
@@ -342,10 +342,10 @@ m1= movieShow 1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>880</x>
-      <y>520</y>
-      <w>100</w>
-      <h>30</h>
+      <x>837</x>
+      <y>495</y>
+      <w>90</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;80.0;10.0</additional_attributes>
@@ -353,10 +353,10 @@ m1= movieShow 1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>950</x>
-      <y>640</y>
-      <w>140</w>
-      <h>60</h>
+      <x>900</x>
+      <y>603</y>
+      <w>162</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>User
 --
@@ -368,13 +368,13 @@ lastName: String
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>960</x>
-      <y>690</y>
-      <w>60</w>
-      <h>110</h>
+      <x>909</x>
+      <y>648</y>
+      <w>117</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-m1= by 1
+m1= reservedBy 0..1
 
 </panel_attributes>
     <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
@@ -382,24 +382,24 @@ m1= by 1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>970</x>
-      <y>690</y>
-      <w>120</w>
-      <h>130</h>
+      <x>918</x>
+      <y>648</y>
+      <w>135</w>
+      <h>117</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= tickets 0..n
 
 </panel_attributes>
-    <additional_attributes>10.0;100.0;100.0;100.0;100.0;10.0</additional_attributes>
+    <additional_attributes>10.0;100.0;130.0;100.0;130.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>670</x>
-      <y>940</y>
-      <w>100</w>
-      <h>30</h>
+      <x>648</x>
+      <y>873</y>
+      <w>90</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>Available</panel_attributes>
     <additional_attributes/>
@@ -407,10 +407,10 @@ m1= tickets 0..n
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>840</x>
-      <y>940</y>
-      <w>100</w>
-      <h>30</h>
+      <x>801</x>
+      <y>873</y>
+      <w>90</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>Reserved</panel_attributes>
     <additional_attributes/>
@@ -418,10 +418,10 @@ m1= tickets 0..n
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1010</x>
-      <y>940</y>
-      <w>100</w>
-      <h>30</h>
+      <x>954</x>
+      <y>873</y>
+      <w>90</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>Booked</panel_attributes>
     <additional_attributes/>
@@ -429,10 +429,10 @@ m1= tickets 0..n
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>810</x>
-      <y>880</y>
-      <w>170</w>
-      <h>30</h>
+      <x>774</x>
+      <y>819</y>
+      <w>153</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>/TicketState/
 </panel_attributes>
@@ -441,10 +441,10 @@ m1= tickets 0..n
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>950</x>
-      <y>830</y>
-      <w>70</w>
-      <h>70</h>
+      <x>900</x>
+      <y>774</y>
+      <w>63</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= state 1
@@ -455,10 +455,10 @@ m1= state 1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>830</x>
-      <y>830</y>
-      <w>80</w>
-      <h>70</h>
+      <x>792</x>
+      <y>774</y>
+      <w>72</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= ticket 1
@@ -469,48 +469,48 @@ m1= ticket 1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1200</x>
-      <y>820</y>
-      <w>140</w>
-      <h>80</h>
+      <x>999</x>
+      <y>765</y>
+      <w>189</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>/TicketAction/
 --
 book():TicketState
 unreserve():TicketState
-reserve():TicketState
+reserve(user:User):TicketState
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>970</x>
-      <y>820</y>
-      <w>250</w>
-      <h>30</h>
+      <x>918</x>
+      <y>765</y>
+      <w>99</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>230.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>970</x>
-      <y>850</y>
-      <w>250</w>
-      <h>70</h>
+      <x>918</x>
+      <y>792</y>
+      <w>99</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>230.0;10.0;130.0;10.0;130.0;50.0;10.0;50.0</additional_attributes>
+    <additional_attributes>90.0;10.0;60.0;10.0;60.0;50.0;10.0;50.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>880</x>
-      <y>900</y>
-      <w>30</w>
-      <h>60</h>
+      <x>837</x>
+      <y>837</y>
+      <w>27</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
@@ -518,10 +518,10 @@ reserve():TicketState
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>720</x>
-      <y>880</y>
-      <w>110</w>
-      <h>80</h>
+      <x>693</x>
+      <y>819</y>
+      <w>99</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>90.0;10.0;10.0;10.0;10.0;60.0</additional_attributes>
@@ -529,10 +529,10 @@ reserve():TicketState
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>950</x>
-      <y>900</y>
-      <w>80</w>
-      <h>70</h>
+      <x>900</x>
+      <y>837</y>
+      <w>72</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;50.0;60.0;50.0</additional_attributes>
@@ -540,10 +540,10 @@ reserve():TicketState
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>200</y>
-      <w>160</w>
-      <h>50</h>
+      <x>45</x>
+      <y>207</y>
+      <w>144</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>/HasIncome/
 --
@@ -554,10 +554,10 @@ income():Integer
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>120</x>
-      <y>240</y>
-      <w>150</w>
-      <h>150</h>
+      <x>153</x>
+      <y>243</y>
+      <w>135</w>
+      <h>135</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;130.0;130.0;130.0</additional_attributes>
@@ -565,10 +565,10 @@ income():Integer
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>60</x>
-      <y>240</y>
-      <w>280</w>
-      <h>600</h>
+      <x>99</x>
+      <y>243</y>
+      <w>252</w>
+      <h>540</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;580.0;260.0;580.0</additional_attributes>
@@ -576,10 +576,10 @@ income():Integer
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>150</x>
-      <y>210</y>
-      <w>250</w>
-      <h>30</h>
+      <x>180</x>
+      <y>216</y>
+      <w>225</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;230.0;10.0</additional_attributes>
@@ -587,10 +587,10 @@ income():Integer
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>110</x>
-      <y>120</y>
-      <w>180</w>
-      <h>100</h>
+      <x>144</x>
+      <y>135</y>
+      <w>162</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;80.0;10.0;10.0;160.0;10.0</additional_attributes>
@@ -598,10 +598,10 @@ income():Integer
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
-      <y>570</y>
-      <w>140</w>
-      <h>190</h>
+      <x>333</x>
+      <y>540</y>
+      <w>126</w>
+      <h>171</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= movieShows 0..n
@@ -612,10 +612,10 @@ m1= movieShows 0..n
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>90</x>
-      <y>240</y>
-      <w>180</w>
-      <h>320</h>
+      <x>126</x>
+      <y>243</y>
+      <w>162</w>
+      <h>288</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;300.0;160.0;300.0</additional_attributes>
@@ -623,10 +623,10 @@ m1= movieShows 0..n
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>150</x>
-      <y>230</y>
-      <w>250</w>
-      <h>320</h>
+      <x>180</x>
+      <y>234</y>
+      <w>225</w>
+      <h>288</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= movies 0..n
