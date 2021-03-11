@@ -14,7 +14,7 @@
         <input autocomplete="off" matInput [formControl]="nameControl" />
       </mat-form-field>
       <mat-form-field appearance="standard">
-        <mat-label>Price</mat-label>
+        <mat-label>Price in Cents</mat-label>
         <input autocomplete="off" matInput [formControl]="priceControl" />
       </mat-form-field>
       <button type="submit" mat-raised-button color="primary">
@@ -24,7 +24,8 @@
     <section *ngIf="categories$ | async as categories">
       <mat-list>
         <mat-list-item *ngFor="let category of categories">
-          {{ category.name }}: {{ category.priceInCents }}
+          {{ category.name }}:
+          {{ category.priceInCents / 100 | currency: "EUR" }}
         </mat-list-item>
       </mat-list>
     </section>
