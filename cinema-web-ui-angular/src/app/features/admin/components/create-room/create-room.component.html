@@ -1,20 +1,17 @@
-<form
-  class="form"
-  [formGroup]="form"
-  #formDirective="ngForm"
-  (ngSubmit)="_submit(formDirective)"
->
-  <mat-form-field appearance="fill">
-    <mat-label>Select Cinema</mat-label>
-    <mat-select (opened)="_fetchCinemas()" [formControl]="cinemaControl">
-      <mat-option *ngFor="let cinema of cinemas$ | async" [value]="cinema">
-        {{ cinema.nameOfCinema }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+<section id="create">
   <mat-form-field appearance="standard">
     <mat-label>Name</mat-label>
-    <input autocomplete="off" matInput [formControl]="roomNameControl" />
+    <input autocomplete="off" matInput [formControl]="form" />
   </mat-form-field>
-  <button type="submit" mat-raised-button color="primary">Create Room</button>
-</form>
+  <button (click)="_submit()" mat-raised-button color="primary">
+    Create Room
+  </button>
+</section>
+<mat-accordion *ngIf="roomes$ | async as roomes">
+  <mat-expansion-panel *ngFor="let room of roomes">
+    <mat-expansion-panel-header>
+      {{ room.nameOfRoom }}
+    </mat-expansion-panel-header>
+    <app-create-row [room]="room"></app-create-row>
+  </mat-expansion-panel>
+</mat-accordion>

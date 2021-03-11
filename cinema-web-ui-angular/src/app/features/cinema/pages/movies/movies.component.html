@@ -1,0 +1,8 @@
+<section class="page">
+  <h1>
+    Movies of
+    <span *ngIf="cinema$ | async as cinema">{{ cinema.nameOfCinema }}</span>
+  </h1>
+  <app-movie-card [movie]="movie" *ngFor="let movie of movies$ | async">
+  </app-movie-card>
+</section>

@@ -6,6 +6,7 @@ import {
   CreateSeatsComponent,
   CreateRowCategoryComponent,
   CreateRowComponent,
+  AddMovieComponent,
 } from './components';
 import { BuilderComponent } from './pages';
 import { RoutingModule } from './routes';
@@ -18,6 +19,7 @@ import { RoutingModule } from './routes';
     CreateSeatsComponent,
     CreateRowComponent,
     BuilderComponent,
+    AddMovieComponent,
   ],
   imports: [SharedModule, MessageModule, RoutingModule],
 })

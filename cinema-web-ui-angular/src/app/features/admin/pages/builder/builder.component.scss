@@ -1,6 +1,9 @@
+@import "variables.scss";
+
 .page {
   display: flex;
   flex-direction: column;
+  gap: $spacing;
   > .header {
     align-self: center;
   }

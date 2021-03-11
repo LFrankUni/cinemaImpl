@@ -1,16 +1,32 @@
-<form
-  class="form"
-  [formGroup]="form"
-  #formDirective="ngForm"
-  (ngSubmit)="_submit(formDirective)"
->
-  <mat-form-field appearance="standard">
-    <mat-label>Name</mat-label>
-    <input autocomplete="off" matInput [formControl]="nameControl" />
-  </mat-form-field>
-  <mat-form-field appearance="standard">
-    <mat-label>Price</mat-label>
-    <input autocomplete="off" matInput [formControl]="priceControl" />
-  </mat-form-field>
-  <button type="submit" mat-raised-button color="primary">Create Row</button>
-</form>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Row Categories</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form
+      class="form"
+      [formGroup]="form"
+      #formDirective="ngForm"
+      (ngSubmit)="_submit(formDirective)"
+    >
+      <mat-form-field appearance="standard">
+        <mat-label>Name</mat-label>
+        <input autocomplete="off" matInput [formControl]="nameControl" />
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Price</mat-label>
+        <input autocomplete="off" matInput [formControl]="priceControl" />
+      </mat-form-field>
+      <button type="submit" mat-raised-button color="primary">
+        Create Row Category
+      </button>
+    </form>
+    <section *ngIf="categories$ | async as categories">
+      <mat-list>
+        <mat-list-item *ngFor="let category of categories">
+          {{ category.name }}: {{ category.priceInCents }}
+        </mat-list-item>
+      </mat-list>
+    </section>
+  </mat-card-content>
+</mat-card>

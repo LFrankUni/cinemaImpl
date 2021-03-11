@@ -1,4 +1,4 @@
-/**--- Generated at Tue Mar 09 10:12:33 CET 2021 
+/**--- Generated at Thu Mar 11 18:42:40 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -347,5 +347,11 @@ public class CinemaService extends Observable{
 		return this.getRowCategoryCache().values().stream().map(proxy -> proxy.getTheObject())
 				.collect(Collectors.toList());
 	}
+/**
+ * Get All Movies
+ */
+   public Collection<Movie> getAllMovies()throws ModelException{
+      return this.getMovieCache().values().stream().map(proxy -> proxy.getTheObject()).collect(Collectors.toList());
+   }
 //90 ===== GENERATED: End of Your Operations ======
 }

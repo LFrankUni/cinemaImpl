@@ -1,14 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  FormGroupDirective,
-  Validators,
-} from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { CinemaService } from '@core/data';
-import { Cinema } from '@model/data';
+import { Cinema, Room } from '@model/data';
 import { MessageService } from '@shared/message';
+import { isNonNull } from '@utilities/isNonNull';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -17,64 +13,57 @@ import { map } from 'rxjs/operators';
   templateUrl: './create-room.component.html',
   styleUrls: ['./create-room.component.scss'],
 })
-export class CreateRoomComponent implements OnInit {
-  private _cinemas$: BehaviorSubject<Cinema[]> = new BehaviorSubject<Cinema[]>(
-    []
-  );
-  private readonly ROOM_NAME_CONTROL: string = 'room_name';
-  private readonly CINEMA_CONTROL: string = 'cinema';
-  public readonly form: FormGroup = new FormGroup({
-    [this.ROOM_NAME_CONTROL]: new FormControl('', Validators.required),
-    [this.CINEMA_CONTROL]: new FormControl(null, Validators.required),
-  });
+export class CreateRoomComponent {
+  private readonly _roomes$: BehaviorSubject<Room[]> = new BehaviorSubject<
+    Room[]
+  >(null);
+
+  private _cinema: Cinema;
+
+  public readonly form: FormControl = new FormControl('', Validators.required);
+
+  @Input()
+  public set cinema(value: Cinema) {
+    if (isNonNull(value)) {
+      this._cinema = value;
+      this.fetchRoomes();
+    }
+  }
+
+  private fetchRoomes() {
+    this.cinemaService
+      .getAllRooms(this._cinema)
+      .pipe(map((res) => res.value))
+      .subscribe({ next: (roomes) => this._roomes$.next(roomes) });
+  }
 
   constructor(
     private readonly cinemaService: CinemaService,
     private readonly messageService: MessageService
   ) {}
 
-  ngOnInit(): void {
-    this._fetchCinemas();
+  public get roomes$(): Observable<Room[]> {
+    return this._roomes$.asObservable();
   }
 
-  public _fetchCinemas() {
-    this.cinemaService
-      .getAllCinemas()
-      .pipe(map((res) => res.value))
-      .subscribe({ next: (cinemas) => this._cinemas$.next(cinemas) });
-  }
-
-  public get cinemas$(): Observable<Cinema[]> {
-    return this._cinemas$.asObservable();
-  }
-
-  public get roomNameControl(): FormControl {
-    return this.form.controls[this.ROOM_NAME_CONTROL] as FormControl;
-  }
-
-  public get cinemaControl(): FormControl {
-    return this.form.controls[this.CINEMA_CONTROL] as FormControl;
-  }
-
-  public _submit(formDirective: FormGroupDirective): void {
+  public _submit(): void {
     if (this.form.valid) {
-      this.cinemaService
-        .addRoom(this.roomNameControl.value, this.cinemaControl.value)
-        .subscribe({
-          next: (res) => {
-            this.messageService.openSnackBar(
-              `Added Room "${res.value.nameOfRoom}" to "${this.cinemaControl.value.nameOfCinema}"`
-            );
-            formDirective.resetForm();
-          },
-          error: (res: HttpErrorResponse) => {
-            formDirective.resetForm();
-            this.messageService.openDialog({
-              title: 'Error',
-              message: res.error.error,
-            });
-          },
-        });
+      this.cinemaService.addRoom(this.form.value, this._cinema).subscribe({
+        next: (res) => {
+          this.messageService.openSnackBar(
+            `Added Room "${res.value.nameOfRoom}" to "${this._cinema.nameOfCinema}"`
+          );
+          this.form.reset();
+          this.fetchRoomes();
+        },
+        error: (res: HttpErrorResponse) => {
+          this.messageService.openDialog({
+            title: 'Error',
+            message: res.error.error,
+          });
+          this.form.reset();
+        },
+      });
     }
   }
 }

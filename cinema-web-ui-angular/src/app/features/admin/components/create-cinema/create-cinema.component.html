@@ -1,8 +1,26 @@
-<mat-form-field appearance="standard">
-  <mat-label>Name</mat-label>
-  <input autocomplete="off" matInput [formControl]="form" />
-  <mat-error *ngIf="!form.valid">{{ form.errors | json }}</mat-error>
-</mat-form-field>
-<button mat-raised-button color="primary" (click)="_submit()">
-  Create Cinema
-</button>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title> Cinemas </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <section id="create">
+      <mat-form-field appearance="standard">
+        <mat-label>Name</mat-label>
+        <input autocomplete="off" matInput [formControl]="form" />
+        <mat-error *ngIf="!form.valid">{{ form.errors | json }}</mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="_submit()">
+        Create Cinema
+      </button>
+    </section>
+    <mat-accordion *ngIf="cinemas$ | async as cinemas">
+      <mat-expansion-panel *ngFor="let cinema of cinemas">
+        <mat-expansion-panel-header>
+          {{ cinema.nameOfCinema }}
+        </mat-expansion-panel-header>
+        <app-add-movie [cinema]="cinema"></app-add-movie>
+        <app-create-room [cinema]="cinema"></app-create-room>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card-content>
+</mat-card>

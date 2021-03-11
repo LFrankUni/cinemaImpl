@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -7,11 +7,11 @@ import {
   FormGroupDirective,
 } from '@angular/forms';
 import { CinemaService } from '@core/data';
-import { Cinema, Room, RowCategory } from '@model/data';
+import { Room, Row, RowCategory } from '@model/data';
 import { MessageService } from '@shared/message';
 import { isNonNull } from '@utilities/isNonNull';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-row',
@@ -19,23 +19,27 @@ import { filter, map, switchMap } from 'rxjs/operators';
   styleUrls: ['./create-row.component.scss'],
 })
 export class CreateRowComponent implements OnInit {
-  private _cinemas$: BehaviorSubject<Cinema[]> = new BehaviorSubject<Cinema[]>(
-    []
-  );
-
   private _categories$: BehaviorSubject<RowCategory[]> = new BehaviorSubject<
     RowCategory[]
   >([]);
 
-  private _roomes$: Observable<Room[]>;
+  private readonly _rows$: BehaviorSubject<Row[]> = new BehaviorSubject<Row[]>(
+    null
+  );
 
-  private readonly ROOM_CONTROL: string = 'room';
-  private readonly CINEMA_CONTROL: string = 'cinema';
+  private _room: Room;
+
+  @Input()
+  public set room(value: Room) {
+    if (isNonNull(value)) {
+      this._room = value;
+      this.fetchRows();
+    }
+  }
+
   private readonly CATEGORY_CONTROL: string = 'category';
   private readonly ROW_NAME_CONTROL: string = 'row_name';
   public readonly form: FormGroup = new FormGroup({
-    [this.ROOM_CONTROL]: new FormControl(null, Validators.required),
-    [this.CINEMA_CONTROL]: new FormControl(null, Validators.required),
     [this.CATEGORY_CONTROL]: new FormControl(null, Validators.required),
     [this.ROW_NAME_CONTROL]: new FormControl(null, Validators.required),
   });
@@ -46,20 +50,14 @@ export class CreateRowComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._fetchCinemas();
     this._fetchCategories();
-    this._roomes$ = this.cinemaControl.valueChanges.pipe(
-      filter(isNonNull),
-      switchMap((cinema) => this.cinemaService.getAllRooms(cinema)),
-      map((res) => res.value)
-    );
   }
 
-  public _fetchCinemas() {
+  private fetchRows() {
     this.cinemaService
-      .getAllCinemas()
+      .getAllRows(this._room)
       .pipe(map((res) => res.value))
-      .subscribe({ next: (cinemas) => this._cinemas$.next(cinemas) });
+      .subscribe({ next: (rows) => this._rows$.next(rows) });
   }
 
   public _fetchCategories() {
@@ -69,25 +67,14 @@ export class CreateRowComponent implements OnInit {
       .subscribe({ next: (categories) => this._categories$.next(categories) });
   }
 
-  public get cinemas$(): Observable<Cinema[]> {
-    return this._cinemas$.asObservable();
+  public get categories$(): Observable<RowCategory[]> {
+    return this._categories$.asObservable();
   }
 
-  public get roomes$(): Observable<Room[]> {
-    return this._roomes$;
+  public get rows$(): Observable<Row[]> {
+    return this._rows$.asObservable();
   }
 
-  public get categories$(): BehaviorSubject<RowCategory[]> {
-    return this._categories$;
-  }
-
-  public get roomControl(): FormControl {
-    return this.form.controls[this.ROOM_CONTROL] as FormControl;
-  }
-
-  public get cinemaControl(): FormControl {
-    return this.form.controls[this.CINEMA_CONTROL] as FormControl;
-  }
   public get categoryControl(): FormControl {
     return this.form.controls[this.CATEGORY_CONTROL] as FormControl;
   }
@@ -101,14 +88,15 @@ export class CreateRowComponent implements OnInit {
         .addRow(
           this.rowNameControl.value,
           this.categoryControl.value,
-          this.roomControl.value
+          this._room
         )
         .subscribe({
           next: (res) => {
             this.messageService.openSnackBar(
-              `Added Row "${res.value.name}" of type "${this.categoryControl.value.name}" to "${this.roomControl.value.nameOfRoom}"`
+              `Added Row "${res.value.name}" of type "${this.categoryControl.value.name}" to "${this._room.nameOfRoom}"`
             );
             formDirective.resetForm();
+            this.fetchRows();
           },
           error: (res: HttpErrorResponse) => {
             formDirective.resetForm();

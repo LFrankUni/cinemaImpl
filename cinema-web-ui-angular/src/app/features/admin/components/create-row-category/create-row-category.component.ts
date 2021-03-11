@@ -34,17 +34,17 @@ export class CreateRowCategoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._fetchRows();
+    this.fetchCategories();
   }
 
-  public _fetchRows() {
+  public fetchCategories() {
     this.cinemaService
       .getAllRowCategories()
       .pipe(map((res) => res.value))
       .subscribe({ next: (categories) => this._categories.next(categories) });
   }
 
-  public get categories(): Observable<RowCategory[]> {
+  public get categories$(): Observable<RowCategory[]> {
     return this._categories.asObservable();
   }
 
@@ -69,6 +69,7 @@ export class CreateRowCategoryComponent implements OnInit {
               `Added Category "${res.value.name}"`
             );
             formDirective.resetForm();
+            this.fetchCategories();
           },
           error: (res: HttpErrorResponse) => {
             formDirective.resetForm();

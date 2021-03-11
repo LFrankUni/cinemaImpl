@@ -1,4 +1,4 @@
-/**--- Generated at Tue Mar 09 10:12:33 CET 2021 
+/**--- Generated at Thu Mar 11 18:42:40 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -21,5 +21,5 @@ public interface IRoomRow extends Identifiable{
    public boolean removeFromSeats(Seat arg) throws ConstraintViolation, PersistenceException;
    public String getName() ;
    public void setName(String newName) throws PersistenceException;
-   public Collection<Seat> addSeats(Integer number)throws ModelException;
+   public Collection<Seat> getAllSeats()throws ModelException;
 }

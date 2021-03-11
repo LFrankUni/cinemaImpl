@@ -1,4 +1,4 @@
-/**--- Generated at Tue Mar 09 10:12:33 CET 2021 
+/**--- Generated at Thu Mar 11 18:42:40 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -72,7 +72,7 @@ public class RoomRowProxy implements IRoomRow{
    public void setName(String newName) throws PersistenceException{
       this.getTheObject().setName(newName);
    }
-   public Collection<Seat> addSeats(Integer number)throws ModelException{
-      return this.getTheObject().addSeats(number);
+   public Collection<Seat> getAllSeats()throws ModelException{
+      return this.getTheObject().getAllSeats();
    }
 }

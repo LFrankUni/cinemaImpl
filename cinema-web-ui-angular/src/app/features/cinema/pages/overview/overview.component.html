@@ -5,6 +5,15 @@
       slot="action"
       mat-raised-button
       color="primary"
+      routerLink="../movies"
+      [queryParams]="{ id: cinema.id }"
+    >
+      Movies
+    </button>
+    <button
+      slot="action"
+      mat-raised-button
+      color="primary"
       routerLink="../cinema"
       [queryParams]="{ id: cinema.id }"
     >

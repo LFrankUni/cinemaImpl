@@ -5,6 +5,7 @@ import {
   Cinema,
   CinemaRequest,
   CinemaResponse,
+  Movie,
   Parameter,
   Room,
   Row,
@@ -100,8 +101,23 @@ export class CinemaService {
     );
   }
 
+  public addMovie(
+    movie: Movie,
+    target: Cinema
+  ): Observable<CinemaResponse<Movie>> {
+    return this.executeFunction('addMovie', [
+      { type: 'Movie', value: movie.id },
+    ]);
+  }
+
   public getAllRooms(cinema: Cinema): Observable<CinemaResponse<Room[]>> {
     return this.executeFunction('getAllRooms', null, cinema.id, 'Cinema');
+  }
+
+  public getAllMovies(cinema?: Cinema): Observable<CinemaResponse<Movie[]>> {
+    return cinema
+      ? this.executeFunction('getAllMovies', null, cinema.id, 'Cinema')
+      : this.executeFunction('getAllMovies');
   }
 
   public getAllRows(room: Room): Observable<CinemaResponse<Row[]>> {
@@ -132,5 +148,9 @@ export class CinemaService {
       target.id,
       'RoomRow'
     );
+  }
+
+  public getAllSeats(row: Row): Observable<CinemaResponse<Seat[]>> {
+    return this.executeFunction('getAllSeats', null, row.id, 'RoomRow');
   }
 }

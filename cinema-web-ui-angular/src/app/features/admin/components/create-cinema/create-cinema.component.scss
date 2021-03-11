@@ -1,5 +1,7 @@
-:host {
+@import "variables.scss";
+
+#create {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: baseline;
+  gap: $spacing-small;
 }
