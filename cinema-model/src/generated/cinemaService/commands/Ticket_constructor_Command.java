@@ -1,11 +1,11 @@
-/**--- Generated at Thu Mar 11 18:42:40 CET 2021 
+/**--- Generated at Fri Mar 12 16:48:52 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
 public class Ticket_constructor_Command extends ServiceCommand<Ticket>{
-   private static final long serialVersionUID = 1783038143L;
+   private static final long serialVersionUID = -1745393859L;
    private Seat seat;
    private MovieShow  movieShow;
    public Ticket_constructor_Command(Seat seat, MovieShow  movieShow){

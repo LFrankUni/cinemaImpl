@@ -1,4 +1,4 @@
-/**--- Generated at Thu Mar 11 18:42:40 CET 2021 
+/**--- Generated at Fri Mar 12 16:48:51 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -7,9 +7,10 @@ import java.util.Optional;
 import db.executer.*;
 import generated.cinemaService.Cinema;
 import java.sql.ResultSet;
-import generated.cinemaService.Room;
-import java.util.Set;
 import generated.cinemaService.Movie;
+import java.util.Set;
+import generated.cinemaService.Room;
+import exceptions.ConstraintViolation;
 public class CinemaProxy extends HasIncomeProxy implements ICinema{
    private Integer id;
    private Optional<Cinema> theObject;
@@ -46,15 +47,6 @@ public class CinemaProxy extends HasIncomeProxy implements ICinema{
          return Cinema.createAlreadyPersistent(this, nameOfCinema);
       } catch (Exception e) {throw new PersistenceException(e.getMessage());}
    }
-   public Set<Room> getRoomes() throws PersistenceException{
-      return this.getTheObject().getRoomes();
-   }
-   public void addToRoomes(Room arg) throws PersistenceException{
-      this.getTheObject().addToRoomes(arg);
-   }
-   public boolean removeFromRoomes(Room arg) throws PersistenceException{
-      return this.getTheObject().removeFromRoomes(arg);
-   }
    public Set<Movie> getMovies() throws PersistenceException{
       return this.getTheObject().getMovies();
    }
@@ -63,6 +55,15 @@ public class CinemaProxy extends HasIncomeProxy implements ICinema{
    }
    public boolean removeFromMovies(Movie arg) throws PersistenceException{
       return this.getTheObject().removeFromMovies(arg);
+   }
+   public Set<Room> getRoomes() throws PersistenceException{
+      return this.getTheObject().getRoomes();
+   }
+   public void addToRoomes(Room arg) throws ConstraintViolation, PersistenceException{
+      this.getTheObject().addToRoomes(arg);
+   }
+   public boolean removeFromRoomes(Room arg) throws ConstraintViolation, PersistenceException{
+      return this.getTheObject().removeFromRoomes(arg);
    }
    public String getNameOfCinema() {
       return this.getTheObject().getNameOfCinema();

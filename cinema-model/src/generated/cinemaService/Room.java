@@ -1,4 +1,4 @@
-/**--- Generated at Thu Mar 11 18:42:40 CET 2021 
+/**--- Generated at Fri Mar 12 16:48:51 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -41,26 +41,27 @@ public class Room extends HasIncome implements java.io.Serializable, IRoom
    //40 ===== Editable : Your Attribute Section ======
 
 	//50 ===== GENERATED:      Constructor ============
-   private Room(Integer id, String nameOfRoom, Boolean open, boolean objectOnly)
-   throws PersistenceException{
+   private Room(Integer id, String nameOfRoom, Boolean open, Cinema cinema, boolean objectOnly)
+   throws PersistenceException, ConstraintViolation{
       super(id, objectOnly);
       this.nameOfRoom = nameOfRoom;
       this.open = open;
       if(objectOnly) return;
+      try{roomesSupervisor.getInstance().add(cinema,this);}catch(ConstraintViolation cv){}// Ok, because consistency is guaranteed with this statement
    }
    /** Caution: A Call to this Method Requires to add any newly instantiated Object to its Cache! */
-   public static Room createAlreadyPersistent(RoomProxy proxy, String nameOfRoom, Boolean open)throws PersistenceException{
+   public static Room createAlreadyPersistent(RoomProxy proxy, String nameOfRoom, Boolean open, Cinema cinema)throws PersistenceException, ConstraintViolation{
       if(proxy.isObjectPresent()) return proxy.getTheObject();
-      return new Room(proxy.getId(), nameOfRoom, open, true);
+      return new Room(proxy.getId(), nameOfRoom, open, cinema, true);
    }
-   public static Room createFresh(String nameOfRoom, Boolean open)throws PersistenceException{
+   public static Room createFresh(String nameOfRoom, Boolean open, Cinema cinema)throws PersistenceException, ConstraintViolation{
       db.executer.DBDMLExecuter dmlExecuter = PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter();
       Integer id = dmlExecuter.getNextId();
       try{
          dmlExecuter.insertInto("HasIncome", "id, typeKey, nameOfRoom, open", 
          id.toString() + ", " + TypeKeyManager.getTheInstance().getTypeKey("CinemaService", "Room").toString() + ", " + "'" + nameOfRoom + "'" + ", " + open.toString());
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
-      Room me = new Room(id, nameOfRoom, open, false);
+      Room me = new Room(id, nameOfRoom, open, cinema, false);
       CinemaService.getInstance().addRoomProxy(new RoomProxy(me));
       return me;
    }
@@ -107,6 +108,9 @@ public class Room extends HasIncome implements java.io.Serializable, IRoom
       this.open = newOpen;
       try{PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter().update("HasIncome", "open", newOpen.toString(), this.getId());
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
+   }
+   public Cinema getCinema() throws PersistenceException{
+      return roomesSupervisor.getInstance().getCinema(this).getTheObject();
    }
    //80 ===== Editable : Your Operations =============
 

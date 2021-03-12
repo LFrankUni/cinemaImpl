@@ -1,4 +1,4 @@
-/**--- Generated at Thu Mar 11 18:42:40 CET 2021 
+/**--- Generated at Fri Mar 12 16:48:51 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -65,15 +65,15 @@ public class CinemaService extends Observable{
       this.bookedCache = new InitialProxyLoader<BookedProxy>("generated", "CinemaService", "cinemaService", "Booked", "TicketAction").perform();
    }
    private void loadRelations() throws PersistenceException{
-      for(IntegerPair pair : new InitialRelationLoader("roomes").perform().values()){
-         String className1 = this.dmlExecuter.getNameOfConcreteType(pair.getP1(), "HasIncome", "CinemaService");
-         String className2 = this.dmlExecuter.getNameOfConcreteType(pair.getP2(), "HasIncome", "CinemaService");
-         try{this.addroomesElement(pair.getP1(), className1, pair.getP2(), className2);}catch(ConstraintViolation cv){throw new PersistenceException(cv.getMessage());}
-      }
       for(IntegerPair pair : new InitialRelationLoader("movies").perform().values()){
          String className1 = this.dmlExecuter.getNameOfConcreteType(pair.getP1(), "HasIncome", "CinemaService");
          String className2 = this.dmlExecuter.getNameOfConcreteType(pair.getP2(), "HasIncome", "CinemaService");
          try{this.addmoviesElement(pair.getP1(), className1, pair.getP2(), className2);}catch(ConstraintViolation cv){throw new PersistenceException(cv.getMessage());}
+      }
+      for(IntegerPair pair : new InitialRelationLoader("roomes").perform().values()){
+         String className1 = this.dmlExecuter.getNameOfConcreteType(pair.getP1(), "HasIncome", "CinemaService");
+         String className2 = this.dmlExecuter.getNameOfConcreteType(pair.getP2(), "HasIncome", "CinemaService");
+         try{this.addroomesElement(pair.getP1(), className1, pair.getP2(), className2);}catch(ConstraintViolation cv){throw new PersistenceException(cv.getMessage());}
       }
       for(IntegerPair pair : new InitialRelationLoader("movieShowsOfRoom").perform().values()){
          String className1 = this.dmlExecuter.getNameOfConcreteType(pair.getP1(), "HasIncome", "CinemaService");
@@ -121,17 +121,17 @@ public class CinemaService extends Observable{
          try{this.addTicketToStateElement(pair.getP1(), className1, pair.getP2(), className2);}catch(ConstraintViolation cv){throw new PersistenceException(cv.getMessage());}
       }
    }
-   private void addroomesElement(Integer id1, String className1, Integer id2, String className2) throws ConstraintViolation, PersistenceException{
-      ICinema proxy1 = null; IRoom proxy2 = null; 
-      if(className1.equals("Cinema"))  proxy1 = this.cinemaCache.get(id1);
-      if(className2.equals("Room"))  proxy2 = this.roomCache.get(id2);
-      roomesSupervisor.getInstance().addAlreadyPersistent(proxy1, proxy2);
-   }
    private void addmoviesElement(Integer id1, String className1, Integer id2, String className2) throws ConstraintViolation, PersistenceException{
       ICinema proxy1 = null; IMovie proxy2 = null; 
       if(className1.equals("Cinema"))  proxy1 = this.cinemaCache.get(id1);
       if(className2.equals("Movie"))  proxy2 = this.movieCache.get(id2);
       moviesSupervisor.getInstance().addAlreadyPersistent(proxy1, proxy2);
+   }
+   private void addroomesElement(Integer id1, String className1, Integer id2, String className2) throws ConstraintViolation, PersistenceException{
+      ICinema proxy1 = null; IRoom proxy2 = null; 
+      if(className1.equals("Cinema"))  proxy1 = this.cinemaCache.get(id1);
+      if(className2.equals("Room"))  proxy2 = this.roomCache.get(id2);
+      roomesSupervisor.getInstance().addAlreadyPersistent(proxy1, proxy2);
    }
    private void addmovieShowsOfRoomElement(Integer id1, String className1, Integer id2, String className2) throws ConstraintViolation, PersistenceException{
       IRoom proxy1 = null; IMovieShow proxy2 = null; 

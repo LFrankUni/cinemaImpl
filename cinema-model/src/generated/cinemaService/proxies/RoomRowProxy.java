@@ -1,4 +1,4 @@
-/**--- Generated at Thu Mar 11 18:42:40 CET 2021 
+/**--- Generated at Fri Mar 12 16:48:51 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -12,8 +12,6 @@ import generated.cinemaService.relationControl.rowToCategorySupervisor;
 import generated.cinemaService.Seat;
 import java.util.Set;
 import exceptions.ConstraintViolation;
-import java.util.Collection;
-import generated.cinemaService.ModelException;
 public class RoomRowProxy implements IRoomRow{
    private Integer id;
    private Optional<RoomRow> theObject;
@@ -71,8 +69,5 @@ public class RoomRowProxy implements IRoomRow{
    }
    public void setName(String newName) throws PersistenceException{
       this.getTheObject().setName(newName);
-   }
-   public Collection<Seat> getAllSeats()throws ModelException{
-      return this.getTheObject().getAllSeats();
    }
 }

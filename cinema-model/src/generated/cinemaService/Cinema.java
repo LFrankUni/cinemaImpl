@@ -1,4 +1,4 @@
-/**--- Generated at Thu Mar 11 18:42:40 CET 2021 
+/**--- Generated at Fri Mar 12 16:48:51 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -60,17 +60,6 @@ public class Cinema extends HasIncome implements java.io.Serializable, ICinema
    public Cinema getTheObject(){
       return this;
    }
-   public Set<Room> getRoomes() throws PersistenceException{
-      Set<Room> result = new HashSet<>();
-      for (IRoom i : roomesSupervisor.getInstance().getRoomes(this)) result.add(i.getTheObject());
-      return result;
-   }
-   public void addToRoomes(Room arg) throws PersistenceException{
-      roomesSupervisor.getInstance().add(this, arg);
-   }
-   public boolean removeFromRoomes(Room arg) throws PersistenceException{
-      return roomesSupervisor.getInstance().remove(this, arg);
-   }
    public Set<Movie> getMovies() throws PersistenceException{
       Set<Movie> result = new HashSet<>();
       for (IMovie i : moviesSupervisor.getInstance().getMovies(this)) result.add(i.getTheObject());
@@ -81,6 +70,17 @@ public class Cinema extends HasIncome implements java.io.Serializable, ICinema
    }
    public boolean removeFromMovies(Movie arg) throws PersistenceException{
       return moviesSupervisor.getInstance().remove(this, arg);
+   }
+   public Set<Room> getRoomes() throws PersistenceException{
+      Set<Room> result = new HashSet<>();
+      for (IRoom i : roomesSupervisor.getInstance().getRoomes(this)) result.add(i.getTheObject());
+      return result;
+   }
+   public void addToRoomes(Room arg) throws ConstraintViolation, PersistenceException{
+      roomesSupervisor.getInstance().add(this, arg);
+   }
+   public boolean removeFromRoomes(Room arg) throws ConstraintViolation, PersistenceException{
+      return roomesSupervisor.getInstance().remove(this, arg);
    }
    public String getNameOfCinema() {
       return this.nameOfCinema;
@@ -139,7 +139,7 @@ public class Cinema extends HasIncome implements java.io.Serializable, ICinema
 	 * Adds a new Room to this cinema.
 	 */
 	public Room addRoom(String name) throws ModelException {
-		final Room room = Room.createFresh(name, false);
+		final Room room = Room.createFresh(name, false,this);
 		this.addToRoomes(room);
 		return room;
 	}
@@ -151,5 +151,6 @@ public class Cinema extends HasIncome implements java.io.Serializable, ICinema
 		this.addToMovies(movie);
 		return movie;
 	}
+
 //90 ===== GENERATED: End of Your Operations ======
 }

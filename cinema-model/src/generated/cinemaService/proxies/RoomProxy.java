@@ -1,4 +1,4 @@
-/**--- Generated at Thu Mar 11 18:42:40 CET 2021 
+/**--- Generated at Fri Mar 12 16:48:51 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -11,6 +11,8 @@ import generated.cinemaService.MovieShow;
 import java.util.Set;
 import exceptions.ConstraintViolation;
 import generated.cinemaService.RoomRow;
+import generated.cinemaService.Cinema;
+import generated.cinemaService.relationControl.roomesSupervisor;
 public class RoomProxy extends HasIncomeProxy implements IRoom{
    private Integer id;
    private Optional<Room> theObject;
@@ -45,7 +47,8 @@ public class RoomProxy extends HasIncomeProxy implements IRoom{
          rs = DBExecuterFactory.getConfiguredFactory().getDBDMLExecuter().selectIdSpecifiedCursorAleadyAtFirstRow("HasIncome", this.id);
          String nameOfRoom = rs.getString("nameOfRoom");
          Boolean open = rs.getBoolean("open");
-         return Room.createAlreadyPersistent(this, nameOfRoom, open);
+         Cinema cinema = roomesSupervisor.getInstance().getCinema(this).getTheObject();
+         return Room.createAlreadyPersistent(this, nameOfRoom, open, cinema);
       } catch (Exception e) {throw new PersistenceException(e.getMessage());}
    }
    public Set<MovieShow> getMovieShows() throws PersistenceException{
@@ -77,5 +80,8 @@ public class RoomProxy extends HasIncomeProxy implements IRoom{
    }
    public void setOpen(Boolean newOpen) throws PersistenceException{
       this.getTheObject().setOpen(newOpen);
+   }
+   public Cinema getCinema() throws PersistenceException{
+      return this.getTheObject().getCinema();
    }
 }
