@@ -1,0 +1,51 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Create Movie</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form
+      class="form"
+      [formGroup]="form"
+      #directive
+      (ngSubmit)="_submit(directive)"
+    >
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input
+          autocomplete="off"
+          matInput
+          placeholder="Title"
+          [formControlName]="MOVIE_TITLE_CONTROL"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <input
+          autocomplete="off"
+          matInput
+          placeholder="Description"
+          [formControlName]="MOVIE_DESCRPTION_CONTROL"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Minutes</mat-label>
+        <input
+          autocomplete="off"
+          matInput
+          placeholder="Minutes"
+          [formControlName]="MOVIE_LENGTH_CONTROL"
+        />
+      </mat-form-field>
+      <button type="submit" mat-raised-button color="primary">
+        Create Movie
+      </button>
+    </form>
+    <section *ngIf="movies$ | async as movies">
+      <mat-list>
+        <mat-list-item *ngFor="let movie of movies">
+          {{ movie.title }} - {{ movie.minutes }}m
+        </mat-list-item>
+      </mat-list>
+    </section>
+  </mat-card-content>
+</mat-card>
