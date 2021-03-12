@@ -1,0 +1,48 @@
+<form
+  [formGroup]="form"
+  class="form"
+  #directive="ngForm"
+  (ngSubmit)="_submit(directive)"
+>
+  <mat-form-field appearance="standard">
+    <mat-label>Select Movie</mat-label>
+    <mat-select (opened)="_fetchMovies()" [formControlName]="MOVIE_CONTROL">
+      <mat-option *ngFor="let movie of movies$ | async" [value]="movie">
+        {{ movie.title }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="standard">
+    <mat-label>Choose a date</mat-label>
+    <input
+      autocomplete="off"
+      [formControlName]="START_DATE_CONTROL"
+      matInput
+      [matDatepicker]="picker"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Time</mat-label>
+    <input
+      autocomplete="off"
+      matInput
+      type="time"
+      [formControlName]="START_TIME_CONTROL"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Days</mat-label>
+    <input autocomplete="off" matInput [formControlName]="DAYS_CONTROL" />
+  </mat-form-field>
+  <mat-checkbox [formControlName]="THREEDIMENSIONAL_CONTROL">3D</mat-checkbox>
+  <mat-form-field>
+    <mat-label>Price in Cents</mat-label>
+    <input autocomplete="off" matInput [formControlName]="PRICE_CONTROL" />
+  </mat-form-field>
+  <button type="submit" color="primary" mat-raised-button>
+    Schedule Shows
+  </button>
+</form>
+<app-movie-show-list [movieShows]="shows$ | async"></app-movie-show-list>

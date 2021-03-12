@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CinemaService } from '@core/data';
 import { MOVIES_QUERY_PARAM_CINEMA_ID } from '@features/cinema/routes/constants';
 import { Cinema, Movie, MovieShow } from '@model/data';
+import { add, getStartOfToday } from '@utilities/date';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, pluck, switchMap, tap } from 'rxjs/operators';
 
@@ -41,7 +42,12 @@ export class MoviesComponent implements OnInit {
               this._shows.set(
                 movie,
                 this.cinemaService
-                  .getAllMovieShows(new Date(), new Date(), cinema, movie)
+                  .getAllMovieShows(
+                    getStartOfToday(),
+                    add(getStartOfToday(), 7, 0, 0, 0, -1),
+                    cinema,
+                    movie
+                  )
                   .pipe(map((res) => res.value))
               )
             )

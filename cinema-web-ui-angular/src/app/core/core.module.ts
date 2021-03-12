@@ -5,10 +5,16 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { registerLocaleData } from '@angular/common';
 import localeDE from '@angular/common/locales/de';
+import { MatNativeDateModule } from '@angular/material/core';
 
 registerLocaleData(localeDE);
 @NgModule({
-  exports: [BrowserModule, BrowserAnimationsModule, HttpClientModule],
+  exports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MatNativeDateModule,
+  ],
   providers: [
     {
       provide: LOCALE_ID,

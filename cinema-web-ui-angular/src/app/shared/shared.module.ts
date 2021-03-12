@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
@@ -20,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   exports: [
     CommonModule,
+    MatDatepickerModule,
     MatDividerModule,
     MatSidenavModule,
     MatListModule,

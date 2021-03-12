@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { MessageModule, SharedModule } from '@shared';
+import { MovieShowModule } from '@shared/movie-show';
 import {
   CreateCinemaComponent,
   CreateRoomComponent,
@@ -7,6 +8,7 @@ import {
   CreateRowCategoryComponent,
   CreateRowComponent,
   CreateMovieComponent,
+  ScheduleMovieShowComponent,
   AddMovieComponent,
 } from './components';
 import { BuilderComponent } from './pages';
@@ -22,7 +24,8 @@ import { RoutingModule } from './routes';
     BuilderComponent,
     AddMovieComponent,
     CreateMovieComponent,
+    ScheduleMovieShowComponent,
   ],
-  imports: [SharedModule, MessageModule, RoutingModule],
+  imports: [SharedModule, MessageModule, MovieShowModule, RoutingModule],
 })
 export class AdminModule {}

@@ -183,4 +183,26 @@ export class CinemaService {
       'Movie'
     );
   }
+
+  public scheduleMovieShows(
+    movie: Movie,
+    start: Date,
+    days: number,
+    threeDimensional: boolean,
+    price: number,
+    target: Room
+  ): Observable<CinemaResponse<MovieShow[]>> {
+    return this.executeFunction(
+      'scheduleMovieShows',
+      [
+        { type: 'Movie', value: movie.id },
+        { type: 'String', value: start.toISOString() },
+        { type: 'Integer', value: days },
+        { type: 'Boolean', value: threeDimensional },
+        { type: 'Integer', value: price },
+      ],
+      target.id,
+      'Room'
+    );
+  }
 }

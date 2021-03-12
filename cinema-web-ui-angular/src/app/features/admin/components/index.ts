@@ -5,3 +5,4 @@ export * from './create-movie';
 export * from './create-row-category';
 export * from './create-row';
 export * from './add-movie';
+export * from './schedule-movie-show';

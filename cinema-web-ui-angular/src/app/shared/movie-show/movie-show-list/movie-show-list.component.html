@@ -1,9 +1,12 @@
 <mat-list *ngIf="movieShows && movieShows.length > 0">
   <mat-list-item *ngFor="let show of movieShows">
-    <span matLine>{{ show.start | date }} - {{ show.end | date }}</span>
-    <span matLine>{{ show.priceInCent / 100 | currency: "EUR" }}</span>
     <span matLine>
-      3d: <mat-icon>{{ show.threeDimensional ? "check" : "close" }}</mat-icon>
-    </span>
+      {{ show.start | date: "dd.MM.yyyy" }}: {{ show.start | date: "HH:mm" }} -
+      {{ show.end | date: "HH:mm" }}</span
+    >
+    <span matLine>
+      {{ show.priceInCent / 100 | currency: "EUR" }}
+      <span *ngIf="show.threeDimensional">3d</span></span
+    >
   </mat-list-item>
 </mat-list>

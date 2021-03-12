@@ -46,6 +46,10 @@ export class CreateRoomComponent {
     return this._roomes$.asObservable();
   }
 
+  public get cinema(): Cinema {
+    return this._cinema;
+  }
+
   public _change(room: Room, open: boolean): void {
     open
       ? this.cinemaService.openRoom(room).subscribe()

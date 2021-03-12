@@ -1,0 +1,8 @@
+@import "variables.scss";
+
+.form {
+  display: flex;
+  align-items: baseline;
+  gap: $spacing-small;
+  flex-wrap: wrap;
+}
