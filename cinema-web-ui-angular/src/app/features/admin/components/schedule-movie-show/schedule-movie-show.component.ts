@@ -88,7 +88,8 @@ export class ScheduleMovieShowComponent implements OnInit {
               form[this.START_DATE_CONTROL],
               Number(form[this.DAYS_CONTROL]),
               Number(String(form[this.START_TIME_CONTROL]).substring(0, 2)),
-              Number(String(form[this.START_TIME_CONTROL]).substring(3, 5))
+              Number(String(form[this.START_TIME_CONTROL]).substring(3, 5)),
+              -1
             ),
             this.cinema,
             form[this.MOVIE_CONTROL]
