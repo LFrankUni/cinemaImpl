@@ -6,6 +6,7 @@ import {
   CinemaRequest,
   CinemaResponse,
   Movie,
+  MovieShow,
   Parameter,
   Room,
   Row,
@@ -163,5 +164,23 @@ export class CinemaService {
 
   public getAllSeats(row: Row): Observable<CinemaResponse<Seat[]>> {
     return this.executeFunction('getAllSeats', null, row.id, 'RoomRow');
+  }
+
+  public getAllMovieShows(
+    from: Date,
+    to: Date,
+    cinema: Cinema,
+    target: Movie
+  ): Observable<CinemaResponse<MovieShow[]>> {
+    return this.executeFunction(
+      'getAllMovieShows',
+      [
+        { type: 'String', value: from.toISOString() },
+        { type: 'String', value: to.toISOString() },
+        { type: 'Cinema', value: cinema.id },
+      ],
+      target.id,
+      'Movie'
+    );
   }
 }

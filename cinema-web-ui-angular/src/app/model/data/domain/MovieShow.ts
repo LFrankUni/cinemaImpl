@@ -6,5 +6,5 @@ export interface MovieShow extends Identifiable {
   end: string;
   threeDimensional: boolean;
   priceInCent: number;
-  movie: Movie;
+  movie?: Movie;
 }

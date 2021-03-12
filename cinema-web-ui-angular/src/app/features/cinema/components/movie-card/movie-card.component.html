@@ -9,6 +9,7 @@
     <p>
       {{ movie.description }}
     </p>
+    <ng-content select="[slot=content]"></ng-content>
   </mat-card-content>
   <mat-card-actions align="end">
     <ng-content select="[slot=action]"></ng-content>

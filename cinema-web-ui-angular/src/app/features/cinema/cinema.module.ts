@@ -11,6 +11,7 @@ import {
   MovieShowCardComponent,
 } from './components';
 import { SharedModule } from '@shared';
+import { MovieShowModule } from '@shared/movie-show';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,6 @@ import { SharedModule } from '@shared';
     MovieShowCardComponent,
     MoviesComponent,
   ],
-  imports: [SharedModule, RoutingModule],
+  imports: [SharedModule, MovieShowModule, RoutingModule],
 })
 export class CinemaModule {}
