@@ -113,9 +113,12 @@ export class CinemaService {
     movie: Movie,
     target: Cinema
   ): Observable<CinemaResponse<Movie>> {
-    return this.executeFunction('addMovie', [
-      { type: 'Movie', value: movie.id },
-    ]);
+    return this.executeFunction(
+      'addMovie',
+      [{ type: 'Movie', value: movie.id }],
+      target.id,
+      'Cinema'
+    );
   }
 
   public getAllRooms(cinema: Cinema): Observable<CinemaResponse<Room[]>> {

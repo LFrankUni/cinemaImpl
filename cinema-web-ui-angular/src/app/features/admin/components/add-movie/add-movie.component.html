@@ -1,6 +1,6 @@
 <mat-form-field appearance="standard">
   <mat-label>Select Movie</mat-label>
-  <mat-select [formControl]="form">
+  <mat-select (opened)="_fetchMovies()" [formControl]="form">
     <mat-option *ngFor="let movie of movies$ | async" [value]="movie">
       {{ movie.title }}
     </mat-option>

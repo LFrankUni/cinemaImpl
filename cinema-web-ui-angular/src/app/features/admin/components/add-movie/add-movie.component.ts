@@ -29,7 +29,7 @@ export class AddMovieComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //this._fetchMovies();
+    this._fetchMovies();
   }
 
   _fetchMovies() {
@@ -45,19 +45,19 @@ export class AddMovieComponent implements OnInit {
 
   public _submit(): void {
     if (this.form.valid) {
-      this.cinemaService.addRoom(null, null).subscribe({
+      this.cinemaService.addMovie(this.form.value, this.cinema).subscribe({
         next: (res) => {
           this.messageService.openSnackBar(
-            `Added Room "${res.value.nameOfRoom}" to "${this.cinema.nameOfCinema}"`
+            `Added Movie "${res.value.title}" to "${this.cinema.nameOfCinema}"`
           );
           this.form.reset();
         },
         error: (res: HttpErrorResponse) => {
-          this.form.reset();
           this.messageService.openDialog({
             title: 'Error',
             message: res.error.error,
           });
+          this.form.reset();
         },
       });
     }
