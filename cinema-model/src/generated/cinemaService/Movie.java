@@ -7,6 +7,7 @@ package generated.cinemaService;
 //10 ===== GENERATED:      Import Section =========
 import java.sql.SQLException;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 import db.connection.NoConnectionException;
 import db.connection.TypeKeyManager;
@@ -139,8 +140,8 @@ public class Movie extends HasIncome implements java.io.Serializable, IMovie {
 	 * Returns all movieshows where start of show is in between from and to.
 	 */
 	public Collection<MovieShow> getAllMovieShows(String from, String to, Cinema cinema) throws ModelException {
-		final Instant _from = TimeConverter.toInstant(from);
-		final Instant _to = TimeConverter.toInstant(to);
+		final Instant _from = TimeConverter.toInstant(from).minus(1,ChronoUnit.MILLIS);
+		final Instant _to = TimeConverter.toInstant(to).plus(1,ChronoUnit.MILLIS);
 		return this.getMovieShows().stream().filter(show -> {
 			try {
 				return show.getRoom().getCinema().equals(cinema);
