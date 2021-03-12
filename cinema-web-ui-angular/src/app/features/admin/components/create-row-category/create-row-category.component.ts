@@ -72,11 +72,11 @@ export class CreateRowCategoryComponent implements OnInit {
             this.fetchCategories();
           },
           error: (res: HttpErrorResponse) => {
-            formDirective.resetForm();
             this.messageService.openDialog({
               title: 'Error',
               message: res.error.error,
             });
+            formDirective.resetForm();
           },
         });
     }

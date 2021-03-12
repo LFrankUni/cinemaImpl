@@ -51,11 +51,11 @@ export class CreateCinemaComponent implements OnInit {
             this._fetchCinemas();
           },
           error: (res: HttpErrorResponse) => {
-            this.form.reset();
             this.messageService.openDialog({
               title: 'Error',
               message: res.error.error,
             });
+            this.form.reset();
           },
         });
     }

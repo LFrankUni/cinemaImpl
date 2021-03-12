@@ -99,11 +99,11 @@ export class CreateRowComponent implements OnInit {
             this.fetchRows();
           },
           error: (res: HttpErrorResponse) => {
-            formDirective.resetForm();
             this.messageService.openDialog({
               title: 'Error',
               message: res.error.error,
             });
+            formDirective.resetForm();
           },
         });
     }

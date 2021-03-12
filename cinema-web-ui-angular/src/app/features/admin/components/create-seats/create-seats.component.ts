@@ -59,11 +59,11 @@ export class CreateSeatsComponent {
             this.fetchSeats();
           },
           error: (res: HttpErrorResponse) => {
-            this.form.reset();
             this.messageService.openDialog({
               title: 'Error',
               message: res.error.error,
             });
+            this.form.reset();
           },
         });
     }
