@@ -85,6 +85,14 @@ export class CinemaService {
     );
   }
 
+  public openRoom(room: Room): Observable<CinemaResponse<void>> {
+    return this.executeFunction('open', null, room.id, 'Room');
+  }
+
+  public closeRoom(room: Room): Observable<CinemaResponse<void>> {
+    return this.executeFunction('close', null, room.id, 'Room');
+  }
+
   public addRow(
     name: string,
     category: RowCategory,

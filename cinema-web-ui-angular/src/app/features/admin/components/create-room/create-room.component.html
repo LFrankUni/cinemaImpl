@@ -12,6 +12,12 @@
     <mat-expansion-panel-header>
       {{ room.nameOfRoom }}
     </mat-expansion-panel-header>
+    <mat-checkbox
+      (change)="_change(room, $event.checked)"
+      [checked]="room.open"
+    >
+      Open
+    </mat-checkbox>
     <app-create-row [room]="room"></app-create-row>
   </mat-expansion-panel>
 </mat-accordion>

@@ -46,6 +46,12 @@ export class CreateRoomComponent {
     return this._roomes$.asObservable();
   }
 
+  public _change(room: Room, open: boolean): void {
+    open
+      ? this.cinemaService.openRoom(room).subscribe()
+      : this.cinemaService.closeRoom(room).subscribe();
+  }
+
   public _submit(): void {
     if (this.form.valid) {
       this.cinemaService.addRoom(this.form.value, this._cinema).subscribe({
