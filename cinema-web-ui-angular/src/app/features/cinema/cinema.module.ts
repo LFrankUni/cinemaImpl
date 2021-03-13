@@ -3,6 +3,7 @@ import {
   OverviewComponent,
   CinemaOverviewComponent,
   MoviesComponent,
+  MovieShowComponent,
 } from './pages';
 import { RoutingModule } from './routes';
 import {
@@ -21,6 +22,7 @@ import { MovieShowModule } from '@shared/movie-show';
     MovieCardComponent,
     MovieShowCardComponent,
     MoviesComponent,
+    MovieShowComponent,
   ],
   imports: [SharedModule, MovieShowModule, RoutingModule],
 })

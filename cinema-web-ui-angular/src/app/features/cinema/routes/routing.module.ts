@@ -3,9 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import {
   CinemaOverviewComponent,
   MoviesComponent,
+  MovieShowComponent,
   OverviewComponent,
 } from '../pages';
-import { CINEMA, MOVIES, OVERVIEW } from './constants';
+import { CINEMA, MOVIES, MOVIE_SHOW, OVERVIEW } from './constants';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
     component: CinemaOverviewComponent,
   },
   { path: MOVIES, component: MoviesComponent },
+  { path: MOVIE_SHOW, component: MovieShowComponent },
   {
     path: '**',
     redirectTo: OVERVIEW,

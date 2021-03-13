@@ -14,7 +14,11 @@
       </h4>
       <section *ngSwitchDefault>
         <h4>Schedule for the next {{ scheduleOfNextDays }} days</h4>
-        <app-movie-show-list class="schedule" [movieShows]="data">
+        <app-movie-show-list
+          (selected)="navigate($event)"
+          class="schedule"
+          [movieShows]="data"
+        >
         </app-movie-show-list>
       </section>
     </ng-container>

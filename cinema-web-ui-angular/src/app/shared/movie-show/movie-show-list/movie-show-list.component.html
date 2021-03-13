@@ -4,7 +4,7 @@
   [multiple]="false"
   *ngIf="movieShows && movieShows.length > 0"
 >
-  <mat-list-option *ngFor="let show of movieShows">
+  <mat-list-option [value]="show" *ngFor="let show of movieShows">
     <span matLine>
       {{ show.start | date: "dd.MM.yyyy" }}: {{ show.start | date: "HH:mm" }} -
       {{ show.end | date: "HH:mm" }}

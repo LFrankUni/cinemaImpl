@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CinemaService } from '@core/data';
-import { MOVIES_QUERY_PARAM_CINEMA_ID } from '@features/cinema/routes/constants';
+import {
+  CINEMA_QUERY_PARAM_ID,
+  MOVIES_QUERY_PARAM_CINEMA_ID,
+  MOVIE_SHOW,
+} from '@features/cinema/routes/constants';
 import { Cinema, Movie, MovieShow } from '@model/data';
 import { add, getStartOfToday } from '@utilities/date';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -24,7 +28,8 @@ export class MoviesComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly cinemaService: CinemaService
+    private readonly cinemaService: CinemaService,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -68,6 +73,16 @@ export class MoviesComponent implements OnInit {
         )
       )
     );
+  }
+
+  public navigate(to: MovieShow): void {
+    this.router.navigate([`../${MOVIE_SHOW}`], {
+      relativeTo: this.route,
+      queryParams: {
+        [CINEMA_QUERY_PARAM_ID]: to.id,
+        [MOVIES_QUERY_PARAM_CINEMA_ID]: this._cinema$.value.id,
+      },
+    });
   }
 
   public get shows(): Map<Movie, Observable<MovieShow[]>> {
