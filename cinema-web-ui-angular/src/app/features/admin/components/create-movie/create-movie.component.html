@@ -40,7 +40,7 @@
         Create Movie
       </button>
     </form>
-    <section *ngIf="movies$ | async as movies">
+    <section class="movies" *ngIf="movies$ | async as movies">
       <mat-list>
         <mat-list-item *ngFor="let movie of movies">
           {{ movie.title }} - {{ movie.minutes }}m
