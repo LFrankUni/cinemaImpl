@@ -9,12 +9,12 @@
       *ngIf="shows.get(movie) | async as data"
       [ngSwitch]="data.length"
     >
-      <span *ngSwitchCase="0"
-        >No shows scheduled in the next {{ scheduleOfNextDays }} days 😥</span
-      >
-      <section class="schedule" *ngSwitchDefault>
-        <span>Schedule for the next {{ scheduleOfNextDays }} days</span>
-        <app-movie-show-list *ngSwitchDefault [movieShows]="data">
+      <h4 *ngSwitchCase="0">
+        No shows scheduled in the next {{ scheduleOfNextDays }} days 😥
+      </h4>
+      <section *ngSwitchDefault>
+        <h4>Schedule for the next {{ scheduleOfNextDays }} days</h4>
+        <app-movie-show-list class="schedule" [movieShows]="data">
         </app-movie-show-list>
       </section>
     </ng-container>
