@@ -12,6 +12,7 @@ import {
   Row,
   RowCategory,
   Seat,
+  Ticket,
 } from '@model';
 import { Observable } from 'rxjs';
 
@@ -20,6 +21,7 @@ import { Observable } from 'rxjs';
 })
 export class CinemaService {
   private readonly COMMAND_RESOURCE: string = 'command';
+  private readonly OBJECT_RESOURCE: string = 'object';
   private readonly CONSTRUCTOR_COMMAND: string = 'constructor';
   private readonly SERVICE_NAME: string = 'Service';
 
@@ -32,6 +34,12 @@ export class CinemaService {
       {
         headers: { 'Content-Type': 'application/json' },
       }
+    );
+  }
+
+  public getObject<T>(id: string): Observable<T> {
+    return this.http.get<T>(
+      `${environment.api.url}/${this.OBJECT_RESOURCE}/${id}`
     );
   }
 
@@ -64,6 +72,37 @@ export class CinemaService {
     return this.createObject('Cinema', [
       { type: 'String', value: nameOfCinema },
     ]);
+  }
+
+  public getTheMovie(movieShow: MovieShow): Observable<CinemaResponse<Movie>> {
+    return this.executeFunction('getTheMovie', null, movieShow.id, 'MovieShow');
+  }
+
+  public getTheRoom(movieShow: MovieShow): Observable<CinemaResponse<Room>> {
+    return this.executeFunction('getTheRoom', null, movieShow.id, 'MovieShow');
+  }
+
+  public getTheSeat(ticket: Ticket): Observable<CinemaResponse<Seat>> {
+    return this.executeFunction('getTheSeat', null, ticket.id, 'Ticket');
+  }
+
+  public getTheRow(seat: Seat): Observable<CinemaResponse<Row>> {
+    return this.executeFunction('getTheRow', null, seat.id, 'Seat');
+  }
+
+  public getTheState(ticket: Ticket): Observable<CinemaResponse<string>> {
+    return this.executeFunction('getTheState', null, ticket.id, 'Ticket');
+  }
+
+  public getAllTickets(
+    movieShow: MovieShow
+  ): Observable<CinemaResponse<Ticket[]>> {
+    return this.executeFunction(
+      'getAllTickets',
+      null,
+      movieShow.id,
+      'MovieShow'
+    );
   }
 
   public getAllCinemas(): Observable<CinemaResponse<Cinema[]>> {

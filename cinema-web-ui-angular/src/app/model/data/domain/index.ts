@@ -5,3 +5,4 @@ export * from './Room';
 export * from './RowCategory';
 export * from './Row';
 export * from './Seat';
+export * from './Ticket';

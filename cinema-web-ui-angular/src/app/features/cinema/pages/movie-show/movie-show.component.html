@@ -1,1 +1,17 @@
-<p>movie-show works!</p>
+<mat-toolbar>
+  {{ (cinema$ | async)?.nameOfCinema }}
+</mat-toolbar>
+<mat-card *ngIf="movieShow$ | async as movieShow">
+  <mat-card-header *ngIf="movie$ | async as movie">
+    <mat-card-title>
+      {{ movie.title }} - {{ movieShow.start | date: "HH:mm, dd.MM.yy" }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{ movie.minutes }}m<span *ngIf="movieShow.threeDimensional"> - 3d</span>
+      - {{ (room$ | async)?.nameOfRoom }}
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    {{ tickets$ | async | json }}
+  </mat-card-content>
+</mat-card>
