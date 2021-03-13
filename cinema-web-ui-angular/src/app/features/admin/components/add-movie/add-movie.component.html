@@ -1,9 +1,23 @@
-<mat-form-field appearance="standard">
-  <mat-label>Select Movie</mat-label>
-  <mat-select (opened)="_fetchMovies()" [formControl]="form">
-    <mat-option *ngFor="let movie of movies$ | async" [value]="movie">
-      {{ movie.title }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-<button (click)="_submit()" mat-raised-button color="primary">Add Movie</button>
+<section class="create">
+  <mat-form-field appearance="standard">
+    <mat-label>Select Movie</mat-label>
+    <mat-select (opened)="_fetchAvailableMovies()" [formControl]="form">
+      <mat-option
+        *ngFor="let movie of availableMovies$ | async"
+        [value]="movie"
+      >
+        {{ movie.title }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button (click)="_submit()" mat-raised-button color="primary">
+    Add Movie
+  </button>
+</section>
+<section class="movies" *ngIf="cinemaMovies$ | async as movies">
+  <mat-list>
+    <mat-list-item *ngFor="let movie of movies">
+      {{ movie.title }} - {{ movie.minutes }}m
+    </mat-list-item>
+  </mat-list>
+</section>

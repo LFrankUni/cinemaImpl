@@ -131,6 +131,9 @@ export class CinemaService {
       ? this.executeFunction('getAllMovies', null, cinema.id, 'Cinema')
       : this.executeFunction('getAllMovies');
   }
+  public availableMovies(cinema: Cinema): Observable<CinemaResponse<Movie[]>> {
+    return this.executeFunction('availableMovies', null, cinema.id, 'Cinema');
+  }
 
   public getAllRows(room: Room): Observable<CinemaResponse<Row[]>> {
     return this.executeFunction('getAllRows', null, room.id, 'Room');

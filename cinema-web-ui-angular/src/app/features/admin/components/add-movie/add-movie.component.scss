@@ -1,8 +1,13 @@
 @import "variables.scss";
 
-:host {
+.create {
   display: flex;
   align-items: baseline;
   gap: $spacing-small;
   flex-wrap: wrap;
+}
+
+.movies {
+  overflow: auto;
+  max-height: 250px;
 }
