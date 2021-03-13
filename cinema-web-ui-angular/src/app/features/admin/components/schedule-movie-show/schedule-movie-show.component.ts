@@ -7,21 +7,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { CinemaService } from '@core/data';
-import { Cinema, Movie, MovieShow, Room } from '@model/data';
+import { Movie, MovieShow, Room } from '@model/data';
 import { MessageService } from '@shared/message';
 import { add, getStartOfToday } from '@utilities/date';
 import { isNonNull } from '@utilities/isNonNull';
 import { BehaviorSubject } from 'rxjs';
-import {
-  debounceTime,
-  filter,
-  map,
-  pluck,
-  switchMap,
-  tap,
-  throttle,
-  throttleTime,
-} from 'rxjs/operators';
+import { debounceTime, filter, map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-schedule-movie-show',
@@ -53,11 +44,11 @@ export class ScheduleMovieShowComponent implements OnInit {
 
   private readonly _movies$: BehaviorSubject<Movie[]> = new BehaviorSubject<
     Movie[]
-  >(null);
+  >([]);
 
   private readonly _shows$: BehaviorSubject<MovieShow[]> = new BehaviorSubject<
     MovieShow[]
-  >(null);
+  >([]);
 
   constructor(
     private readonly cinemaService: CinemaService,
