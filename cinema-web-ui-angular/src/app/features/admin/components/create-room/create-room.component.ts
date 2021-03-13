@@ -52,8 +52,12 @@ export class CreateRoomComponent {
 
   public _change(room: Room, open: boolean): void {
     open
-      ? this.cinemaService.openRoom(room).subscribe()
-      : this.cinemaService.closeRoom(room).subscribe();
+      ? this.cinemaService
+          .openRoom(room)
+          .subscribe({ next: () => (room.open = true) })
+      : this.cinemaService
+          .closeRoom(room)
+          .subscribe({ next: () => (room.open = false) });
   }
 
   public _submit(): void {

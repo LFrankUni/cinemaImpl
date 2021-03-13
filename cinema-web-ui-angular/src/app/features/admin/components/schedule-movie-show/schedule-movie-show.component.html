@@ -42,7 +42,7 @@
     <input autocomplete="off" matInput [formControlName]="PRICE_CONTROL" />
   </mat-form-field>
   <button
-    [disabled]="(shows$ | async)?.length !== 0"
+    [disabled]="(shows$ | async)?.length !== 0 || !room.open"
     type="submit"
     color="primary"
     mat-raised-button

@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { CinemaService } from '@core/data';
-import { Movie, MovieShow, Room } from '@model/data';
+import { Cinema, Movie, MovieShow, Room } from '@model/data';
 import { MessageService } from '@shared/message';
 import { add, getStartOfToday } from '@utilities/date';
 import { isNonNull } from '@utilities/isNonNull';
@@ -22,6 +22,16 @@ import { debounceTime, filter, map, switchMap } from 'rxjs/operators';
 export class ScheduleMovieShowComponent implements OnInit {
   @Input()
   public room: Room;
+
+  private _cinema: Cinema;
+
+  @Input()
+  public set cinema(value: Cinema) {
+    if (isNonNull(value)) {
+      this._cinema = value;
+      this._fetchMovies();
+    }
+  }
 
   public readonly START_DATE_CONTROL: string = 'date';
   public readonly START_TIME_CONTROL: string = 'time';
@@ -56,7 +66,6 @@ export class ScheduleMovieShowComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._fetchMovies();
     this.form.valueChanges
       .pipe(
         debounceTime(400),
@@ -94,7 +103,7 @@ export class ScheduleMovieShowComponent implements OnInit {
 
   public _fetchMovies() {
     this.cinemaService
-      .getAllMovies()
+      .getAllMovies(this._cinema)
       .pipe(map((res) => res.value))
       .subscribe({ next: (movies) => this._movies$.next(movies) });
   }
