@@ -1,11 +1,11 @@
-/**--- Generated at Sat Mar 13 11:01:10 CET 2021 
+/**--- Generated at Sat Mar 13 12:12:32 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
 public class RoomRow_constructor_Command extends ServiceCommand<RoomRow>{
-   private static final long serialVersionUID = -2125820277L;
+   private static final long serialVersionUID = -1251084336L;
    private RowCategory category;
    private String  name;
    public RoomRow_constructor_Command(RowCategory category, String  name){
