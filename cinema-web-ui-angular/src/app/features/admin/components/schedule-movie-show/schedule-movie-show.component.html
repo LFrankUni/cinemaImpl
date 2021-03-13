@@ -8,7 +8,7 @@
     <mat-label>Select Movie</mat-label>
     <mat-select (opened)="_fetchMovies()" [formControlName]="MOVIE_CONTROL">
       <mat-option *ngFor="let movie of movies$ | async" [value]="movie">
-        {{ movie.title }}
+        {{ movie.title }} ({{ movie.minutes }}m)
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -41,8 +41,18 @@
     <mat-label>Price in Cents</mat-label>
     <input autocomplete="off" matInput [formControlName]="PRICE_CONTROL" />
   </mat-form-field>
-  <button type="submit" color="primary" mat-raised-button>
+  <button
+    [disabled]="(shows$ | async)?.length !== 0"
+    type="submit"
+    color="primary"
+    mat-raised-button
+  >
     Schedule Shows
   </button>
 </form>
-<app-movie-show-list [movieShows]="shows$ | async"></app-movie-show-list>
+<app-movie-show-list
+  *ngIf="shows$ | async as conflicts"
+  class="schedule"
+  [movieShows]="conflicts"
+>
+</app-movie-show-list>

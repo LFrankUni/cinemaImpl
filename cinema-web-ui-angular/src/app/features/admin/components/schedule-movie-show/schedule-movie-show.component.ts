@@ -12,7 +12,16 @@ import { MessageService } from '@shared/message';
 import { add, getStartOfToday } from '@utilities/date';
 import { isNonNull } from '@utilities/isNonNull';
 import { BehaviorSubject } from 'rxjs';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
+import {
+  debounceTime,
+  filter,
+  map,
+  pluck,
+  switchMap,
+  tap,
+  throttle,
+  throttleTime,
+} from 'rxjs/operators';
 
 @Component({
   selector: 'app-schedule-movie-show',
@@ -22,9 +31,6 @@ import { filter, map, switchMap, tap } from 'rxjs/operators';
 export class ScheduleMovieShowComponent implements OnInit {
   @Input()
   public room: Room;
-
-  @Input()
-  public cinema: Cinema;
 
   public readonly START_DATE_CONTROL: string = 'date';
   public readonly START_TIME_CONTROL: string = 'time';
@@ -62,41 +68,37 @@ export class ScheduleMovieShowComponent implements OnInit {
     this._fetchMovies();
     this.form.valueChanges
       .pipe(
+        debounceTime(400),
         filter((form) => {
           if (
             isNonNull(form[this.START_DATE_CONTROL]) &&
             isNonNull(form[this.START_TIME_CONTROL]) &&
             isNonNull(form[this.DAYS_CONTROL]) &&
             isNonNull(form[this.MOVIE_CONTROL]) &&
-            isNonNull(this.cinema)
+            isNonNull(this.room)
           )
             return true;
           else {
-            this._shows$.next([]);
+            this._shows$.next(null);
             return false;
           }
         }),
         switchMap((form) =>
-          this.cinemaService.getAllMovieShows(
+          this.cinemaService.checkSchedule(
+            form[this.MOVIE_CONTROL],
             add(
               form[this.START_DATE_CONTROL],
               0,
               Number(String(form[this.START_TIME_CONTROL]).substring(0, 2)),
               Number(String(form[this.START_TIME_CONTROL]).substring(3, 5))
             ),
-            add(
-              form[this.START_DATE_CONTROL],
-              Number(form[this.DAYS_CONTROL]),
-              Number(String(form[this.START_TIME_CONTROL]).substring(0, 2)),
-              Number(String(form[this.START_TIME_CONTROL]).substring(3, 5)),
-              -1
-            ),
-            this.cinema,
-            form[this.MOVIE_CONTROL]
+            Number(form[this.DAYS_CONTROL]),
+            this.room
           )
-        )
+        ),
+        map((res) => res.value.sort((a, b) => (a < b ? 1 : -1)))
       )
-      .subscribe({ next: (res) => this._shows$.next(res.value) });
+      .subscribe({ next: (conflicts) => this._shows$.next(conflicts) });
   }
 
   public _fetchMovies() {
@@ -140,8 +142,6 @@ export class ScheduleMovieShowComponent implements OnInit {
                 this.form.value[this.MOVIE_CONTROL].title
               }`
             );
-            formDirective.resetForm();
-            this.form.controls[this.THREEDIMENSIONAL_CONTROL].setValue(false);
             this._shows$.next([...this._shows$.value, ...res.value]);
           },
           error: (res: HttpErrorResponse) => {

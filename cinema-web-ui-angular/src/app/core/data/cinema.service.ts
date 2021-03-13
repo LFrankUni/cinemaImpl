@@ -205,4 +205,22 @@ export class CinemaService {
       'Room'
     );
   }
+
+  public checkSchedule(
+    movie: Movie,
+    start: Date,
+    days: number,
+    target: Room
+  ): Observable<CinemaResponse<MovieShow[]>> {
+    return this.executeFunction(
+      'checkSchedule',
+      [
+        { type: 'Movie', value: movie.id },
+        { type: 'String', value: start.toISOString() },
+        { type: 'Integer', value: days },
+      ],
+      target.id,
+      'Room'
+    );
+  }
 }

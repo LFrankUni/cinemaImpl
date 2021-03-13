@@ -6,3 +6,9 @@
   gap: $spacing-small;
   flex-wrap: wrap;
 }
+
+.schedule {
+  overflow: auto;
+  max-height: 250px;
+  display: block;
+}
