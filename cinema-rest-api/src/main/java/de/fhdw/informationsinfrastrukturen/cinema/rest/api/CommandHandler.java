@@ -1,4 +1,4 @@
-package de.fhdw.informationsinfrastrukturen.cinema.rest.resources.command;
+package de.fhdw.informationsinfrastrukturen.cinema.rest.api;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -98,6 +99,15 @@ public class CommandHandler {
 		} catch (Exception e) {
 			return new CommandResponse(e.getMessage());
 		}
+	}
+
+	public Object getObject(Integer id) throws Exception {
+		final Optional<Entry<String, Map<Integer, Identifiable>>> cache = this.targets.entrySet().stream()
+				.filter(entry -> entry.getValue().containsKey(id)).findAny();
+		if (cache.isEmpty())
+			throw new Exception(String.format("No Object for %s", id));
+		else
+			return this.getObject(cache.get().getKey(), id).get();
 	}
 
 	private Class<?> validate(CommandRequest command) throws Exception {

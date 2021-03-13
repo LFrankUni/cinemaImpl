@@ -1,4 +1,4 @@
-package de.fhdw.informationsinfrastrukturen.cinema.rest.resources.command;
+package de.fhdw.informationsinfrastrukturen.cinema.rest.api;
 
 import java.io.Serializable;
 

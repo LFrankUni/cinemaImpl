@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
-import de.fhdw.informationsinfrastrukturen.cinema.rest.resources.command.CommandHandler;
-import de.fhdw.informationsinfrastrukturen.cinema.rest.resources.command.CommandHandlerFactory;
-import de.fhdw.informationsinfrastrukturen.cinema.rest.resources.command.CommandRequest;
-import de.fhdw.informationsinfrastrukturen.cinema.rest.resources.command.CommandResponse;
-import de.fhdw.informationsinfrastrukturen.cinema.rest.resources.command.Function;
-import de.fhdw.informationsinfrastrukturen.cinema.rest.resources.command.Parameter;
+import de.fhdw.informationsinfrastrukturen.cinema.rest.api.CommandHandler;
+import de.fhdw.informationsinfrastrukturen.cinema.rest.api.CommandHandlerFactory;
+import de.fhdw.informationsinfrastrukturen.cinema.rest.api.CommandRequest;
+import de.fhdw.informationsinfrastrukturen.cinema.rest.api.CommandResponse;
+import de.fhdw.informationsinfrastrukturen.cinema.rest.api.Function;
+import de.fhdw.informationsinfrastrukturen.cinema.rest.api.Parameter;
 import generated.cinemaService.Movie;
 import generated.cinemaService.Room;
 import utilities.TimeConverter;
