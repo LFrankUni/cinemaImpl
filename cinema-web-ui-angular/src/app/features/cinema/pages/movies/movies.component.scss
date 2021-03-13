@@ -1,5 +1,15 @@
+@import "variables.scss";
+
 .page {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: $spacing;
+  > .header {
+    align-self: center;
+  }
+}
+
+.schedule {
+  overflow: auto;
+  max-height: 250px;
 }

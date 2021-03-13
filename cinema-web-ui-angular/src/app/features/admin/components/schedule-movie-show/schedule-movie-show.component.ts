@@ -87,7 +87,7 @@ export class ScheduleMovieShowComponent implements OnInit {
             this.room
           )
         ),
-        map((res) => res.value.sort((a, b) => (a < b ? 1 : -1)))
+        map((res) => res.value.sort((a, b) => (a.start < b.start ? -1 : 1)))
       )
       .subscribe({ next: (conflicts) => this._shows$.next(conflicts) });
   }

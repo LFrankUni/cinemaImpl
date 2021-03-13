@@ -20,6 +20,8 @@ export class MoviesComponent implements OnInit {
     Observable<MovieShow[]>
   >();
 
+  public readonly scheduleOfNextDays: number = 7;
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly cinemaService: CinemaService
@@ -44,11 +46,22 @@ export class MoviesComponent implements OnInit {
                 this.cinemaService
                   .getAllMovieShows(
                     getStartOfToday(),
-                    add(getStartOfToday(), 7, 0, 0, 0, -1),
+                    add(
+                      getStartOfToday(),
+                      this.scheduleOfNextDays,
+                      0,
+                      0,
+                      0,
+                      -1
+                    ),
                     cinema,
                     movie
                   )
-                  .pipe(map((res) => res.value))
+                  .pipe(
+                    map((res) =>
+                      res.value.sort((a, b) => (a.start < b.start ? -1 : 1))
+                    )
+                  )
               )
             )
           )
