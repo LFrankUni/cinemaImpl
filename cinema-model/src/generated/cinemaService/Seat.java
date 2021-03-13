@@ -1,4 +1,4 @@
-/**--- Generated at Sat Mar 13 12:12:32 CET 2021 
+/**--- Generated at Sun Mar 14 00:09:50 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -23,8 +23,8 @@ public class Seat extends Observable implements java.io.Serializable, ISeat
    private Integer id;
    private Integer number;
    //40 ===== Editable : Your Attribute Section ======
-   
-   //50 ===== GENERATED:      Constructor ============
+
+	//50 ===== GENERATED:      Constructor ============
    private Seat(Integer id, Integer number, RoomRow row, boolean objectOnly)
    throws PersistenceException{
       super();
@@ -50,8 +50,8 @@ public class Seat extends Observable implements java.io.Serializable, ISeat
       return me;
    }
    //60 ===== Editable : Your Constructors ===========
-   
-   //70 ===== GENERATED:      Feature Access =========
+
+	//70 ===== GENERATED:      Feature Access =========
    public Seat getTheObject(){
       return this;
    }
@@ -78,5 +78,11 @@ public class Seat extends Observable implements java.io.Serializable, ISeat
       return rowToSeatsSupervisor.getInstance().getRow(this).getTheObject();
    }
    //80 ===== Editable : Your Operations =============
+	/**
+	 *  
+	 */
+	public RoomRow getTheRow() throws ModelException {
+		return this.getRow();
+	}
 //90 ===== GENERATED: End of Your Operations ======
 }

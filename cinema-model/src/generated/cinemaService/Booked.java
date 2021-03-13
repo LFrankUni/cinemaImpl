@@ -1,4 +1,4 @@
-/**--- Generated at Sat Mar 13 12:12:32 CET 2021 
+/**--- Generated at Sun Mar 14 00:09:50 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -69,5 +69,11 @@ public class Booked extends TicketState implements java.io.Serializable, IBooked
 	public Ticket book() throws ModelException {
 		throw new ModelException("Must not book a booked Ticket");
 	}
+/**
+ *  
+ */
+   public String toString(){
+      return "Booked";
+   }
 //90 ===== GENERATED: End of Your Operations ======
 }

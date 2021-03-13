@@ -1,4 +1,4 @@
-/**--- Generated at Sat Mar 13 12:12:32 CET 2021 
+/**--- Generated at Sun Mar 14 00:09:50 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -8,4 +8,5 @@ import generated.cinemaService.Booked;
 public interface IBooked extends ITicketState{
    public Booked getTheObject();
    public Integer getId();
+   public String toString();
 }
