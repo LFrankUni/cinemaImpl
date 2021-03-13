@@ -56,7 +56,7 @@ export class CreateRowComponent implements OnInit {
   private fetchRows() {
     this.cinemaService
       .getAllRows(this._room)
-      .pipe(map((res) => res.value))
+      .pipe(map((res) => res.value.sort((a, b) => (a.name < b.name ? -1 : 1))))
       .subscribe({ next: (rows) => this._rows$.next(rows) });
   }
 
