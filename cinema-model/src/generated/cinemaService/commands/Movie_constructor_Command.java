@@ -1,11 +1,11 @@
-/**--- Generated at Fri Mar 12 16:48:51 CET 2021 
+/**--- Generated at Sat Mar 13 11:01:10 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
 public class Movie_constructor_Command extends ServiceCommand<Movie>{
-   private static final long serialVersionUID = 1568209862L;
+   private static final long serialVersionUID = -1220392873L;
    private String  title;
    private String  description;
    private Integer  minutes;

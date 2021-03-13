@@ -1,4 +1,4 @@
-/**--- Generated at Fri Mar 12 16:48:51 CET 2021 
+/**--- Generated at Sat Mar 13 11:01:10 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -244,5 +244,42 @@ public class Room extends HasIncome implements java.io.Serializable, IRoom {
 		return out;
 	}
 
+	/**
+	 * Checks if schedule is free and returns the conflicts, if not free.
+	 */
+	public Collection<MovieShow> checkSchedule(Movie movie, String start, Integer days) throws ModelException {
+		final Instant _start = TimeConverter.toInstant(start);
+		final Instant end = TimeConverter.toInstant(start).plus(days, ChronoUnit.DAYS);
+
+		if (movie == null || start == null || days == null)
+			throw new ModelException("Must provide non null-values!");
+
+		final Map<Instant, Instant> dates = new HashMap<Instant, Instant>();
+		Instant current = Instant.ofEpochMilli(_start.toEpochMilli());
+		for (int i = 0; i < days; i++) {
+			dates.put(current, current.plus(movie.getMinutes(), ChronoUnit.MINUTES));
+			current = current.plus(1, ChronoUnit.DAYS);
+		}
+
+		final Map<MovieShow, Entry<Instant, Instant>> possibleConflicts = this.getMovieShows().stream()
+				.map(show -> Map.entry(show,
+						Map.entry(TimeConverter.toInstant(show.getStart()).plus(1, ChronoUnit.MILLIS),
+								TimeConverter.toInstant(show.getEnd()).minus(1, ChronoUnit.MILLIS))))
+				.filter(entry -> _start.isBefore(entry.getValue().getValue()) && end.isAfter(entry.getValue().getKey()))
+				.collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+
+		final List<MovieShow> conflicts = new ArrayList<>();
+		for (Entry<Instant, Instant> request : dates.entrySet()) {
+			for (Entry<MovieShow, Entry<Instant, Instant>> scheduled : possibleConflicts.entrySet()) {
+				if (request.getKey().isBefore(scheduled.getValue().getValue())
+						&& request.getValue().isAfter(scheduled.getValue().getKey())) {
+					conflicts.add(scheduled.getKey());
+				}
+
+			}
+		}
+
+		return conflicts;
+	}
 //90 ===== GENERATED: End of Your Operations ======
 }

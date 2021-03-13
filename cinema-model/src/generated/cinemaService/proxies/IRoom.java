@@ -1,4 +1,4 @@
-/**--- Generated at Fri Mar 12 16:48:51 CET 2021 
+/**--- Generated at Sat Mar 13 11:01:10 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -10,6 +10,9 @@ import java.util.Set;
 import exceptions.ConstraintViolation;
 import generated.cinemaService.RoomRow;
 import generated.cinemaService.Cinema;
+import java.util.Collection;
+import generated.cinemaService.Movie;
+import generated.cinemaService.ModelException;
 public interface IRoom extends IHasIncome{
    public Room getTheObject();
    public Integer getId();
@@ -24,4 +27,5 @@ public interface IRoom extends IHasIncome{
    public Boolean getOpen() ;
    public void setOpen(Boolean newOpen) throws PersistenceException;
    public Cinema getCinema() throws PersistenceException;
+   public Collection<MovieShow> checkSchedule(Movie movie, String start, Integer days)throws ModelException;
 }
