@@ -1,11 +1,11 @@
-/**--- Generated at Sun Mar 14 00:09:50 CET 2021 
+/**--- Generated at Sun Mar 14 13:03:41 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.commands;
 import generated.cinemaService.*;
 import commands.*;
 public class Room_constructor_Command extends ServiceCommand<Room>{
-   private static final long serialVersionUID = 917788055L;
+   private static final long serialVersionUID = 1797568156L;
    private String  nameOfRoom;
    private Boolean  open;
    private Cinema  cinema;

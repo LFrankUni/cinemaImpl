@@ -1,4 +1,4 @@
-/**--- Generated at Sun Mar 14 00:09:50 CET 2021 
+/**--- Generated at Sun Mar 14 13:03:41 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -116,6 +116,12 @@ public class Ticket extends TicketAction implements java.io.Serializable, ITicke
  */
    public String getTheState()throws ModelException{
       return this.getState().get().toString();
+   }
+/**
+ *  
+ */
+   public User getTheUser()throws ModelException{
+      return this.getUser().orElse(null);
    }
 //90 ===== GENERATED: End of Your Operations ======
 }

@@ -1,4 +1,4 @@
-/**--- Generated at Sun Mar 14 00:09:50 CET 2021 
+/**--- Generated at Sun Mar 14 13:03:41 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -11,6 +11,7 @@ import java.util.Optional;
 import generated.cinemaService.TicketState;
 import exceptions.ConstraintViolation;
 import generated.cinemaService.MovieShow;
+import generated.cinemaService.ModelException;
 public interface ITicket extends ITicketAction{
    public Ticket getTheObject();
    public Integer getId();
@@ -21,4 +22,5 @@ public interface ITicket extends ITicketAction{
    public Optional<TicketState> getState() throws PersistenceException;
    public void setState(TicketState newState)throws ConstraintViolation, PersistenceException;
    public MovieShow getMovieShow() throws PersistenceException;
+   public User getTheUser()throws ModelException;
 }

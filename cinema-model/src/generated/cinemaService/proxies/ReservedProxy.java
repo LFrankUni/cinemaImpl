@@ -1,4 +1,4 @@
-/**--- Generated at Sun Mar 14 00:09:50 CET 2021 
+/**--- Generated at Sun Mar 14 13:03:41 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -44,8 +44,5 @@ public class ReservedProxy extends TicketStateProxy implements IReserved{
          Ticket ticket = TicketToStateSupervisor.getInstance().getTicket(this).getTheObject();
          return Reserved.createAlreadyPersistent(this, ticket);
       } catch (Exception e) {throw new PersistenceException(e.getMessage());}
-   }
-   public String toString(){
-      return this.getTheObject().toString();
    }
 }
