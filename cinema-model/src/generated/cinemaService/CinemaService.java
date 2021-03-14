@@ -309,7 +309,7 @@ public class CinemaService extends Observable{
 			return this.getUserCache().values().stream().filter(user -> user.getEmail().equals(email)).findAny().get()
 					.getTheObject();
 		} catch (NoSuchElementException e) {
-			throw new ModelException(String.format("No User for \"%s\"", email));
+			throw new ModelException(String.format("No User for %s", email));
 		}
 	}
 
@@ -320,7 +320,7 @@ public class CinemaService extends Observable{
 	 */
 	public User signUp(String firstName, String lastName, String email, String password) throws ModelException {
 		if (this.getUserCache().values().stream().filter(user -> user.getEmail().equals(email)).findAny().isPresent())
-			throw new ModelException(String.format("Email \"%s\" not available!", email));
+			throw new ModelException(String.format("Email %s not available!", email));
 		else
 			return User.createFresh(firstName, lastName, email, password);
 	}

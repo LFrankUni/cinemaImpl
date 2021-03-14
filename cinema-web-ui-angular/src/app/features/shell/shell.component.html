@@ -5,6 +5,16 @@
     </button>
     <button routerLink="" mat-button>Cinema App</button>
     <span class="flex-spacer"></span>
+    <button
+      *ngIf="(auth.user$ | async) === null"
+      mat-button
+      (click)="authDialog.signIn()"
+    >
+      Sign In
+    </button>
+    <button mat-button *ngIf="(auth.user$ | async) !== null">
+      Welcome {{ (auth.user$ | async).firstName }}
+    </button>
   </mat-toolbar>
 
   <mat-sidenav-container id="sidenavContainer">

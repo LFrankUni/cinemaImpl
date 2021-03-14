@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>{{ signUp ? "Sign Up" : "Sign In" }}</h1>
+<div mat-dialog-content>
+  <form class="form" [formGroup]="form" (ngSubmit)="_submit()">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input autocomplete="off" matInput [formControlName]="EMAIL_CONTROL" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input
+        type="password"
+        autocomplete="off"
+        matInput
+        [formControlName]="PASSWORD_CONTROL"
+      />
+    </mat-form-field>
+    <mat-form-field *ngIf="signUp">
+      <mat-label>First Name</mat-label>
+      <input
+        autocomplete="off"
+        matInput
+        [formControlName]="FIRSTNAME_CONTROL"
+      />
+    </mat-form-field>
+    <mat-form-field *ngIf="signUp">
+      <mat-label>Last Name</mat-label>
+      <input autocomplete="off" matInput [formControlName]="LASTNAME_CONTROL" />
+    </mat-form-field>
+    <mat-error *ngIf="error">{{ error | json }}</mat-error>
+    <button mat-raised-button color="primary">
+      {{ signUp ? "Sign Up" : "Sign In" }}
+    </button>
+    <button (click)="signUp = !signUp" type="button" mat-button color="accent">
+      {{ signUp ? "Sign In?" : "Sign Up?" }}
+    </button>
+  </form>
+</div>
