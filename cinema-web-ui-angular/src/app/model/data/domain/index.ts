@@ -6,3 +6,4 @@ export * from './RowCategory';
 export * from './Row';
 export * from './Seat';
 export * from './Ticket';
+export * from './User';

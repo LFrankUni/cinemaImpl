@@ -10,6 +10,7 @@ import {
   CinemaCardComponent,
   MovieCardComponent,
   MovieShowCardComponent,
+  MovieShowControlComponent,
 } from './components';
 import { SharedModule } from '@shared';
 import { MovieShowModule } from '@shared/movie-show';
@@ -23,6 +24,7 @@ import { MovieShowModule } from '@shared/movie-show';
     MovieShowCardComponent,
     MoviesComponent,
     MovieShowComponent,
+    MovieShowControlComponent,
   ],
   imports: [SharedModule, MovieShowModule, RoutingModule],
 })

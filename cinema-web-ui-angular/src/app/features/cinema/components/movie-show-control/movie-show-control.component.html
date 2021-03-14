@@ -1,0 +1,7 @@
+<section class="tickets">
+  <div class="ticket-row" *ngFor="let row of ticketMap | keyvalue">
+    <button mat-button *ngFor="let ticket of _sort(row.value)">
+      {{ ticket.seat.number + ticket.seat.row.name }}
+    </button>
+  </div>
+</section>

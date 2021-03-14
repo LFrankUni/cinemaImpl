@@ -13,6 +13,7 @@ import {
   RowCategory,
   Seat,
   Ticket,
+  User,
 } from '@model';
 import { Observable } from 'rxjs';
 
@@ -84,6 +85,10 @@ export class CinemaService {
 
   public getTheSeat(ticket: Ticket): Observable<CinemaResponse<Seat>> {
     return this.executeFunction('getTheSeat', null, ticket.id, 'Ticket');
+  }
+
+  public getTheUser(ticket: Ticket): Observable<CinemaResponse<User>> {
+    return this.executeFunction('getTheUser', null, ticket.id, 'Ticket');
   }
 
   public getTheRow(seat: Seat): Observable<CinemaResponse<Row>> {

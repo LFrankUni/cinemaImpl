@@ -12,6 +12,7 @@
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    {{ tickets$ | async | json }}
+    <app-movie-show-control [tickets]="tickets$ | async">
+    </app-movie-show-control>
   </mat-card-content>
 </mat-card>
