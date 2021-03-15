@@ -41,9 +41,10 @@ app-movie-show-control {
   }
 
   .actions {
+    padding: $spacing-small;
     display: flex;
     align-items: baseline;
-    gap: $spacing;
+    gap: $spacing-small;
   }
 
   .selected-tickets-list {

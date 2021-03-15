@@ -106,15 +106,23 @@ export class MovieShowControlComponent {
     else if (ticket.state === 'Reserved') this._onUnreserve(ticket);
   }
 
-  public _total(tickets: Ticket[]): number {
-    return tickets
+  public _total(selected: MatListOption[]): number {
+    return selected
+      .map((x) => x.value)
       .filter((ticket) => ticket.state === 'Reserved')
       .map((ticket) => ticket.price)
       .reduce((sum, next) => (sum += next), 0);
   }
 
-  public _bookDisable(tickets: Ticket[]): boolean {
-    return !tickets.some((ticket) => ticket.state === 'Reserved');
+  public _bookDisable(selected: MatListOption[]): boolean {
+    return !selected
+      .map((x) => x.value)
+      .some((ticket) => ticket.state === 'Reserved');
+  }
+  public _reserveDisable(selected: MatListOption[]): boolean {
+    return !selected
+      .map((x) => x.value)
+      .some((ticket) => ticket.state === 'Available');
   }
 
   public _onReserve(selected: MatListOption[]): void {

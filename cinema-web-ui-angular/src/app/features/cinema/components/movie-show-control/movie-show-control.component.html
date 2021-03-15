@@ -45,7 +45,10 @@
       <button
         *ngIf="selectedTickets.length > 0"
         mat-raised-button
-        [disabled]="(auth.user$ | async) == null"
+        [disabled]="
+          (auth.user$ | async) == null ||
+          _reserveDisable(list.selectedOptions.selected)
+        "
         (click)="_onReserve(list.selectedOptions.selected)"
         color="accent"
       >
@@ -54,15 +57,16 @@
       <button
         *ngIf="selectedTickets.length > 0"
         [disabled]="
-          (auth.user$ | async) == null || _bookDisable(selectedTickets)
+          (auth.user$ | async) == null ||
+          _bookDisable(list.selectedOptions.selected)
         "
         mat-raised-button
         color="primary"
         (click)="_onBook(list.selectedOptions.selected)"
       >
         Book
-        <span class="total" *ngIf="_total(selectedTickets) > 0">
-          {{ _total(selectedTickets) / 100 | currency: "EUR" }}
+        <span class="total" *ngIf="_total(list.selectedOptions.selected) > 0">
+          {{ _total(list.selectedOptions.selected) / 100 | currency: "EUR" }}
         </span>
       </button>
       <button
