@@ -2,8 +2,9 @@
 
 app-movie-show-control {
   display: grid;
-  grid-template-columns: 1fr 350px;
+  grid-template-columns: minmax(auto, max-content) 450px;
   gap: $spacing;
+  padding: $spacing;
 
   .selected-seat {
     display: flex;
@@ -19,8 +20,14 @@ app-movie-show-control {
     background: initial;
   }
   .tickets {
-    height: 100%;
+    height: max-content;
     overflow: auto;
+  }
+
+  .ticket-table {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-very-small;
   }
 
   .ticket-row {
@@ -28,13 +35,23 @@ app-movie-show-control {
     align-items: baseline;
     gap: $spacing-very-small;
   }
+
+  .ticket-row-name {
+    padding-right: $spacing;
+  }
+
   .actions {
     display: flex;
     align-items: baseline;
     gap: $spacing;
   }
+
   .selected-tickets-list {
-    height: 100%;
+    max-height: 500px;
     overflow-y: auto;
+  }
+
+  .total {
+    vertical-align: baseline;
   }
 }

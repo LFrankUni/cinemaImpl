@@ -6,4 +6,5 @@ export interface Ticket extends Identifiable {
   seat?: Seat;
   state?: string;
   user?: User;
+  price?: number;
 }

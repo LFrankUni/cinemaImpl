@@ -1,69 +1,78 @@
-<section class="tickets">
-  <div class="ticket-row" *ngFor="let row of ticketMap | keyvalue">
-    <span>{{ row.key }}</span>
-    <button
-      [disabled]="_disabled(ticket) | async"
-      (click)="_onClickTicket(ticket)"
-      mat-raised-button
-      [color]="_color(ticket) | async"
-      *ngFor="let ticket of _sort(row.value)"
-    >
-      {{ ticket.seat.number }}
-    </button>
-  </div>
-</section>
-<section class="selected-tickets">
-  <button
-    *ngIf="(auth.user$ | async) == null"
-    mat-raised-button
-    (click)="authDialog.signIn()"
-    color="primary"
-  >
-    Sign in to book
-  </button>
-  <mat-selection-list class="selected-tickets-list" #list>
-    <h3 matSubheader *ngIf="selectedTickets.length > 0">My Selection</h3>
-    <mat-list-option
-      [disabled]="ticket.state === 'Booked'"
-      [selected]="ticket.state !== 'Booked'"
-      [value]="ticket"
-      *ngFor="let ticket of selectedTickets"
-    >
-      <span class="selected-seat">
-        <button mat-flat-button [color]="_color(ticket) | async">
-          {{ ticket.seat.row.name + ticket.seat.number }}
-        </button>
-        {{ ticket.state }}
-        <span class="flex-spacer"></span>
+<ng-container *ngIf="ticketMap">
+  <section class="tickets">
+    <div class="ticket-table">
+      <div class="ticket-row" *ngFor="let row of ticketMap | keyvalue">
+        <span class="ticket-row-name">{{ row.key }}</span>
         <button
-          color="warn"
-          (click)="_onUnreserve(ticket)"
-          mat-icon-button
-          *ngIf="ticket.state === 'Reserved'"
+          [disabled]="_disabled(ticket) | async"
+          (click)="_onClickTicket(ticket)"
+          mat-raised-button
+          [color]="_color(ticket) | async"
+          *ngFor="let ticket of _sort(row.value)"
         >
-          <mat-icon>delete</mat-icon>
+          {{ ticket.seat.number }}
         </button>
-      </span>
-    </mat-list-option>
-    <mat-list-item> </mat-list-item>
-  </mat-selection-list>
-  <section
-    class="actions"
-    *ngIf="(auth.user$ | async) != null && selectedTickets.length > 0"
-  >
-    <button
-      mat-raised-button
-      (click)="_onReserve(list.selectedOptions.selected)"
-      color="accent"
-    >
-      Reserve Selected
-    </button>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="_onBook(list.selectedOptions.selected)"
-    >
-      Book Selected
-    </button>
+      </div>
+    </div>
   </section>
-</section>
+  <section class="selected-tickets">
+    <mat-selection-list class="selected-tickets-list" #list>
+      <h3 matSubheader>My Selection</h3>
+      <mat-list-option
+        [disabled]="ticket.state === 'Booked'"
+        [selected]="ticket.state !== 'Booked'"
+        [value]="ticket"
+        *ngFor="let ticket of selectedTickets"
+      >
+        <span class="selected-seat">
+          <button mat-flat-button [color]="_color(ticket) | async">
+            {{ ticket.seat.row.name + ticket.seat.number }}
+          </button>
+          {{ ticket.state }} - {{ ticket.price / 100 | currency: "EUR" }}
+          <span class="flex-spacer"></span>
+          <button
+            color="warn"
+            (click)="_onDelete(ticket)"
+            mat-icon-button
+            *ngIf="ticket.state !== 'Booked'"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </span>
+      </mat-list-option>
+    </mat-selection-list>
+    <section class="actions">
+      <button
+        *ngIf="selectedTickets.length > 0"
+        mat-raised-button
+        [disabled]="(auth.user$ | async) == null"
+        (click)="_onReserve(list.selectedOptions.selected)"
+        color="accent"
+      >
+        Reserve
+      </button>
+      <button
+        *ngIf="selectedTickets.length > 0"
+        [disabled]="
+          (auth.user$ | async) == null || _bookDisable(selectedTickets)
+        "
+        mat-raised-button
+        color="primary"
+        (click)="_onBook(list.selectedOptions.selected)"
+      >
+        Book
+        <span class="total" *ngIf="_total(selectedTickets) > 0">
+          {{ _total(selectedTickets) / 100 | currency: "EUR" }}
+        </span>
+      </button>
+      <button
+        *ngIf="selectedTickets.length > 0 && (auth.user$ | async) == null"
+        mat-raised-button
+        (click)="authDialog.signIn()"
+        color="primary"
+      >
+        Sign in
+      </button>
+    </section>
+  </section>
+</ng-container>

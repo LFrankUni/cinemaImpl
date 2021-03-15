@@ -87,6 +87,10 @@ export class CinemaService {
     return this.executeFunction('getTheSeat', null, ticket.id, 'Ticket');
   }
 
+  public getThePrice(ticket: Ticket): Observable<CinemaResponse<number>> {
+    return this.executeFunction('getPrice', null, ticket.id, 'Ticket');
+  }
+
   public getTheUser(ticket: Ticket): Observable<CinemaResponse<User>> {
     return this.executeFunction('getTheUser', null, ticket.id, 'Ticket');
   }

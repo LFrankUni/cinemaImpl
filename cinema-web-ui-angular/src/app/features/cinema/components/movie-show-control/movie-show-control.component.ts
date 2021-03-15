@@ -15,12 +15,13 @@ import { filter, map, mergeAll, switchMap, take, tap } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None,
 })
 export class MovieShowControlComponent {
-  private _ticketMap: Map<string, Ticket[]> = new Map<string, Ticket[]>();
+  private _ticketMap: Map<string, Ticket[]>;
   private _selectedTickets: Ticket[] = [];
 
   @Input()
   public set tickets(value: Ticket[]) {
     if (isNonNull(value)) {
+      this._ticketMap = new Map<string, Ticket[]>();
       value.forEach((ticket) => this._put(ticket));
       this.auth.user$
         .pipe(
@@ -95,6 +96,25 @@ export class MovieShowControlComponent {
         );
       else this.selectedTickets.push(ticket);
     }
+  }
+
+  public _onDelete(ticket: Ticket): void {
+    if (ticket.state === 'Available')
+      this._selectedTickets = this._selectedTickets.filter(
+        (x) => x.id !== ticket.id
+      );
+    else if (ticket.state === 'Reserved') this._onUnreserve(ticket);
+  }
+
+  public _total(tickets: Ticket[]): number {
+    return tickets
+      .filter((ticket) => ticket.state === 'Reserved')
+      .map((ticket) => ticket.price)
+      .reduce((sum, next) => (sum += next), 0);
+  }
+
+  public _bookDisable(tickets: Ticket[]): boolean {
+    return !tickets.some((ticket) => ticket.state === 'Reserved');
   }
 
   public _onReserve(selected: MatListOption[]): void {
