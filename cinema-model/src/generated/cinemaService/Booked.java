@@ -1,4 +1,4 @@
-/**--- Generated at Sun Mar 14 13:03:41 CET 2021 
+/**--- Generated at Sun Mar 14 22:23:09 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -21,24 +21,24 @@ public class Booked extends TicketState implements java.io.Serializable, IBooked
    //40 ===== Editable : Your Attribute Section ======
 
 	//50 ===== GENERATED:      Constructor ============
-   private Booked(Integer id, Ticket ticket, boolean objectOnly)
+   private Booked(Integer id, boolean objectOnly)
    throws ConstraintViolation, PersistenceException{
-      super(id, ticket, objectOnly);
+      super(id, objectOnly);
       if(objectOnly) return;
    }
    /** Caution: A Call to this Method Requires to add any newly instantiated Object to its Cache! */
-   public static Booked createAlreadyPersistent(BookedProxy proxy, Ticket ticket)throws ConstraintViolation, PersistenceException{
+   public static Booked createAlreadyPersistent(BookedProxy proxy)throws ConstraintViolation, PersistenceException{
       if(proxy.isObjectPresent()) return proxy.getTheObject();
-      return new Booked(proxy.getId(), ticket, true);
+      return new Booked(proxy.getId(), true);
    }
-   public static Booked createFresh(Ticket ticket)throws ConstraintViolation, PersistenceException{
+   public static Booked createFresh()throws ConstraintViolation, PersistenceException{
       db.executer.DBDMLExecuter dmlExecuter = PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter();
       Integer id = dmlExecuter.getNextId();
       try{
          dmlExecuter.insertInto("TicketAction", "id, typeKey", 
          id.toString() + ", " + TypeKeyManager.getTheInstance().getTypeKey("CinemaService", "Booked").toString());
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
-      Booked me = new Booked(id, ticket, false);
+      Booked me = new Booked(id, false);
       CinemaService.getInstance().addBookedProxy(new BookedProxy(me));
       return me;
    }

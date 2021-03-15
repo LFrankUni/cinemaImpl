@@ -1,0 +1,34 @@
+@import "variables.scss";
+
+app-movie-show-control {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+
+  .selected-seat {
+    display: flex;
+    gap: $spacing;
+    align-items: baseline;
+  }
+
+  .flex-spacer {
+    flex: 1 1 auto;
+  }
+
+  .mat-list-item-disabled {
+    background: initial;
+  }
+  .tickets {
+    overflow-x: auto;
+  }
+
+  .ticket-row {
+    display: flex;
+    align-items: baseline;
+    gap: $spacing-very-small;
+  }
+  .actions {
+    display: flex;
+    align-items: baseline;
+    gap: $spacing;
+  }
+}

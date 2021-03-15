@@ -1,4 +1,4 @@
-/**--- Generated at Sun Mar 14 13:03:41 CET 2021 
+/**--- Generated at Sun Mar 14 22:23:08 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -199,7 +199,7 @@ public class Room extends HasIncome implements java.io.Serializable, IRoom
 			for (RoomRow row : this.getRows()) {
 				for (Seat seat : row.getSeats()) {
 					final Ticket ticket = Ticket.createFresh(seat, show);
-					ticket.setState(Available.createFresh(ticket));
+					ticket.setState(Available.createFresh());
 					show.addToTickets(ticket);
 				}
 			}

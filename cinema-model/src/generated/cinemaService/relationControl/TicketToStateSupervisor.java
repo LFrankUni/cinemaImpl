@@ -1,4 +1,4 @@
-/**--- Generated at Sun Mar 14 13:03:41 CET 2021 
+/**--- Generated at Sun Mar 14 22:23:09 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -32,20 +32,20 @@ public class TicketToStateSupervisor
    }
    public void set(ITicket owner, ITicketState target) throws ConstraintViolation, PersistenceException{
       ITicketState targetOld = this.getState(owner).isPresent() ? this.getState(owner).get() : null; ITicketState targetNew = target;
-      this.elements.willViolateContainment(owner, targetOld, targetNew);
+      this.elements.willViolateInjectivity(owner, targetNew);
       this.elements.change(owner, targetOld, targetNew);
    }
    public void setAlreadyPersistent(ITicket owner, ITicketState target) throws ConstraintViolation{
       ITicketState targetOld = null; ITicketState targetNew = target;
-      this.elements.willViolateContainment(owner, targetOld, targetNew);
+      this.elements.willViolateInjectivity(owner, targetNew);
       this.elements.setAlreadyPersistent(owner, targetNew);
    }
    public void change(ITicket owner, ITicketState targetOld, ITicketState targetNew) throws ConstraintViolation, PersistenceException{
-      this.elements.willViolateContainment(owner, targetOld, targetNew);
+      this.elements.willViolateInjectivity(owner, targetNew);
       this.elements.change(owner, targetOld, targetNew);
    }
-   public ITicket getTicket(ITicketState target){
-      return this.elements.getRelatedSources(target).get(0);
+   public Optional<ITicket> getTicket(ITicketState target){
+      if(this.elements.getRelatedSources(target).size()==0) return Optional.empty(); return Optional.of(this.elements.getRelatedSources(target).get(0));
    }
    //80 ===== Editable : Your Operations =============
 //90 ===== GENERATED: End of Your Operations ======

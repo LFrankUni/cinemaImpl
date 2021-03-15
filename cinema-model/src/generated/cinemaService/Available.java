@@ -1,4 +1,4 @@
-/**--- Generated at Sun Mar 14 13:03:41 CET 2021 
+/**--- Generated at Sun Mar 14 22:23:09 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -21,24 +21,24 @@ public class Available extends TicketState implements java.io.Serializable, IAva
    //40 ===== Editable : Your Attribute Section ======
 
 //50 ===== GENERATED:      Constructor ============
-   private Available(Integer id, Ticket ticket, boolean objectOnly)
+   private Available(Integer id, boolean objectOnly)
    throws ConstraintViolation, PersistenceException{
-      super(id, ticket, objectOnly);
+      super(id, objectOnly);
       if(objectOnly) return;
    }
    /** Caution: A Call to this Method Requires to add any newly instantiated Object to its Cache! */
-   public static Available createAlreadyPersistent(AvailableProxy proxy, Ticket ticket)throws ConstraintViolation, PersistenceException{
+   public static Available createAlreadyPersistent(AvailableProxy proxy)throws ConstraintViolation, PersistenceException{
       if(proxy.isObjectPresent()) return proxy.getTheObject();
-      return new Available(proxy.getId(), ticket, true);
+      return new Available(proxy.getId(), true);
    }
-   public static Available createFresh(Ticket ticket)throws ConstraintViolation, PersistenceException{
+   public static Available createFresh()throws ConstraintViolation, PersistenceException{
       db.executer.DBDMLExecuter dmlExecuter = PersistenceExecuterFactory.getConfiguredFactory().getDBDMLExecuter();
       Integer id = dmlExecuter.getNextId();
       try{
          dmlExecuter.insertInto("TicketAction", "id, typeKey", 
          id.toString() + ", " + TypeKeyManager.getTheInstance().getTypeKey("CinemaService", "Available").toString());
       }catch(SQLException|NoConnectionException e){throw new PersistenceException(e.getMessage());}
-      Available me = new Available(id, ticket, false);
+      Available me = new Available(id, false);
       CinemaService.getInstance().addAvailableProxy(new AvailableProxy(me));
       return me;
    }
@@ -60,9 +60,10 @@ public class Available extends TicketState implements java.io.Serializable, IAva
 	 * Reserves the ticket if possible.
 	 */
 	public Ticket reserve(User user) throws ModelException {
-		this.getTicket().setUser(user);
-		this.getTicket().setState(Reserved.createFresh(this.getTicket()));
-		return this.getTicket();
+		final Ticket ticket = this.getTicket().get();
+		ticket.setUser(user);
+		ticket.setState(Reserved.createFresh());
+		return ticket;
 	}
 
 	/**

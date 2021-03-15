@@ -270,4 +270,22 @@ export class CinemaService {
       'Room'
     );
   }
+
+  public reserve(
+    user: User,
+    target: Ticket
+  ): Observable<CinemaResponse<Ticket>> {
+    return this.executeFunction(
+      'reserve',
+      [{ type: 'User', value: user.id }],
+      target.id,
+      'Ticket'
+    );
+  }
+  public unreserve(ticket: Ticket): Observable<CinemaResponse<Ticket>> {
+    return this.executeFunction('unreserve', null, ticket.id, 'Ticket');
+  }
+  public book(ticket: Ticket): Observable<CinemaResponse<Ticket>> {
+    return this.executeFunction('book', null, ticket.id, 'Ticket');
+  }
 }

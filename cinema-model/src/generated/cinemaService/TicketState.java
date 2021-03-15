@@ -1,4 +1,4 @@
-/**--- Generated at Sun Mar 14 13:03:41 CET 2021 
+/**--- Generated at Sun Mar 14 22:23:09 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -11,6 +11,10 @@ import generated.cinemaService.proxies.ITicketState;
 import generated.cinemaService.relationControl.*;
 import db.executer.PersistenceException;
 import exceptions.ConstraintViolation;
+import java.util.Optional;
+import generated.cinemaService.proxies.ITicket;
+import java.util.List;
+import java.util.ArrayList;
 //20 ===== Editable : Your Import Section =========
 
 //25 ===== GENERATED:      Header Section =========
@@ -20,12 +24,10 @@ public abstract class TicketState extends TicketAction implements java.io.Serial
    //40 ===== Editable : Your Attribute Section ======
 
 	//50 ===== GENERATED:      Constructor ============
-   public TicketState(Integer id, Ticket ticket, boolean objectOnly)
+   public TicketState(Integer id, boolean objectOnly)
    throws ConstraintViolation, PersistenceException{
       super(id, objectOnly);
       if(objectOnly) return;
-      if(ticket.getState().isPresent()) throw new ConstraintViolation("Object cannot be instantiated, because " + ticket+ " is full");
-      try{TicketToStateSupervisor.getInstance().set(ticket,this);}catch(ConstraintViolation cv){}// Ok, because consistency is guaranteed with this statement
    }
    //60 ===== Editable : Your Constructors ===========
 
@@ -33,8 +35,9 @@ public abstract class TicketState extends TicketAction implements java.io.Serial
    public TicketState getTheObject(){
       return this;
    }
-   public Ticket getTicket() throws PersistenceException{
-      return TicketToStateSupervisor.getInstance().getTicket(this).getTheObject();
+   public Optional<Ticket> getTicket() throws PersistenceException{
+      Optional<ITicket> opt = TicketToStateSupervisor.getInstance().getTicket(this);
+      return opt.isPresent() ? Optional.of(TicketToStateSupervisor.getInstance().getTicket(this).get().getTheObject()) : Optional.empty();
    }
    //80 ===== Editable : Your Operations =============
 //90 ===== GENERATED: End of Your Operations ======

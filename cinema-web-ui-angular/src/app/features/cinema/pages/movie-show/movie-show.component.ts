@@ -61,13 +61,13 @@ export class MovieShowComponent implements OnInit {
                 switchMap((ticket) =>
                   this.cinemaService.getTheState(ticket).pipe(
                     map((res) => res.value),
-                    map((state) => ({ ...ticket, state }))
+                    map((state) => ({ ...ticket, state: state }))
                   )
                 ),
                 switchMap((ticket) =>
                   this.cinemaService.getTheUser(ticket).pipe(
                     map((res) => res.value),
-                    map((user) => ({ ...ticket, user }))
+                    map((user) => ({ ...ticket, user: user }))
                   )
                 )
               )

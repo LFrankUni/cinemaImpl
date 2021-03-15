@@ -1,10 +1,11 @@
-/**--- Generated at Sun Mar 14 13:03:41 CET 2021 
+/**--- Generated at Sun Mar 14 22:23:09 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
 import db.executer.PersistenceException;
 import generated.cinemaService.TicketState;
 import generated.cinemaService.Ticket;
+import java.util.Optional;
 public abstract class TicketStateProxy extends TicketActionProxy implements ITicketState{
    public abstract TicketState getTheObject();
    public boolean equals(Object o) {
@@ -12,7 +13,7 @@ public abstract class TicketStateProxy extends TicketActionProxy implements ITic
       return ((ITicketState)o).getId().equals(this.getId());
    }
    public int hashCode() {return this.getId().hashCode();}
-   public Ticket getTicket() throws PersistenceException{
+   public Optional<Ticket> getTicket() throws PersistenceException{
       return this.getTheObject().getTicket();
    }
 }

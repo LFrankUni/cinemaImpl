@@ -6,6 +6,9 @@
 $cinema-primary: mat-palette($mat-pink, 700, 500, 900);
 $cinema-accent: mat-palette($mat-blue-grey, A200, A100, A400);
 $cinema-warn: mat-palette($mat-red);
+$cinema-success: mat-palette($mat-green);
+$cinema-warn-light: mat-palette($mat-yellow);
+$cinema-blue: mat-palette($mat-blue);
 
 $cinema-theme-light: mat-light-theme(
   (
@@ -26,6 +29,24 @@ $cinema-theme-dark: mat-dark-theme(
     ),
   )
 );
+
+
+.mat-success {
+  background-color: mat-color($cinema-success) !important;
+  color: mat-color($cinema-success,default-contrast) !important;
+}
+
+.mat-black {
+  background-color: black !important;
+  color: white !important;
+}
+
+.mat-warn-light {
+  background-color: mat-color($cinema-warn-light) !important;
+  color: mat-color($cinema-warn-light,default-contrast) !important;
+}
+
+
 
 @include angular-material-theme($cinema-theme-dark);
 @include app-components-theme($cinema-theme-dark);

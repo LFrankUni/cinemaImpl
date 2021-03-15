@@ -1,4 +1,4 @@
-/**--- Generated at Sun Mar 14 13:03:41 CET 2021 
+/**--- Generated at Sun Mar 14 22:23:09 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -7,8 +7,6 @@ import java.util.Optional;
 import db.executer.*;
 import generated.cinemaService.Available;
 import java.sql.ResultSet;
-import generated.cinemaService.Ticket;
-import generated.cinemaService.relationControl.TicketToStateSupervisor;
 public class AvailableProxy extends TicketStateProxy implements IAvailable{
    private Integer id;
    private Optional<Available> theObject;
@@ -41,8 +39,7 @@ public class AvailableProxy extends TicketStateProxy implements IAvailable{
       ResultSet rs = null;
       try {
          rs = DBExecuterFactory.getConfiguredFactory().getDBDMLExecuter().selectIdSpecifiedCursorAleadyAtFirstRow("TicketAction", this.id);
-         Ticket ticket = TicketToStateSupervisor.getInstance().getTicket(this).getTheObject();
-         return Available.createAlreadyPersistent(this, ticket);
+         return Available.createAlreadyPersistent(this);
       } catch (Exception e) {throw new PersistenceException(e.getMessage());}
    }
 }
