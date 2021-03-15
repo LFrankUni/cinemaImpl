@@ -13,7 +13,15 @@
   </div>
 </section>
 <section class="selected-tickets">
-  <mat-selection-list #list>
+  <button
+    *ngIf="(auth.user$ | async) == null"
+    mat-raised-button
+    (click)="authDialog.signIn()"
+    color="primary"
+  >
+    Sign in to book
+  </button>
+  <mat-selection-list class="selected-tickets-list" #list>
     <h3 matSubheader *ngIf="selectedTickets.length > 0">My Selection</h3>
     <mat-list-option
       [disabled]="ticket.state === 'Booked'"
@@ -39,32 +47,23 @@
     </mat-list-option>
     <mat-list-item> </mat-list-item>
   </mat-selection-list>
-  <section class="actions" [ngSwitch]="auth.user$ | async">
+  <section
+    class="actions"
+    *ngIf="(auth.user$ | async) != null && selectedTickets.length > 0"
+  >
     <button
-      *ngSwitchCase="null"
       mat-raised-button
-      (click)="authDialog.signIn()"
-      color="primary"
+      (click)="_onReserve(list.selectedOptions.selected)"
+      color="accent"
     >
-      Sign in to book
+      Reserve Selected
     </button>
-    <ng-container *ngSwitchDefault>
-      <button
-        *ngIf="selectedTickets.length > 0"
-        mat-raised-button
-        (click)="_onReserve(list.selectedOptions.selected)"
-        color="accent"
-      >
-        Reserve Selected
-      </button>
-      <button
-        *ngIf="selectedTickets.length > 0"
-        mat-raised-button
-        color="primary"
-        (click)="_onBook(list.selectedOptions.selected)"
-      >
-        Book Selected
-      </button>
-    </ng-container>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="_onBook(list.selectedOptions.selected)"
+    >
+      Book Selected
+    </button>
   </section>
 </section>

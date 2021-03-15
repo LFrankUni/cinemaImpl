@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   {{ (cinema$ | async)?.nameOfCinema }}
 </mat-toolbar>
-<mat-card *ngIf="movieShow$ | async as movieShow">
+<mat-card class="show" *ngIf="movieShow$ | async as movieShow">
   <mat-card-header *ngIf="movie$ | async as movie">
     <mat-card-title>
       {{ movie.title }} - {{ movieShow.start | date: "HH:mm, dd.MM.yy" }}
