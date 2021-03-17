@@ -5,5 +5,11 @@
 }
 
 .show {
+  display: flex;
+  flex-direction: column;
+}
+
+.show,
+.content {
   height: 100%;
 }

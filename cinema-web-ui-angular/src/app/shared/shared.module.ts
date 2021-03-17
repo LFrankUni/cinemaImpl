@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
@@ -22,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   exports: [
     CommonModule,
     MatDatepickerModule,
+    MatProgressSpinnerModule,
     MatDividerModule,
     MatSidenavModule,
     MatListModule,

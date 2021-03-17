@@ -11,7 +11,8 @@
       - {{ (room$ | async)?.nameOfRoom }}
     </mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content class="content">
+    <mat-spinner *ngIf="loading" class="centered-axis-xy"></mat-spinner>
     <app-movie-show-control [tickets]="tickets$ | async">
     </app-movie-show-control>
   </mat-card-content>

@@ -7,7 +7,7 @@ import {
 } from '@features/cinema/routes/constants';
 import { Cinema, Movie, MovieShow, Room, Ticket } from '@model/data';
 import { forkJoin, Observable } from 'rxjs';
-import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { map, pluck, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-movie-show',
@@ -20,6 +20,7 @@ export class MovieShowComponent implements OnInit {
   public movie$: Observable<Movie>;
   public room$: Observable<Room>;
   public tickets$: Observable<Ticket[]>;
+  public loading: boolean = true;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -41,6 +42,7 @@ export class MovieShowComponent implements OnInit {
       map((res) => res.value)
     );
     this.tickets$ = this.movieShow$.pipe(
+      tap((_) => (this.loading = true)),
       switchMap((show) => this.cinemaService.getAllTickets(show)),
       map((res) => res.value),
       switchMap((tickets) =>
@@ -79,7 +81,8 @@ export class MovieShowComponent implements OnInit {
               )
           )
         )
-      )
+      ),
+      tap((_) => (this.loading = false))
     );
 
     this.room$ = this.movieShow$.pipe(
