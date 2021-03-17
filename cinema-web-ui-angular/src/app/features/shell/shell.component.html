@@ -15,6 +15,13 @@
     <button mat-button *ngIf="(auth.user$ | async) !== null">
       Welcome {{ (auth.user$ | async).firstName }}
     </button>
+    <button
+      mat-button
+      (click)="auth.signOut()"
+      *ngIf="(auth.user$ | async) !== null"
+    >
+      Sign Out
+    </button>
   </mat-toolbar>
 
   <mat-sidenav-container id="sidenavContainer">

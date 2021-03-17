@@ -23,20 +23,19 @@ export class MovieShowControlComponent {
     if (isNonNull(value)) {
       this._ticketMap = new Map<string, Ticket[]>();
       value.forEach((ticket) => this._put(ticket));
-      this.auth.user$
-        .pipe(
-          filter(isNonNull),
-          map((user) =>
-            value.filter(
-              (ticket) =>
-                ticket.state !== 'Available' && ticket?.user?.id == user.id
-            )
-          )
-        )
-        .subscribe({
-          next: (tickets) =>
-            (this._selectedTickets = [...this._selectedTickets, ...tickets]),
-        });
+      this.auth.user$.subscribe({
+        next: (user) => {
+          if (user == null) this._selectedTickets = [];
+          else
+            this._selectedTickets = [
+              ...this._selectedTickets,
+              ...value.filter(
+                (ticket) =>
+                  ticket.state !== 'Available' && ticket?.user?.id == user.id
+              ),
+            ];
+        },
+      });
     }
   }
 

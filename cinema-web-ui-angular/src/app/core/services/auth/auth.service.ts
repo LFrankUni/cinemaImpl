@@ -46,4 +46,8 @@ export class AuthService {
         tap((user) => this._user$.next(user))
       );
   }
+
+  public signOut(): void {
+    this._user$.next(null);
+  }
 }
