@@ -68,7 +68,7 @@ export class CreateMovieComponent implements OnInit {
         .subscribe({
           next: (res) => {
             this.messageService.openSnackBar(
-              `Added Category "${res.value.title}"`
+              `Added Movie "${res.value.title}"`
             );
             this.fetchMovies();
             formDirective.resetForm();
