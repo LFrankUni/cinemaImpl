@@ -11,16 +11,8 @@ export const ADMIN_FEATURE_ROUTES: Route = {
   children: ADMIN_ROUTES,
 };
 export const CINEMA_FEAUTURE: string = '';
-export const CINEMA_FEAUTURE_ROUTES: Route = {
-  name: 'Cinemas',
-  path: CINEMA_FEAUTURE,
-  children: CINEMA_ROUTES,
-};
 
-export const APP_ROUTES: Route[] = [
-  CINEMA_FEAUTURE_ROUTES,
-  ADMIN_FEATURE_ROUTES,
-];
+export const APP_ROUTES: Route[] = [...CINEMA_ROUTES, ADMIN_FEATURE_ROUTES];
 
 const routes: Routes = [
   {
