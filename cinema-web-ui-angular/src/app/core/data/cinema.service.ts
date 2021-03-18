@@ -292,4 +292,20 @@ export class CinemaService {
   public book(ticket: Ticket): Observable<CinemaResponse<Ticket>> {
     return this.executeFunction('book', null, ticket.id, 'Ticket');
   }
+
+  public getScheduledMovieShows(
+    from: Date,
+    to: Date,
+    target: Cinema
+  ): Observable<CinemaResponse<MovieShow[]>> {
+    return this.executeFunction(
+      'getScheduledMovieShows',
+      [
+        { type: 'String', value: from },
+        { type: 'String', value: to },
+      ],
+      target.id,
+      'Cinema'
+    );
+  }
 }

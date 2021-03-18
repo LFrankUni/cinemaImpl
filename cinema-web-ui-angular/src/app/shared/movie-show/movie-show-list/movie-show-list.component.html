@@ -10,8 +10,8 @@
       {{ show.end | date: "HH:mm" }}
     </span>
     <span matLine>
+      <span *ngIf="show.threeDimensional">3d | </span>
       {{ show.priceInCent / 100 | currency: "EUR" }}
-      <span *ngIf="show.threeDimensional"> - 3d</span>
     </span>
   </mat-list-option>
 </mat-selection-list>

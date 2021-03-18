@@ -1,1 +1,42 @@
-<p>cinema-overview works!</p>
+<ng-container *ngIf="cinema$ | async as cinema">
+  <mat-toolbar color="primary">
+    <span class="flex-spacer"></span>
+    {{ cinema.nameOfCinema }}
+    <span class="flex-spacer"></span>
+  </mat-toolbar>
+
+  <section class="shows">
+    <mat-toolbar class="date">
+      <span class="flex-spacer"></span>
+      <mat-form-field appearance="standard">
+        <mat-label>Choose a schedule</mat-label>
+        <input
+          autocomplete="off"
+          [formControl]="form"
+          matInput
+          [matDatepicker]="picker"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <span class="flex-spacer"></span>
+    </mat-toolbar>
+    <section class="cards">
+      <app-movie-show-card
+        class="card"
+        [show]="show"
+        *ngFor="let show of shows$ | async"
+      >
+        <button
+          color="primary"
+          slot="action"
+          mat-raised-button
+          routerLink="../show"
+          [queryParams]="{ id: show.id, cinema: cinema.id }"
+        >
+          Book
+        </button>
+      </app-movie-show-card>
+    </section>
+  </section>
+</ng-container>
