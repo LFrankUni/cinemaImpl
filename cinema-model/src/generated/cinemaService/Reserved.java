@@ -54,7 +54,8 @@ public class Reserved extends TicketState implements java.io.Serializable, IRese
 	 */
 	public Ticket unreserve() throws ModelException {
 		final Ticket ticket = this.getTicket().get();
-		// TODO eigentlich ticket.setUser(null), aber db sagt nein 
+		// TODO eigentlich auch user entfernen -> ticket.setUser(null), aber generator sagt nein.
+		// Funktioniert auch so, da der state entscheident ist, trotzdem doof
 		ticket.setState(Available.createFresh());
 		return ticket;
 	}

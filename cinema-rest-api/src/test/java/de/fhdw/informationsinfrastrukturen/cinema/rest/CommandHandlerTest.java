@@ -1,6 +1,9 @@
 package de.fhdw.informationsinfrastrukturen.cinema.rest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.Instant;
 import java.util.List;
@@ -18,6 +21,7 @@ import de.fhdw.informationsinfrastrukturen.cinema.rest.api.Function;
 import de.fhdw.informationsinfrastrukturen.cinema.rest.api.Parameter;
 import generated.cinemaService.Movie;
 import generated.cinemaService.Room;
+import idManagement.Identifiable;
 import utilities.TimeConverter;
 
 @TestInstance(Lifecycle.PER_CLASS)
@@ -31,18 +35,57 @@ public class CommandHandlerTest {
 	}
 
 	@Test
+	public void getObject() throws Exception {
+		final Integer id_1 = ((Identifiable) this.createCinema("test").getValue()).getId();
+		final Integer id_2 = ((Identifiable) this.getObject(id_1)).getId();
+		assertEquals(id_1, id_2);
+	}
+
+	@Test
+	public void getObjectError() {
+		assertThrows(Exception.class, () -> this.getObject(-1));
+	}
+
+	private Object getObject(Integer id) throws Exception {
+		return this.handler.getObject(id);
+	}
+
+	@Test
 	public void createUser() {
 		assertNull(this.createUser("Hugo", "Schmied").getError());
 	}
 
 	@Test
 	public void createCinema() {
-		assertNull(this.createCinema("1 nice nice cinema").getError());
+		assertNull(this.createCinema("1 nice cinema").getError());
+	}
+
+	@Test
+	public void createCinemaError() {
+		assertNotNull(this.createCinema("").getError());
+		assertNotNull(this.createCinema(null).getError());
+	}
+
+	private CommandResponse createCinema(String name) {
+		return this.handler.handle(new CommandRequest(
+				new Function(CommandHandler.COMMAND_CONSTRUCTOR, List.of(new Parameter(name, "String"))), "Cinema"));
 	}
 
 	@Test
 	public void createMovie() {
-		assertNull(this.createMovie("1 nice movie", 42, "1 nice description").getError());
+		assertNull(this.createMovie("Ice Age", 90, "1 nice description").getError());
+	}
+
+	@Test
+	public void createMovieError() {
+		assertNotNull(this.createMovie("Bla", -1, "1 nice description").getError());
+	}
+
+	private CommandResponse createMovie(String title, Integer minutes, String description) {
+		return this.handler.handle(new CommandRequest(
+				new Function(CommandHandler.COMMAND_CONSTRUCTOR, List.of(new Parameter(title, "String"),
+						new Parameter(description, "String"), new Parameter(minutes, "Integer"))),
+				"Movie"));
 	}
 
 	@Test
@@ -62,11 +105,6 @@ public class CommandHandlerTest {
 				List.of(new Parameter(firstName, "String"), new Parameter(lastName, "String"))), "User"));
 	}
 
-	private CommandResponse createCinema(String name) {
-		return this.handler.handle(new CommandRequest(
-				new Function(CommandHandler.COMMAND_CONSTRUCTOR, List.of(new Parameter(name, "String"))), "Cinema"));
-	}
-
 	private CommandResponse scheduleMovieShow(Room room, Movie movie, Instant start, Integer days,
 			Boolean threeDimensional, Integer price) {
 		return this.handler.handle(new CommandRequest(
@@ -77,10 +115,4 @@ public class CommandHandlerTest {
 				"Room", room.getId()));
 	}
 
-	private CommandResponse createMovie(String title, Integer minutes, String description) {
-		return this.handler.handle(new CommandRequest(
-				new Function(CommandHandler.COMMAND_CONSTRUCTOR, List.of(new Parameter(title, "String"),
-						new Parameter(description, "String"), new Parameter(minutes, "Integer"))),
-				"Movie"));
-	}
 }
