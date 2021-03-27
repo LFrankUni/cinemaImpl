@@ -1,0 +1,135 @@
+<section class="page">
+  <h1 class="header">Income</h1>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title> Total </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      {{ (total$ | async) / 100 | currency: "EUR" }}
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title> Per Cinema </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <section class="income">
+        <mat-form-field>
+          <mat-label>Select Cinema</mat-label>
+          <mat-select [formControl]="cinema_control" appearance="standard">
+            <mat-option
+              [value]="cinema"
+              *ngFor="let cinema of cinemas$ | async"
+            >
+              {{ cinema.nameOfCinema }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-list *ngIf="(cinemaIncome$ | async) != null">
+          <mat-list-item>
+            <span matLine>
+              <strong>
+                {{ (cinemaIncome$ | async) / 100 | currency: "EUR" }}
+              </strong>
+            </span>
+            <span matLine
+              >{{ (cinemaIncome$ | async) / (total$ | async) | percent }} of
+              total {{ (total$ | async) / 100 | currency: "EUR" }}</span
+            >
+          </mat-list-item>
+        </mat-list>
+      </section>
+      <section class="income">
+        <mat-form-field>
+          <mat-label>Select Room</mat-label>
+          <mat-select [formControl]="room_control" appearance="standard">
+            <mat-option [value]="room" *ngFor="let room of rooms$ | async">
+              {{ room.nameOfRoom }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-list *ngIf="(roomIncome$ | async) != null">
+          <mat-list-item>
+            <span matLine>
+              <strong
+                >{{ (roomIncome$ | async) / 100 | currency: "EUR" }}
+              </strong>
+            </span>
+            <span matLine
+              >{{ (roomIncome$ | async) / (cinemaIncome$ | async) | percent }}
+              of
+              {{ cinema_control.value?.nameOfCinema }}
+              {{ (cinemaIncome$ | async) / 100 | currency: "EUR" }}</span
+            >
+          </mat-list-item>
+        </mat-list>
+      </section>
+      <section class="income">
+        <mat-form-field appearance="standard">
+          <mat-label>Choose a schedule</mat-label>
+          <input
+            autocomplete="off"
+            [formControl]="date_control"
+            matInput
+            [matDatepicker]="picker"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Select Movie Show</mat-label>
+          <mat-select [formControl]="show_control" appearance="standard">
+            <mat-option [value]="show" *ngFor="let show of shows$ | async">
+              {{ show.start | date: "HH:mm" }} -
+              {{ show.end | date: "HH:mm" }} -
+              {{ show.movie.title }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <span *ngIf="(showIncome$ | async) != null">
+          <strong>
+            {{ (showIncome$ | async) / 100 | currency: "EUR" }}
+          </strong>
+        </span>
+      </section>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title> Per Movie </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <section class="income">
+        <mat-form-field>
+          <mat-label>Select Movie</mat-label>
+          <mat-select [formControl]="movie_control" appearance="standard">
+            <mat-option [value]="movie" *ngFor="let movie of movies$ | async">
+              {{ movie.title }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-list *ngIf="(movieIncome$ | async) != null">
+          <mat-list-item>
+            <span matLine>
+              <strong>
+                {{ (movieIncome$ | async) / 100 | currency: "EUR" }}
+              </strong>
+            </span>
+            <span matLine
+              >{{ (movieIncome$ | async) / (total$ | async) | percent }} of
+              total {{ (total$ | async) / 100 | currency: "EUR" }}</span
+            >
+          </mat-list-item>
+        </mat-list>
+      </section>
+    </mat-card-content>
+  </mat-card>
+</section>

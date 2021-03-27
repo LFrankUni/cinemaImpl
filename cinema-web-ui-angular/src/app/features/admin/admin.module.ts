@@ -11,7 +11,7 @@ import {
   ScheduleMovieShowComponent,
   AddMovieComponent,
 } from './components';
-import { BuilderComponent } from './pages';
+import { BuilderComponent, IncomeComponent } from './pages';
 import { RoutingModule } from './routes';
 
 @NgModule({
@@ -25,6 +25,7 @@ import { RoutingModule } from './routes';
     AddMovieComponent,
     CreateMovieComponent,
     ScheduleMovieShowComponent,
+    IncomeComponent,
   ],
   imports: [SharedModule, MessageModule, MovieShowModule, RoutingModule],
 })

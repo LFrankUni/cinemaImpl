@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Route } from '@model/routing';
-import { BuilderComponent } from '../pages';
+import { BuilderComponent, IncomeComponent } from '../pages';
 
 export const BUILDER: string = 'builder';
 export const INCOME: string = 'income';
@@ -21,6 +21,10 @@ const routes: Routes = [
   {
     path: BUILDER,
     component: BuilderComponent,
+  },
+  {
+    path: INCOME,
+    component: IncomeComponent,
   },
   {
     path: '**',

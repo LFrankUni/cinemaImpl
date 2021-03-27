@@ -1,0 +1,17 @@
+@import "variables.scss";
+
+.income {
+  display: flex;
+  align-items: baseline;
+  gap: $spacing-small;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing;
+}
+
+.header {
+  align-self: center;
+}

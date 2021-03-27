@@ -5,6 +5,7 @@ import {
   Cinema,
   CinemaRequest,
   CinemaResponse,
+  Identifiable,
   Movie,
   MovieShow,
   Parameter,
@@ -15,6 +16,7 @@ import {
   Ticket,
   User,
 } from '@model';
+import { isNonNull } from '@utilities/isNonNull';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -73,6 +75,22 @@ export class CinemaService {
     return this.createObject('Cinema', [
       { type: 'String', value: nameOfCinema },
     ]);
+  }
+
+  public income(): Observable<CinemaResponse<number>> {
+    return this.executeFunction('income');
+  }
+  public income_cinema(cinema: Cinema): Observable<CinemaResponse<number>> {
+    return this.executeFunction('income', null, cinema.id, 'Cinema');
+  }
+  public income_movie(movie: Movie): Observable<CinemaResponse<number>> {
+    return this.executeFunction('income', null, movie.id, 'Movie');
+  }
+  public income_room(room: Room): Observable<CinemaResponse<number>> {
+    return this.executeFunction('income', null, room.id, 'Room');
+  }
+  public income_show(show: MovieShow): Observable<CinemaResponse<number>> {
+    return this.executeFunction('income', null, show.id, 'MovieShow');
   }
 
   public getTheMovie(movieShow: MovieShow): Observable<CinemaResponse<Movie>> {
@@ -232,6 +250,22 @@ export class CinemaService {
       ],
       target.id,
       'Movie'
+    );
+  }
+
+  public getAllMovieShows_room(
+    from: Date,
+    to: Date,
+    room: Room
+  ): Observable<CinemaResponse<MovieShow[]>> {
+    return this.executeFunction(
+      'getScheduledMovieShows',
+      [
+        { type: 'String', value: from.toISOString() },
+        { type: 'String', value: to.toISOString() },
+      ],
+      room.id,
+      'Room'
     );
   }
 
