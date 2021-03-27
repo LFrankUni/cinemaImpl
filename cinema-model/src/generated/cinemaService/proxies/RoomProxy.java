@@ -1,4 +1,4 @@
-/**--- Generated at Sun Mar 14 22:23:08 CET 2021 
+/**--- Generated at Sat Mar 27 13:48:27 CET 2021 
  * --- No Change Allowed!  
  */
 package generated.cinemaService.proxies;
@@ -13,6 +13,8 @@ import exceptions.ConstraintViolation;
 import generated.cinemaService.RoomRow;
 import generated.cinemaService.Cinema;
 import generated.cinemaService.relationControl.roomesSupervisor;
+import java.util.Collection;
+import generated.cinemaService.ModelException;
 public class RoomProxy extends HasIncomeProxy implements IRoom{
    private Integer id;
    private Optional<Room> theObject;
@@ -83,5 +85,8 @@ public class RoomProxy extends HasIncomeProxy implements IRoom{
    }
    public Cinema getCinema() throws PersistenceException{
       return this.getTheObject().getCinema();
+   }
+   public Collection<MovieShow> getScheduledMovieShows(String from, String to)throws ModelException{
+      return this.getTheObject().getScheduledMovieShows(from, to);
    }
 }

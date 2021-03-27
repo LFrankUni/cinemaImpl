@@ -1,4 +1,4 @@
-/**--- Generated at Sun Mar 14 22:23:08 CET 2021 
+/**--- Generated at Sat Mar 27 13:48:27 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -146,9 +146,11 @@ public class MovieShow extends HasIncome implements java.io.Serializable, IMovie
 	 */
 	public Integer income() throws ModelException {
 		Integer sum = 0;
+		Ticket ticket;
 		for (Iterator<Ticket> iterator = this.getTickets().iterator(); iterator.hasNext();) {
-			if (iterator.next().getState().get() instanceof Booked)
-				sum += iterator.next().getPrice();
+			ticket = iterator.next();
+			if (ticket.getState().isPresent() && ticket.getState().get() instanceof Booked)
+				sum += ticket.getPrice();
 		}
 		return sum;
 	}

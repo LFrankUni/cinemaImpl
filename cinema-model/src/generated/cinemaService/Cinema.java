@@ -1,4 +1,4 @@
-/**--- Generated at Sun Mar 14 22:23:08 CET 2021 
+/**--- Generated at Sat Mar 27 13:48:27 CET 2021 
  * --- Change only in Editable Sections!  
  * --- Do not touch section numbering!   
  */
@@ -130,8 +130,12 @@ public class Cinema extends HasIncome implements java.io.Serializable, ICinema
 	 */
 	public Integer income() throws ModelException {
 		Integer sum = 0;
-		for (Iterator<Movie> iterator = this.getAllMovies().iterator(); iterator.hasNext();) {
-			sum += iterator.next().income();
+		for (Iterator<Room> roomIterator = this.getAllRooms().iterator(); roomIterator.hasNext();) {
+			for (Iterator<MovieShow> showIterator = roomIterator.next().getMovieShows().iterator(); showIterator
+					.hasNext();) {
+				sum += showIterator.next().income();
+			}
+
 		}
 		return sum;
 	}

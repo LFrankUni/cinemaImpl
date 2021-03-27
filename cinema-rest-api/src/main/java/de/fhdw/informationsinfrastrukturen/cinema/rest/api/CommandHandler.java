@@ -95,9 +95,16 @@ public class CommandHandler {
 			// 3. execute command
 			command.execute();
 			// 4. build response
-			return new CommandResponse(command.getResult(), command.getResult().getClass().getSimpleName());
+			final Object result = command.getResult();
+			if (result != null)
+				return new CommandResponse(result, command.getResult().getClass().getSimpleName());
+			else
+				return new CommandResponse(result, null);
 		} catch (Exception e) {
-			return new CommandResponse(e.getMessage());
+			if (e.getMessage() != null)
+				return new CommandResponse(e.getMessage());
+			else
+				return new CommandResponse("Oops, something went wrong :(");
 		}
 	}
 
