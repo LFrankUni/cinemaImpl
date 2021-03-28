@@ -4,7 +4,7 @@
       {{ show.movie.title }}
     </mat-card-title>
     <mat-card-subtitle>
-      {{ show.start | date }} | {{ show.movie.minutes }}m |
+      {{ show.start | date: "HH:mm" }} | {{ show.movie.minutes }}m |
       <span *ngIf="show.threeDimensional">3d | </span>
       {{ show.priceInCent / 100 | currency: "EUR" }}
     </mat-card-subtitle>
